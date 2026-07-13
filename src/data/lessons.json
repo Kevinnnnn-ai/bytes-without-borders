@@ -1,0 +1,40 @@
+{
+  "lessons": [
+    {
+      "slug": "understanding-passwords",
+      "href": "understanding-passwords.html",
+      "title": "Understanding passwords",
+      "topic": "data-privacy",
+      "summary": "Why one strong, unique password per account beats a clever one used everywhere.",
+      "minutes": 4,
+      "kind": "article"
+    },
+    {
+      "slug": "spotting-misinformation",
+      "href": "spotting-misinformation.html",
+      "title": "Spotting misinformation",
+      "topic": "tech-literacy",
+      "summary": "Five quick checks that separate reliable reporting from manufactured outrage.",
+      "minutes": 5,
+      "kind": "article"
+    },
+    {
+      "slug": "bridging-the-digital-divide",
+      "href": "bridging-the-digital-divide.html",
+      "title": "Bridging the digital divide",
+      "topic": "digital-inclusion",
+      "summary": "Who gets left offline, why it matters, and what actually helps.",
+      "minutes": 4,
+      "kind": "article"
+    },
+    {
+      "slug": "quiz-data-privacy",
+      "href": "quiz-data-privacy.html",
+      "title": "Quiz: data privacy basics",
+      "topic": "data-privacy",
+      "summary": "Five scenarios to test your instincts before the scammers do.",
+      "minutes": 3,
+      "kind": "interactive"
+    }
+  ]
+}
