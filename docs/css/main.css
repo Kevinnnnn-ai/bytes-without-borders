@@ -10,6 +10,7 @@
   --ink: #2e2418;
   --ink-soft: #6d5f4b;
   --line: #e3d8c2;
+  --line-strong: #8a795d;
 
   /* postal duotone + topic accents */
   --postal-blue: #33608f;
@@ -47,6 +48,7 @@
     --ink: #f0e7d4;
     --ink-soft: #b9aa8f;
     --line: #463a26;
+    --line-strong: #8a7a5e;
     --postal-blue: #85aede;
     --postal-red: #e2836e;
     --topic-privacy: #85aede;
@@ -173,6 +175,7 @@ code {
 
 .site-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
@@ -194,7 +197,10 @@ code {
 .brand:hover { color: var(--postal-red); }
 .brand-mark { color: var(--postal-red); flex: none; }
 
+/* Without JS the nav ships open (stacked under the brand) and the toggle
+   stays hidden; the html.js hook turns it into a JS disclosure. */
 .nav-toggle {
+  display: none;
   font: inherit;
   background: none;
   border: 1px solid var(--line);
@@ -204,8 +210,11 @@ code {
   cursor: pointer;
 }
 
-.site-nav { display: none; }
-.site-nav.is-open {
+.site-nav { flex-basis: 100%; }
+
+html.js .nav-toggle { display: inline-block; }
+html.js .site-nav { display: none; }
+html.js .site-nav.is-open {
   display: block;
   position: absolute;
   top: 100%;
@@ -254,9 +263,11 @@ code {
 }
 
 @media (min-width: 46em) {
-  .nav-toggle { display: none; }
+  .nav-toggle,
+  html.js .nav-toggle { display: none; }
   .site-nav,
-  .site-nav.is-open {
+  html.js .site-nav,
+  html.js .site-nav.is-open {
     display: flex;
     align-items: center;
     gap: var(--space-3);
@@ -264,6 +275,7 @@ code {
     background: none;
     border: 0;
     padding: 0;
+    flex-basis: auto;
   }
   .site-nav ul { flex-direction: row; gap: var(--space-3); }
   .lang-pick { margin-top: 0; }
@@ -369,9 +381,15 @@ main { display: block; }
   box-shadow: 0 6px 18px rgba(46, 36, 24, 0.12);
 }
 
-.postcard h3 { margin-bottom: var(--space-1); }
+/* hub cards use h2 (direct children of the page h1); home cards use h3
+   (nested under a section h2) — both share the card-title treatment */
+.postcard h2,
+.postcard h3 { font-size: var(--step-1); margin-bottom: var(--space-1); }
+.postcard h2 a,
 .postcard h3 a { color: var(--ink); text-decoration: none; }
+.postcard h2 a:hover,
 .postcard h3 a:hover { color: var(--postal-red); }
+.postcard h2 a::after,
 .postcard h3 a::after { content: ""; position: absolute; inset: 0; }
 
 .postcard-meta {
@@ -501,13 +519,16 @@ main { display: block; }
   margin-bottom: 0.25rem;
 }
 
+/* explicit display would defeat the hidden attribute (no-JS fallback) */
+.form-grid[hidden] { display: none; }
+
 .form-grid input,
 .form-grid textarea {
   width: 100%;
   font: inherit;
   color: var(--ink);
   background: var(--paper-raised);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   padding: 0.6rem 0.8rem;
 }
@@ -549,7 +570,7 @@ main { display: block; }
   font: inherit;
   color: var(--ink);
   background: none;
-  border: 1.5px solid var(--line);
+  border: 1.5px solid var(--line-strong);
   border-radius: var(--radius);
   padding: 0.7rem 1rem;
   cursor: pointer;

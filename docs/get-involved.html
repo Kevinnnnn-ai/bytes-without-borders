@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add("js");</script>
   <title>Get involved — Bytes Without Borders</title>
   <meta name="description" content="Translate a lesson, write one, or run a workshop — how to volunteer with Bytes Without Borders.">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
@@ -66,7 +67,9 @@
 
     <section class="section" aria-labelledby="contact-heading">
       <h2 class="section-title" id="contact-heading" data-i18n="involved.formHeading">Write to us</h2>
-      <form id="contact-form" class="form-grid">
+      <!-- The form needs JS (it composes a mailto); it ships hidden and
+           main.js reveals it. No-JS visitors get the direct address below. -->
+      <form id="contact-form" class="form-grid" hidden>
         <div>
           <label for="c-name" data-i18n="involved.formName">Your name</label>
           <input id="c-name" name="name" type="text" autocomplete="name" required>
@@ -82,8 +85,8 @@
         <div>
           <button class="btn btn-primary" type="submit" data-i18n="involved.formSend">Send</button>
         </div>
-        <p class="form-note"><span data-i18n="involved.formNote">Sending opens your email app addressed to</span> <a href="mailto:hello@byteswithoutborders.example">hello@byteswithoutborders.example</a>.</p>
       </form>
+      <p class="form-note"><span data-i18n="involved.formNote">The form opens your email app — or write to us directly at</span> <a href="mailto:hello@byteswithoutborders.example">hello@byteswithoutborders.example</a>.</p>
     </section>
   </main>
 

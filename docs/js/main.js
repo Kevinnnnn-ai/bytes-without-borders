@@ -33,9 +33,11 @@
     });
   }
 
-  /* Contact form: no backend — sending composes an email instead */
+  /* Contact form: no backend — sending composes an email instead.
+     The form ships hidden (its Send is useless without JS); reveal it. */
   var form = document.getElementById("contact-form");
   if (form) {
+    form.hidden = false;
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       var name = document.getElementById("c-name").value;
