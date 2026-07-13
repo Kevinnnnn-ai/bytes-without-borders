@@ -1,6 +1,6 @@
 /* Quiz engine: renders a JSON-defined micro-quiz into #quiz.
    UI strings live in STRINGS below; when a second language lands,
-   they move to the locale files (see docs/architecture.md). */
+   they move to the locale files (see superpowers/architecture.md). */
 (function () {
   "use strict";
 
@@ -9,6 +9,8 @@
 
   var STRINGS = {
     progress: "Question {current} of {total}",
+    correct: "Correct.",
+    incorrect: "Not quite.",
     next: "Next question",
     finish: "See your score",
     retry: "Try again",
@@ -32,6 +34,13 @@
     return node;
   }
 
+  /* Focus re-rendered content so keyboard users stay in the quiz and
+     screen readers announce each transition. */
+  function focusInto(node) {
+    node.setAttribute("tabindex", "-1");
+    node.focus();
+  }
+
   function isValid(data) {
     if (!data || typeof data.title !== "string" || !Array.isArray(data.questions) || data.questions.length === 0) {
       return false;
@@ -39,7 +48,7 @@
     return data.questions.every(function (q) {
       return typeof q.prompt === "string" &&
         Array.isArray(q.choices) && q.choices.length >= 2 &&
-        typeof q.answerIndex === "number" &&
+        Number.isInteger(q.answerIndex) &&
         q.answerIndex >= 0 && q.answerIndex < q.choices.length &&
         typeof q.explanation === "string";
     });
@@ -55,10 +64,11 @@
     var score = 0;
     var total = data.questions.length;
 
-    function renderQuestion() {
+    function renderQuestion(moveFocus) {
       var q = data.questions[index];
       host.textContent = "";
-      host.appendChild(el("p", "quiz-progress", fill(STRINGS.progress, { current: index + 1, total: total })));
+      var progress = el("p", "quiz-progress", fill(STRINGS.progress, { current: index + 1, total: total }));
+      host.appendChild(progress);
       host.appendChild(el("p", "quiz-question", q.prompt));
 
       var list = el("ul", "quiz-choices");
@@ -73,19 +83,25 @@
         list.appendChild(item);
       });
       host.appendChild(list);
+      /* only on transitions — never steal focus on page load */
+      if (moveFocus) { focusInto(progress); }
     }
 
     function answer(chosen, buttons, q) {
+      var right = chosen === q.answerIndex;
       buttons.forEach(function (button) { button.disabled = true; });
+      /* mark with glyphs as well as color */
       buttons[q.answerIndex].classList.add("is-correct");
-      if (chosen === q.answerIndex) {
+      buttons[q.answerIndex].textContent = "✓ " + buttons[q.answerIndex].textContent;
+      if (right) {
         score += 1;
       } else {
         buttons[chosen].classList.add("is-incorrect");
+        buttons[chosen].textContent = "✗ " + buttons[chosen].textContent;
       }
 
       var explain = el("div", "quiz-explain");
-      explain.appendChild(el("p", null, q.explanation));
+      explain.appendChild(el("p", null, (right ? STRINGS.correct : STRINGS.incorrect) + " " + q.explanation));
       host.appendChild(explain);
 
       var last = index === total - 1;
@@ -96,16 +112,17 @@
           renderScore();
         } else {
           index += 1;
-          renderQuestion();
+          renderQuestion(true);
         }
       });
       host.appendChild(next);
-      next.focus();
+      focusInto(explain);
     }
 
     function renderScore() {
       host.textContent = "";
-      host.appendChild(el("p", "quiz-score", fill(STRINGS.score, { score: score, total: total })));
+      var scoreLine = el("p", "quiz-score", fill(STRINGS.score, { score: score, total: total }));
+      host.appendChild(scoreLine);
       var verdict = score === total ? STRINGS.perfect : (score >= Math.ceil(total * 0.6) ? STRINGS.good : STRINGS.start);
       host.appendChild(el("p", null, verdict));
       var retry = el("button", "btn quiz-next", STRINGS.retry);
@@ -113,12 +130,13 @@
       retry.addEventListener("click", function () {
         index = 0;
         score = 0;
-        renderQuestion();
+        renderQuestion(true);
       });
       host.appendChild(retry);
+      focusInto(scoreLine);
     }
 
-    renderQuestion();
+    renderQuestion(false);
   }
 
   fetch(host.getAttribute("data-src"))

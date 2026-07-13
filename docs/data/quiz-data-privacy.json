@@ -54,7 +54,7 @@
         "Automatic virus scanning"
       ],
       "answerIndex": 2,
-      "explanation": "With 2FA, an attacker needs both your password and your device. Turn it on for email and banking first — those unlock everything else."
+      "explanation": "With 2FA, an attacker needs both your password and the code on your phone — so never share that code with anyone, no matter who they claim to be. Turn it on for email and banking first — those unlock everything else."
     }
   ]
 }
