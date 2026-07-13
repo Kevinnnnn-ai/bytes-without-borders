@@ -1,0 +1,22 @@
+# Local virtual environment (per CLAUDE.md)
+.env.local/
+
+# Local-only Claude settings
+.claude/settings.local.json
+
+# Test output artifacts
+stdout/*
+!stdout/.gitkeep
+
+# Temp/scratch
+tmp/
+
+# OS noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
