@@ -1,0 +1,60 @@
+{
+  "title": "Data privacy basics",
+  "questions": [
+    {
+      "prompt": "A website you rarely use asks you to create an account. What is the safest password habit?",
+      "choices": [
+        "Reuse the password from your email so you will not forget it",
+        "Use a new, unique password — ideally from a password manager",
+        "Use the site name followed by 123",
+        "Use your birthday — it is easy to remember"
+      ],
+      "answerIndex": 1,
+      "explanation": "Reused passwords are the biggest risk: one leaked site unlocks every account that shares the password. A password manager creates and remembers unique ones for you."
+    },
+    {
+      "prompt": "You get an urgent text: \"Your bank account is locked — tap here to verify.\" What should you do first?",
+      "choices": [
+        "Tap the link quickly before the account closes",
+        "Reply with your account number to prove it is you",
+        "Contact your bank through its official app or the number on your card",
+        "Forward the text to friends to warn them"
+      ],
+      "answerIndex": 2,
+      "explanation": "Urgency is the classic sign of phishing. Never use the link in the message — reach the organization through a channel you already trust."
+    },
+    {
+      "prompt": "A free flashlight app asks for access to your contacts and location. What does this suggest?",
+      "choices": [
+        "The app needs them to make the light brighter",
+        "All apps need every permission to work",
+        "The app may be collecting data it does not need — deny the request",
+        "Permissions cannot be changed later, so accept now"
+      ],
+      "answerIndex": 2,
+      "explanation": "A permission should match the job the app does. A flashlight does not need your contacts. You can review app permissions any time in your phone's settings."
+    },
+    {
+      "prompt": "You are on café Wi-Fi and want to check your bank balance. What is the safest choice?",
+      "choices": [
+        "Use your mobile data or wait until you are on a network you trust",
+        "Public Wi-Fi is always fine for banking",
+        "Ask the café staff if the Wi-Fi is safe",
+        "Use the Wi-Fi but type your password quickly"
+      ],
+      "answerIndex": 0,
+      "explanation": "Open networks make it easier for others to snoop. Mobile data — or simply waiting — keeps sensitive logins off shared networks."
+    },
+    {
+      "prompt": "What does two-factor authentication (2FA) add to your account?",
+      "choices": [
+        "A second password you must invent",
+        "A backup email address",
+        "A second proof of identity, like a code on your phone, so a stolen password is not enough",
+        "Automatic virus scanning"
+      ],
+      "answerIndex": 2,
+      "explanation": "With 2FA, an attacker needs both your password and your device. Turn it on for email and banking first — those unlock everything else."
+    }
+  ]
+}
