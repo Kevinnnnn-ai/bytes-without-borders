@@ -1,0 +1,10 @@
+Fonts in this directory are licensed under the SIL Open Font License 1.1
+(https://openfontlicense.org):
+
+- Bricolage Grotesque (variable, latin subset)
+  Copyright 2022 The Bricolage Grotesque Project Authors
+  https://github.com/ateliertriay/bricolage
+
+- Instrument Sans (variable, latin subset)
+  Copyright 2022 The Instrument Sans Project Authors
+  https://github.com/Instrument/instrument-sans

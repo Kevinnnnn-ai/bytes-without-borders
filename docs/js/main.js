@@ -33,6 +33,41 @@
     });
   }
 
+  /* Scroll-driven reveals: cards and section content rise in as they
+     enter the viewport. Pure enhancement — without JS (or with reduced
+     motion) nothing is ever hidden. */
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    var revealTargets = document.querySelectorAll(
+      ".topic-card, .postcard, .section-title, .band h2, .band p, .band .btn, .prose > h2, .quiz-frame, .form-grid > div"
+    );
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.1 });
+
+    var siblingCount = [];
+    Array.prototype.forEach.call(revealTargets, function (node) {
+      var slot = -1;
+      for (var i = 0; i < siblingCount.length; i++) {
+        if (siblingCount[i].parent === node.parentNode) { slot = i; break; }
+      }
+      if (slot === -1) {
+        slot = siblingCount.length;
+        siblingCount.push({ parent: node.parentNode, seen: 0 });
+      }
+      var delay = Math.min(siblingCount[slot].seen * 70, 350);
+      siblingCount[slot].seen += 1;
+      node.style.setProperty("--reveal-delay", delay + "ms");
+      node.classList.add("reveal");
+      observer.observe(node);
+    });
+  }
+
   /* Contact form: no backend — sending composes an email instead.
      The form ships hidden (its Send is useless without JS); reveal it. */
   var form = document.getElementById("contact-form");
