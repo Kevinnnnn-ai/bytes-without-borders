@@ -466,6 +466,8 @@ main { display: block; }
   gap: var(--space-1);
   margin-bottom: var(--space-3);
 }
+/* explicit display would defeat the hidden attribute (no-JS fallback) */
+.filter-bar[hidden] { display: none; }
 
 .filter-btn {
   font-family: var(--font-mono);
