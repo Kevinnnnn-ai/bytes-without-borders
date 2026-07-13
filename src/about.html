@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Bytes Without Borders</title>
+  <meta name="description" content="Bytes Without Borders writes free, plain-language micro-lessons on data privacy, tech literacy, and digital inclusion — built to be translated and taught anywhere.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body data-root="./">
+  <a class="skip-link" href="#main" data-i18n="nav.skip">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="./index.html">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+        <rect x="2" y="6" width="28" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M3 8l13 9 13-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="25" cy="21" r="3" fill="currentColor"/>
+      </svg>
+      <span>Bytes Without Borders</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span data-i18n="nav.menu">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="./index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="./lessons/index.html" data-i18n="nav.lessons">Lessons</a></li>
+        <li><a href="./about.html" aria-current="page" data-i18n="nav.about">About</a></li>
+        <li><a href="./get-involved.html" data-i18n="nav.getInvolved">Get involved</a></li>
+      </ul>
+      <div class="lang-pick">
+        <label for="lang-switch" data-i18n="nav.language">Language</label>
+        <select id="lang-switch">
+          <option value="en" selected>English</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <header class="article-header">
+      <p class="eyebrow" data-i18n="about.eyebrow">The initiative</p>
+      <h1 data-i18n="about.title">Education that travels like a letter.</h1>
+      <p class="lede" data-i18n="about.lede">Bytes Without Borders is a volunteer initiative informing the broader population through localized micro-lessons — short, practical, and free.</p>
+    </header>
+
+    <div class="prose">
+      <h2 data-i18n="about.missionHeading">Why micro-lessons</h2>
+      <p data-i18n="about.missionBody1">Most guides about staying safe and capable online are long, technical, and written in one language for one audience. The people with the most to lose — new internet users, older adults, communities getting connected for the first time — rarely get materials written for them.</p>
+      <p data-i18n="about.missionBody2">So we keep every lesson under five minutes, in plain language, free of jargon and fear. Like a correspondence course, each one is designed to be passed along: translated, printed, taught out loud, or read on a cheap phone over a slow connection.</p>
+
+      <h2 data-i18n="about.howHeading">How a lesson is made</h2>
+      <ul>
+        <li><strong data-i18n="about.how1Title">Written plainly.</strong> <span data-i18n="about.how1Body">One idea per lesson, everyday words, real examples — no acronyms without introductions.</span></li>
+        <li><strong data-i18n="about.how2Title">Reviewed for accuracy.</strong> <span data-i18n="about.how2Body">Volunteers with security and education backgrounds check every claim before it ships.</span></li>
+        <li><strong data-i18n="about.how3Title">Built to localize.</strong> <span data-i18n="about.how3Body">Lessons avoid culture-bound references so translators adapt meaning, not just words.</span></li>
+      </ul>
+
+      <h2 data-i18n="about.valuesHeading">What we believe</h2>
+      <ul>
+        <li data-i18n="about.value1">Digital skills are civic skills — everyone deserves them, in their own language.</li>
+        <li data-i18n="about.value2">Clarity is respect. If a lesson confuses its reader, the lesson is wrong.</li>
+        <li data-i18n="about.value3">Knowledge should be free to share, adapt, and teach onward.</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <hr class="airmail-rule">
+    <div class="footer-inner">
+      <p class="footer-mission" data-i18n="footer.mission">Plain-language digital education. Free to share, built to be translated.</p>
+      <nav aria-label="Footer">
+        <ul class="footer-nav">
+          <li><a href="./index.html" data-i18n="nav.home">Home</a></li>
+          <li><a href="./lessons/index.html" data-i18n="nav.lessons">Lessons</a></li>
+          <li><a href="./about.html" data-i18n="nav.about">About</a></li>
+          <li><a href="./get-involved.html" data-i18n="nav.getInvolved">Get involved</a></li>
+        </ul>
+      </nav>
+      <p class="footer-note"><span data-i18n="footer.contact">Write to us:</span> <a href="mailto:hello@byteswithoutborders.example">hello@byteswithoutborders.example</a></p>
+    </div>
+  </footer>
+
+  <script src="./js/i18n.js" defer></script>
+  <script src="./js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get involved — Bytes Without Borders</title>
+  <meta name="description" content="Translate a lesson, write one, or run a workshop — how to volunteer with Bytes Without Borders.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body data-root="./">
+  <a class="skip-link" href="#main" data-i18n="nav.skip">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="./index.html">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+        <rect x="2" y="6" width="28" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M3 8l13 9 13-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="25" cy="21" r="3" fill="currentColor"/>
+      </svg>
+      <span>Bytes Without Borders</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span data-i18n="nav.menu">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="./index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="./lessons/index.html" data-i18n="nav.lessons">Lessons</a></li>
+        <li><a href="./about.html" data-i18n="nav.about">About</a></li>
+        <li><a href="./get-involved.html" aria-current="page" data-i18n="nav.getInvolved">Get involved</a></li>
+      </ul>
+      <div class="lang-pick">
+        <label for="lang-switch" data-i18n="nav.language">Language</label>
+        <select id="lang-switch">
+          <option value="en" selected>English</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <header class="article-header">
+      <p class="eyebrow" data-i18n="involved.eyebrow">Volunteer</p>
+      <h1 data-i18n="involved.title">Carry a lesson further.</h1>
+      <p class="lede" data-i18n="involved.lede">Everything here is made by volunteers. Pick the way that fits the time and skills you have.</p>
+    </header>
+
+    <section class="section" aria-labelledby="ways-heading">
+      <h2 class="section-title" id="ways-heading" data-i18n="involved.waysHeading">Three ways to help</h2>
+      <ul class="topic-grid">
+        <li class="topic-card" data-topic="data-privacy">
+          <p class="eyebrow" data-i18n="involved.way1Title">Translate</p>
+          <p data-i18n="involved.way1Body">Bring a lesson into your language. Our lessons avoid idioms and culture-bound examples, so a careful translation usually takes under an hour.</p>
+        </li>
+        <li class="topic-card" data-topic="tech-literacy">
+          <p class="eyebrow" data-i18n="involved.way2Title">Write</p>
+          <p data-i18n="involved.way2Body">Know a topic well? Draft a five-minute lesson in plain words. Volunteer reviewers help you fact-check and tighten it.</p>
+        </li>
+        <li class="topic-card" data-topic="digital-inclusion">
+          <p class="eyebrow" data-i18n="involved.way3Title">Teach</p>
+          <p data-i18n="involved.way3Body">Run a lesson at a library, community center, or kitchen table. Every lesson works printed, projected, or read aloud.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="contact-heading">
+      <h2 class="section-title" id="contact-heading" data-i18n="involved.formHeading">Write to us</h2>
+      <form id="contact-form" class="form-grid">
+        <div>
+          <label for="c-name" data-i18n="involved.formName">Your name</label>
+          <input id="c-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div>
+          <label for="c-email" data-i18n="involved.formEmail">Your email</label>
+          <input id="c-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div>
+          <label for="c-message" data-i18n="involved.formMessage">How would you like to help?</label>
+          <textarea id="c-message" name="message" rows="5" required></textarea>
+        </div>
+        <div>
+          <button class="btn btn-primary" type="submit" data-i18n="involved.formSend">Send</button>
+        </div>
+        <p class="form-note"><span data-i18n="involved.formNote">Sending opens your email app addressed to</span> <a href="mailto:hello@byteswithoutborders.example">hello@byteswithoutborders.example</a>.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <hr class="airmail-rule">
+    <div class="footer-inner">
+      <p class="footer-mission" data-i18n="footer.mission">Plain-language digital education. Free to share, built to be translated.</p>
+      <nav aria-label="Footer">
+        <ul class="footer-nav">
+          <li><a href="./index.html" data-i18n="nav.home">Home</a></li>
+          <li><a href="./lessons/index.html" data-i18n="nav.lessons">Lessons</a></li>
+          <li><a href="./about.html" data-i18n="nav.about">About</a></li>
+          <li><a href="./get-involved.html" data-i18n="nav.getInvolved">Get involved</a></li>
+        </ul>
+      </nav>
+      <p class="footer-note"><span data-i18n="footer.contact">Write to us:</span> <a href="mailto:hello@byteswithoutborders.example">hello@byteswithoutborders.example</a></p>
+    </div>
+  </footer>
+
+  <script src="./js/i18n.js" defer></script>
+  <script src="./js/main.js" defer></script>
+</body>
+</html>
