@@ -1,0 +1,90 @@
+{
+  "nav": {
+    "skip": "Skip to main content",
+    "menu": "Menu",
+    "home": "Home",
+    "lessons": "Lessons",
+    "about": "About",
+    "getInvolved": "Get involved",
+    "language": "Language"
+  },
+  "footer": {
+    "mission": "Plain-language digital education. Free to share, built to be translated.",
+    "contact": "Write to us:"
+  },
+  "home": {
+    "eyebrow": "Micro-lessons in plain language",
+    "title": "Digital know-how, one byte at a time.",
+    "lede": "Free five-minute lessons on data privacy, tech literacy, and digital inclusion — written in plain language and built to travel across languages.",
+    "ctaLessons": "Browse the lessons",
+    "ctaInvolved": "Get involved",
+    "topicsHeading": "What we teach",
+    "topicPrivacyTitle": "Data privacy",
+    "topicPrivacyBody": "Who can see what you do online, and the small habits that keep your accounts and identity yours.",
+    "topicLiteracyTitle": "Tech literacy",
+    "topicLiteracyBody": "How the everyday internet actually works, so headlines, scams, and settings stop being mysteries.",
+    "topicInclusionTitle": "Digital inclusion",
+    "topicInclusionBody": "Why millions are still offline or underserved, and what communities can do about it.",
+    "featuredHeading": "Start with these",
+    "bandTitle": "Knowledge that crosses borders.",
+    "bandBody": "Every lesson is written to be translated, adapted, and taught anywhere. Help us carry it further — translate a lesson, write one, or run a workshop in your community.",
+    "bandCta": "See how to help"
+  },
+  "about": {
+    "eyebrow": "The initiative",
+    "title": "Education that travels like a letter.",
+    "lede": "Bytes Without Borders is a volunteer initiative informing the broader population through localized micro-lessons — short, practical, and free.",
+    "missionHeading": "Why micro-lessons",
+    "missionBody1": "Most guides about staying safe and capable online are long, technical, and written in one language for one audience. The people with the most to lose — new internet users, older adults, communities getting connected for the first time — rarely get materials written for them.",
+    "missionBody2": "So we keep every lesson under five minutes, in plain language, free of jargon and fear. Like a correspondence course, each one is designed to be passed along: translated, printed, taught out loud, or read on a cheap phone over a slow connection.",
+    "howHeading": "How a lesson is made",
+    "how1Title": "Written plainly.",
+    "how1Body": "One idea per lesson, everyday words, real examples — no acronyms without introductions.",
+    "how2Title": "Reviewed for accuracy.",
+    "how2Body": "Volunteers with security and education backgrounds check every claim before it ships.",
+    "how3Title": "Built to localize.",
+    "how3Body": "Lessons avoid culture-bound references so translators adapt meaning, not just words.",
+    "valuesHeading": "What we believe",
+    "value1": "Digital skills are civic skills — everyone deserves them, in their own language.",
+    "value2": "Clarity is respect. If a lesson confuses its reader, the lesson is wrong.",
+    "value3": "Knowledge should be free to share, adapt, and teach onward."
+  },
+  "involved": {
+    "eyebrow": "Volunteer",
+    "title": "Carry a lesson further.",
+    "lede": "Everything here is made by volunteers. Pick the way that fits the time and skills you have.",
+    "waysHeading": "Three ways to help",
+    "way1Title": "Translate",
+    "way1Body": "Bring a lesson into your language. Our lessons avoid idioms and culture-bound examples, so a careful translation usually takes under an hour.",
+    "way2Title": "Write",
+    "way2Body": "Know a topic well? Draft a five-minute lesson in plain words. Volunteer reviewers help you fact-check and tighten it.",
+    "way3Title": "Teach",
+    "way3Body": "Run a lesson at a library, community center, or kitchen table. Every lesson works printed, projected, or read aloud.",
+    "formHeading": "Write to us",
+    "formName": "Your name",
+    "formEmail": "Your email",
+    "formMessage": "How would you like to help?",
+    "formSend": "Send",
+    "formNote": "Sending opens your email app addressed to"
+  },
+  "hub": {
+    "eyebrow": "The lesson shelf",
+    "title": "Every lesson, five minutes or less.",
+    "lede": "Short, practical, and jargon-free. Read them in any order — each one stands alone.",
+    "filterAll": "All topics",
+    "filterPrivacy": "Data privacy",
+    "filterLiteracy": "Tech literacy",
+    "filterInclusion": "Digital inclusion"
+  },
+  "lesson": {
+    "back": "← All lessons",
+    "quizCta": "Test yourself: the data privacy quiz",
+    "involvedCta": "Help close the gap — get involved"
+  },
+  "notfound": {
+    "title": "Lost in transit.",
+    "body": "This page could not be delivered — it may have moved or never existed. The lessons are all still where they should be.",
+    "ctaHome": "Back to the start",
+    "ctaLessons": "Browse the lessons"
+  }
+}
