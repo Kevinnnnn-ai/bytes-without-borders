@@ -10,6 +10,7 @@ stdout/*
 
 # Temp/scratch
 tmp/
+.playwright-mcp/
 
 # OS noise
 Thumbs.db
