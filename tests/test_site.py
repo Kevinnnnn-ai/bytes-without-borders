@@ -7,7 +7,10 @@ shapes, i18n key coverage, and per-page basics on every HTML page.
 """
 from __future__ import annotations
 
+import base64
+import hashlib
 import json
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -44,6 +47,10 @@ class PageScan(HTMLParser):
         self.lang = None
         self.i18n_keys: set[str] = set()
         self.metas: list[dict] = []
+        self._in_inline_script = False
+        self._script_buf = ""
+        self.inline_scripts: list[str] = []
+        self.font_preloads = 0
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -55,6 +62,11 @@ class PageScan(HTMLParser):
             self._in_title = True
         elif tag == "meta":
             self.metas.append(a)
+        elif tag == "script" and not a.get("src"):
+            self._in_inline_script = True
+            self._script_buf = ""
+        elif tag == "link" and a.get("rel") == "preload" and a.get("as") == "font":
+            self.font_preloads += 1
         # data-src is the quiz engine's fetch target — a broken one is a broken page
         for key in ("href", "src", "data-src"):
             if a.get(key):
@@ -65,10 +77,15 @@ class PageScan(HTMLParser):
     def handle_data(self, data):
         if self._in_title:
             self.title += data
+        if self._in_inline_script:
+            self._script_buf += data
 
     def handle_endtag(self, tag):
         if tag == "title":
             self._in_title = False
+        elif tag == "script" and self._in_inline_script:
+            self._in_inline_script = False
+            self.inline_scripts.append(self._script_buf)
 
 
 _scan_cache: dict[Path, PageScan] = {}
@@ -213,6 +230,38 @@ def test_i18n_keys_covered():
         used |= scan(f).i18n_keys
     missing = sorted(used - set(dictionary))
     assert not missing, f"data-i18n keys missing from en.json: {missing}"
+
+
+def test_head_security_meta():
+    """Every page carries a CSP whose script hashes match its actual inline
+    scripts, plus referrer policy, theme-colors, and the two font preloads.
+    A drifted hash would silently drop the page to its no-JS fallback."""
+    problems = []
+    for path in html_files():
+        s = scan(path)
+        rel = path.relative_to(SRC)
+        csp = [m for m in s.metas if m.get("http-equiv") == "Content-Security-Policy"]
+        if len(csp) != 1:
+            problems.append(f"{rel}: expected exactly one CSP meta, found {len(csp)}")
+            continue
+        content = csp[0].get("content", "")
+        for directive in ("default-src 'self'", "object-src 'none'", "base-uri 'self'"):
+            if directive not in content:
+                problems.append(f"{rel}: CSP missing {directive}")
+        declared = sorted(re.findall(r"'sha256-([A-Za-z0-9+/=]+)'", content))
+        actual = sorted(
+            base64.b64encode(hashlib.sha256(script.encode("utf-8")).digest()).decode()
+            for script in s.inline_scripts
+        )
+        if declared != actual:
+            problems.append(f"{rel}: CSP script hashes do not match inline scripts")
+        if sum(1 for m in s.metas if m.get("name") == "theme-color") != 2:
+            problems.append(f"{rel}: expected two theme-color metas (light + dark)")
+        if not any(m.get("name") == "referrer" for m in s.metas):
+            problems.append(f"{rel}: missing referrer meta")
+        if s.font_preloads != 2:
+            problems.append(f"{rel}: expected 2 font preloads, found {s.font_preloads}")
+    assert not problems, "head metadata problems:\n" + "\n".join(problems)
 
 
 def test_hub_links_every_lesson():
