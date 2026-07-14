@@ -92,6 +92,9 @@
 *::before,
 *::after { box-sizing: border-box; }
 
+/* fragment jumps and focus scrolls must clear the sticky header */
+html { scroll-padding-top: 6rem; }
+
 body {
   margin: 0;
   background: var(--paper);
@@ -112,7 +115,12 @@ body::before {
     radial-gradient(38% 34% at 22% 16%, color-mix(in srgb, var(--indigo) calc(var(--blob-alpha) * 100%), transparent), transparent 70%),
     radial-gradient(32% 30% at 82% 22%, color-mix(in srgb, var(--coral) calc(var(--blob-alpha) * 82%), transparent), transparent 70%),
     radial-gradient(36% 32% at 58% 88%, color-mix(in srgb, var(--topic-inclusion) calc(var(--blob-alpha) * 64%), transparent), transparent 70%);
-  animation: aurora-drift 70s ease-in-out infinite alternate;
+}
+
+/* drift only on larger screens — animating under the header's backdrop
+   blur forces continuous re-rendering, a real cost on mobile GPUs */
+@media (min-width: 46em) {
+  body::before { animation: aurora-drift 70s ease-in-out infinite alternate; }
 }
 
 @keyframes aurora-drift {
@@ -268,9 +276,18 @@ code {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  background: var(--paper);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+}
+
+/* Glass tints only where color-mix() exists. A var()-containing color-mix
+   fails at computed-value time on old browsers — it wins the cascade and
+   then computes to transparent — so the tint must live behind @supports,
+   not behind a preceding fallback declaration. */
+@supports (background: color-mix(in srgb, red 50%, transparent)) {
+  .site-header { background: color-mix(in srgb, var(--paper) 88%, transparent); }
+  html.js .site-nav.is-open { background: color-mix(in srgb, var(--paper) 92%, transparent); }
 }
 
 .brand {
@@ -312,7 +329,7 @@ html.js .site-nav.is-open {
   left: 0;
   right: 0;
   z-index: 5;
-  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  background: var(--paper);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -460,7 +477,8 @@ html.js .hero > *:nth-child(4) { animation-delay: 270ms; }
 .btn-primary:hover {
   background: var(--indigo);
   border-color: var(--indigo);
-  color: #ffffff;
+  /* paper-raised passes AA on indigo in both schemes; pure white fails dark */
+  color: var(--paper-raised);
 }
 
 /* ---------- scroll reveals (JS adds .reveal, IO adds .in-view) ---------- */

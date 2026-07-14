@@ -44,8 +44,16 @@
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          observer.unobserve(entry.target);
+          var node = entry.target;
+          node.classList.add("in-view");
+          observer.unobserve(node);
+          /* tear the reveal machinery down once the entrance finishes
+             (650ms transition + up to 350ms stagger) so the element's own
+             hover/component transitions take over again */
+          setTimeout(function () {
+            node.classList.remove("reveal", "in-view");
+            node.style.removeProperty("--reveal-delay");
+          }, 1100);
         }
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.1 });

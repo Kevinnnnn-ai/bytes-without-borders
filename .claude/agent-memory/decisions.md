@@ -31,3 +31,11 @@
   marking; 2FA copy softened with the never-share-a-code rule; i18n now
   switches in place without reloads; interactive borders use --line-strong
   for WCAG non-text contrast; 404.html injects <base> on github.io.
+- 2026-07-13 (human): Redesign directive — more modern, more animation,
+  animated backgrounds, scroll-driven UI, new fonts, lighter theme, modern
+  color pairings. Agent kept the postal identity but moved to near-white
+  paper + indigo/coral, self-hosted variable webfonts (relaxing the
+  original no-webfonts spec line; no-external-requests still holds), and a
+  motion system (aurora blobs, scroll reveals, progress bar). The original
+  spec/plan under superpowers/ describe the v1 look — main.css is now the
+  design source of truth.

@@ -19,9 +19,16 @@
 - i18n: inline English + `data-i18n` keys resolved against
   `docs/locales/en.json`; switching applies in place (originals stashed per
   node, no reload); add a language = one JSON + one `<option>` per page.
-- Design system: postal warm-humanist (airmail stripes, stamp chips, postal
-  red/blue duotone, per-topic accents) — tokens only in `docs/css/main.css`;
-  `--line` is decorative, `--line-strong` for interactive control borders.
+- Design system (modernized 2026-07-13 at user request): postal identity
+  (airmail stripes, stamp chips) on light near-white paper with an
+  indigo + coral pairing; amber/emerald topic accents; drifting aurora
+  background, scroll reveals (IntersectionObserver), scroll-driven progress
+  bar, glass sticky header. Tokens only in `docs/css/main.css`; `--line`
+  decorative, `--line-strong` for interactive borders. Fonts are
+  SELF-HOSTED variable woff2 (Bricolage Grotesque display, Instrument Sans
+  body) in `docs/assets/fonts/` — still no external requests at runtime.
+  All motion scoped to `html.js` + disabled under prefers-reduced-motion
+  and print.
 - Contact address is a placeholder: `hello@byteswithoutborders.example`
   (footers, get-involved form, `docs/js/main.js`) — must be replaced before
   launch.
