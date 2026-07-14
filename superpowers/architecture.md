@@ -14,6 +14,16 @@ only — the site is fully readable and navigable with JS off.
   class to `<html>`. CSS that hides content pending a JS reveal (mobile nav,
   contact form) is scoped to `html.js` so no-JS visitors get the open,
   static fallback instead of hidden content and dead buttons.
+- Every page's `<head>` also carries: a Content-Security-Policy meta locked
+  to `'self'` plus sha256 hashes of that page's exact inline scripts, a
+  referrer policy, light/dark `theme-color` metas, and crossorigin preloads
+  for the two font files. **If you edit any inline `<script>`, rerun
+  `tests/tools/update_head_meta.py`** — a stale hash silently drops the
+  page to its no-JS fallback, and `test_head_security_meta` fails on drift.
+- JS-created UI (never in markup, so it costs no-JS visitors nothing):
+  back-to-top button, article share button, filter result announcer
+  (`aria-live`), quiz progress bar. Their user-facing strings are inline in
+  `main.js`/`quiz.js` and move to locale files with the second language.
 - Shared chrome is copied per page. When editing nav or footer, update every
   page (9 files) — the link/i18n tests catch misses.
 - All URLs are relative. Never use root-relative `/...` paths — GitHub Pages
