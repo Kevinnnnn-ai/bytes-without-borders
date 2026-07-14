@@ -31,6 +31,18 @@
   marking; 2FA copy softened with the never-share-a-code rule; i18n now
   switches in place without reloads; interactive borders use --line-strong
   for WCAG non-text contrast; 404.html injects <base> on github.io.
+- 2026-07-14 (human): Directive — smaller text, thinner paragraphs, clear
+  intentional spacing. Agent reduced the whole type scale one notch (body
+  16px, h1 cap 4rem), opened line-height to 1.7, and — because Instrument
+  Sans' wght axis bottoms out at 400 (verified via fonttools fvar) — made
+  paragraphs read lighter with a new --ink-body token instead of a font
+  weight. Spacing became two-tier: --space-1..5 within groups, new
+  --section-pad clamp as the only between-section unit; cards became flex
+  columns with meta pinned to the card floor. A 3-lens adversarial review
+  workflow (17 agents) confirmed 3 regressions pre-commit — flex defeating
+  [hidden] on filtered cards, .prose .btn out-specifying .share-btn, lost
+  margin-collapse doubling the card meta gap — all fixed and re-verified
+  live before committing (491b38d).
 - 2026-07-13 (human): Redesign directive — more modern, more animation,
   animated backgrounds, scroll-driven UI, new fonts, lighter theme, modern
   color pairings. Agent kept the postal identity but moved to near-white

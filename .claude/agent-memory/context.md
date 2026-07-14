@@ -25,10 +25,17 @@
   background, scroll reveals (IntersectionObserver), scroll-driven progress
   bar, glass sticky header. Tokens only in `docs/css/main.css`; `--line`
   decorative, `--line-strong` for interactive borders. Fonts are
-  SELF-HOSTED variable woff2 (Bricolage Grotesque display, Instrument Sans
-  body) in `docs/assets/fonts/` — still no external requests at runtime.
+  SELF-HOSTED variable woff2 (Bricolage Grotesque display 200–800,
+  Instrument Sans body 400–700 — no lighter body weight exists) in
+  `docs/assets/fonts/` — still no external requests at runtime.
   All motion scoped to `html.js` + disabled under prefers-reduced-motion
   and print.
+- Type/rhythm conventions (refined 2026-07-14 at user request, documented
+  in `superpowers/architecture.md`): 16px body on `--ink-body` (softer ink
+  substitutes for the unavailable sub-400 weight; heading-like paragraphs
+  re-assert `--ink`); `--space-1..5` space content within a group and
+  `--section-pad` (viewport clamp) is the only between-section unit; cards
+  are flex columns with `.postcard-meta` pinned via `margin-top: auto`.
 - Contact address is a placeholder: `hello@byteswithoutborders.example`
   (footers, get-involved form, `docs/js/main.js`) — must be replaced before
   launch.
