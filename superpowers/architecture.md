@@ -39,9 +39,26 @@ spacing). Topic accents switch via `data-topic="data-privacy | tech-literacy
 | digital-inclusion"` on a container, which sets `--topic` for its children.
 Signature elements: airmail stripe (`.airmail-rule`, card `::before`) and the
 dashed `.stamp` chip showing lesson minutes. Dark scheme comes from
-`prefers-color-scheme`; system font stacks only. `--line` is for decorative
-hairlines; interactive control borders (form fields, quiz choices) use
-`--line-strong`, which meets WCAG non-text contrast in both themes.
+`prefers-color-scheme`; fonts are self-hosted variable woff2 (Bricolage
+Grotesque display 200–800, Instrument Sans body 400–700). `--line` is for
+decorative hairlines; interactive control borders (form fields, quiz
+choices) use `--line-strong`, which meets WCAG non-text contrast in both
+themes.
+
+Type and rhythm conventions:
+
+- Instrument Sans has no weight below 400. Copy that should read lighter
+  uses the `--ink-body` token (paragraph default), never a sub-400
+  `font-weight`. Paragraphs that act as headings (`.footer-mission`,
+  `.quiz-question`, `.quiz-score`) re-assert `--ink`.
+- `--space-1`–`--space-5` space content *within* a group; `--section-pad`
+  (a viewport clamp) is the only between-section unit — section paddings,
+  hero/article-header tops, footer offset. Keeping the two tiers apart is
+  what makes the spacing read intentional; don't use `--space-*` to
+  separate sections or `--section-pad` inside a component.
+- Cards (`.topic-card`, `.postcard`) are flex columns; `.postcard-meta`
+  pins to the card floor with `margin-top: auto` so meta rows align across
+  a grid row, and the cards' last child drops its bottom margin.
 
 ## Add an article
 

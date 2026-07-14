@@ -29,6 +29,7 @@
   --paper: #fcfbf9;
   --paper-raised: #ffffff;
   --ink: #211f2a;
+  --ink-body: #4b4757;
   --ink-soft: #625e70;
   --line: #e9e6e0;
   --line-strong: #8e8a9c;
@@ -47,19 +48,21 @@
   --font-display: "Bricolage Grotesque", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
   --font-body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
   --font-mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", Consolas, Menlo, monospace;
-  --step--1: 0.875rem;
-  --step-0: 1.0625rem;
-  --step-1: 1.375rem;
-  --step-2: 1.875rem;
-  --step-3: clamp(2.125rem, 4.5vw, 3rem);
-  --step-4: clamp(2.75rem, 7.5vw, 4.75rem);
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.625rem;
+  --step-3: clamp(1.75rem, 1.35rem + 2vw, 2.5rem);
+  --step-4: clamp(2.375rem, 1.6rem + 4.5vw, 4rem);
 
-  /* rhythm */
+  /* rhythm: spaces 1–4 group related content; --section-pad is the only
+     between-section unit, so intra-group gaps never rival section breaks */
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
-  --space-4: 2.5rem;
-  --space-5: 4.5rem;
+  --space-4: 2.25rem;
+  --space-5: 3.5rem;
+  --section-pad: clamp(2.75rem, 2rem + 2.5vw, 4rem);
   --measure: 66ch;
   --radius: 16px;
   --radius-sm: 10px;
@@ -73,6 +76,7 @@
     --paper: #17161d;
     --paper-raised: #201f28;
     --ink: #eeedf4;
+    --ink-body: #c9c6d4;
     --ink-soft: #a5a1b2;
     --line: #312f3c;
     --line-strong: #6f6b7e;
@@ -113,7 +117,7 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--step-0);
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 /* ambient aurora — three soft postal-colored blobs drifting behind the paper */
@@ -154,7 +158,10 @@ h3 { font-size: var(--step-1); letter-spacing: -0.01em; }
 
 h1, h2, h3 { text-wrap: balance; }
 
-p { margin: 0 0 var(--space-2); text-wrap: pretty; }
+/* Instrument Sans has no weight below 400, so body copy reads lighter
+   through ink instead: a softened body ink (~8:1 contrast, AA-safe).
+   Paragraphs that act as headings re-assert --ink where they're defined. */
+p { margin: 0 0 var(--space-2); color: var(--ink-body); text-wrap: pretty; }
 
 a {
   color: var(--indigo);
@@ -428,15 +435,15 @@ html.js .site-nav.is-open {
 main { display: block; }
 
 .section {
-  padding: var(--space-4) var(--space-3);
+  padding: var(--section-pad) var(--space-3);
   max-width: 72rem;
   margin: 0 auto;
 }
 
-.section-title { margin-bottom: var(--space-3); }
+.section-title { margin-bottom: var(--space-4); }
 
 .hero {
-  padding: var(--space-5) var(--space-3) var(--space-4);
+  padding: clamp(3.5rem, 2.5rem + 4vw, 5.5rem) var(--space-3) var(--section-pad);
   max-width: 72rem;
   margin: 0 auto;
 }
@@ -464,7 +471,7 @@ html.js .hero > *:nth-child(4) { animation-delay: 270ms; }
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .btn {
@@ -528,6 +535,8 @@ html.js .reveal.in-view {
 
 .topic-card,
 .postcard {
+  display: flex;
+  flex-direction: column;
   background: var(--paper-raised);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -536,6 +545,15 @@ html.js .reveal.in-view {
   overflow: hidden;
   box-shadow: 0 1px 2px rgba(33, 31, 42, 0.04);
 }
+
+/* a trailing margin inside the card would unbalance its padding */
+.topic-card > :last-child,
+.postcard > :last-child { margin-bottom: 0; }
+
+/* the flex declaration above would otherwise defeat the hidden attribute,
+   which the lessons-hub topic filter relies on (card.hidden = true) */
+.topic-card[hidden],
+.postcard[hidden] { display: none; }
 
 .topic-card::before,
 .postcard::before {
@@ -572,11 +590,13 @@ html.js .reveal.in-view {
 .postcard h2 a::after,
 .postcard h3 a::after { content: ""; position: absolute; inset: 0; }
 
+/* pinned to the card floor so meta rows align across the whole grid;
+   the preceding paragraph's bottom margin supplies the minimum gap */
 .postcard-meta {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin-top: var(--space-2);
+  margin-top: auto;
 }
 
 .kind {
@@ -599,10 +619,11 @@ html.js .reveal.in-view {
 }
 .band .section { text-align: center; }
 .band p { max-width: 52ch; margin-left: auto; margin-right: auto; }
+.band .btn { margin-top: var(--space-2); }
 
 /* ---------- footer ---------- */
 
-.site-footer { margin-top: var(--space-5); }
+.site-footer { margin-top: var(--section-pad); }
 
 .footer-inner {
   max-width: 72rem;
@@ -620,6 +641,7 @@ html.js .reveal.in-view {
   font-weight: 600;
   font-size: var(--step-1);
   letter-spacing: -0.01em;
+  color: var(--ink);
   max-width: 30ch;
   margin: 0;
 }
@@ -638,28 +660,34 @@ html.js .reveal.in-view {
 
 /* ---------- article prose ---------- */
 
-.article-header { max-width: var(--measure); margin: 0 auto; padding-top: var(--space-4); }
+.article-header { max-width: var(--measure); margin: 0 auto; padding-top: var(--section-pad); }
 
+/* the crumb is wayfinding, not part of the title cluster — keep it apart */
 .crumb {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: var(--step--1);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   text-decoration: none;
+  margin-bottom: var(--space-3);
 }
 
 .article-meta {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin: var(--space-2) 0 var(--space-3);
+  margin: var(--space-2) 0 var(--space-4);
 }
 
 .prose { max-width: var(--measure); margin: 0 auto; }
-.prose h2 { margin-top: var(--space-4); }
+.prose h2 { margin-top: var(--space-5); }
 .prose ul { padding-left: 1.2rem; }
 .prose li { margin-bottom: var(--space-1); }
 .prose strong { color: var(--topic); }
+/* article CTAs sit in a <p>; scoping past the paragraph keeps this off the
+   JS-appended .share-btn (a direct .prose child with its own offset) */
+.prose p > .btn { margin-top: var(--space-2); }
 
 /* ---------- lessons hub filter ---------- */
 
@@ -741,6 +769,8 @@ html.js .reveal.in-view {
   box-shadow: 0 12px 40px -24px rgba(33, 31, 42, 0.25);
 }
 
+.quiz-frame > :last-child { margin-bottom: 0; }
+
 /* every re-render slides its content in */
 html.js .quiz-frame > * { animation: rise 450ms var(--ease-out) backwards; }
 html.js .quiz-frame > *:nth-child(2) { animation-delay: 60ms; }
@@ -777,6 +807,7 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   font-weight: 600;
   font-size: var(--step-1);
   letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .quiz-choices {
@@ -834,6 +865,7 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   font-weight: 650;
   font-size: var(--step-2);
   letter-spacing: -0.02em;
+  color: var(--ink);
   margin-bottom: var(--space-1);
 }
 
