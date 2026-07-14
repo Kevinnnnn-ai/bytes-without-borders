@@ -20,15 +20,23 @@
     filterBar.hidden = false;
     var buttons = filterBar.querySelectorAll("button[data-topic]");
     var cards = document.querySelectorAll("[data-lesson-card]");
+    /* announce filter results to screen readers */
+    var filterStatus = document.createElement("p");
+    filterStatus.className = "visually-hidden";
+    filterStatus.setAttribute("aria-live", "polite");
+    filterBar.parentNode.insertBefore(filterStatus, filterBar.nextSibling);
     Array.prototype.forEach.call(buttons, function (btn) {
       btn.addEventListener("click", function () {
         Array.prototype.forEach.call(buttons, function (other) {
           other.setAttribute("aria-pressed", String(other === btn));
         });
         var topic = btn.getAttribute("data-topic");
+        var shown = 0;
         Array.prototype.forEach.call(cards, function (card) {
           card.hidden = topic !== "all" && card.getAttribute("data-topic") !== topic;
+          if (!card.hidden) { shown += 1; }
         });
+        filterStatus.textContent = "Showing " + shown + " of " + cards.length + " lessons";
       });
     });
   }
@@ -73,6 +81,51 @@
       node.style.setProperty("--reveal-delay", delay + "ms");
       node.classList.add("reveal");
       observer.observe(node);
+    });
+  }
+
+  /* Back to top — appears after most of a screen has scrolled by */
+  var toTop = document.createElement("button");
+  toTop.type = "button";
+  toTop.className = "to-top";
+  toTop.setAttribute("aria-label", "Back to top");
+  toTop.textContent = "↑";
+  document.body.appendChild(toTop);
+  var toTopTick = false;
+  window.addEventListener("scroll", function () {
+    if (toTopTick) { return; }
+    toTopTick = true;
+    window.requestAnimationFrame(function () {
+      toTop.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.8);
+      toTopTick = false;
+    });
+  }, { passive: true });
+  toTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0 });
+    var skip = document.querySelector(".skip-link");
+    if (skip) { skip.focus({ preventScroll: true }); }
+  });
+
+  /* Share — lessons are written to be passed along */
+  var article = document.querySelector("article.prose");
+  var canCopy = navigator.clipboard && navigator.clipboard.writeText;
+  if (article && (navigator.share || canCopy)) {
+    var SHARE_LABEL = "Share this lesson";
+    var share = document.createElement("button");
+    share.type = "button";
+    share.className = "btn share-btn";
+    share.textContent = SHARE_LABEL;
+    article.appendChild(share);
+    share.addEventListener("click", function () {
+      if (navigator.share) {
+        navigator.share({ title: document.title, url: window.location.href })
+          .catch(function () { /* user closed the share sheet */ });
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(function () {
+          share.textContent = "Link copied ✓";
+          setTimeout(function () { share.textContent = SHARE_LABEL; }, 2000);
+        }).catch(function () { /* clipboard unavailable */ });
+      }
     });
   }
 

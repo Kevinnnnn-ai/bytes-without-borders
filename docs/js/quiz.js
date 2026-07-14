@@ -69,6 +69,17 @@
       host.textContent = "";
       var progress = el("p", "quiz-progress", fill(STRINGS.progress, { current: index + 1, total: total }));
       host.appendChild(progress);
+
+      /* visual progress track (the text above already announces it) */
+      var bar = el("div", "quiz-bar");
+      bar.setAttribute("aria-hidden", "true");
+      var barFill = el("span", "quiz-bar-fill");
+      bar.appendChild(barFill);
+      host.appendChild(bar);
+      window.requestAnimationFrame(function () {
+        barFill.style.width = (((index + 1) / total) * 100) + "%";
+      });
+
       host.appendChild(el("p", "quiz-question", q.prompt));
 
       var list = el("ul", "quiz-choices");
