@@ -93,7 +93,19 @@
 *::after { box-sizing: border-box; }
 
 /* fragment jumps and focus scrolls must clear the sticky header */
-html { scroll-padding-top: 6rem; }
+html {
+  scroll-padding-top: 6rem;
+  accent-color: var(--indigo);
+  scrollbar-color: color-mix(in srgb, var(--ink) 32%, transparent) transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+::selection {
+  background: color-mix(in srgb, var(--indigo) 24%, transparent);
+}
 
 body {
   margin: 0;
@@ -140,7 +152,9 @@ h1 { font-size: var(--step-4); letter-spacing: -0.03em; }
 h2 { font-size: var(--step-3); letter-spacing: -0.02em; }
 h3 { font-size: var(--step-1); letter-spacing: -0.01em; }
 
-p { margin: 0 0 var(--space-2); }
+h1, h2, h3 { text-wrap: balance; }
+
+p { margin: 0 0 var(--space-2); text-wrap: pretty; }
 
 a {
   color: var(--indigo);
@@ -233,7 +247,11 @@ code {
   text-transform: uppercase;
   white-space: nowrap;
   background: color-mix(in srgb, var(--topic) 6%, transparent);
+  transition: transform 200ms var(--ease-out);
 }
+
+/* postal wink: the stamp tilts when its postcard is picked up */
+.postcard:hover .stamp { transform: rotate(-4deg); }
 
 .eyebrow {
   font-family: var(--font-mono);
@@ -468,6 +486,7 @@ html.js .hero > *:nth-child(4) { animation-delay: 270ms; }
   border-color: var(--indigo);
   box-shadow: 0 8px 24px -10px color-mix(in srgb, var(--indigo) 45%, transparent);
 }
+.btn:active { transform: translateY(0) scale(0.985); }
 
 .btn-primary {
   background: var(--ink);
@@ -736,6 +755,23 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   color: var(--ink-soft);
 }
 
+.quiz-bar {
+  display: block;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+  margin: var(--space-1) 0 var(--space-2);
+}
+.quiz-bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--indigo), var(--coral));
+  transition: width 450ms var(--ease-out);
+}
+
 .quiz-question {
   font-family: var(--font-display);
   font-weight: 600;
@@ -803,6 +839,40 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
 
 .quiz-error { color: var(--coral-text); font-weight: 600; }
 
+/* ---------- back to top (button is JS-created) ---------- */
+
+.to-top {
+  position: fixed;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 60;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 28px -14px rgba(33, 31, 42, 0.4);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 250ms ease, transform 250ms var(--ease-out), border-color 200ms ease, color 200ms ease;
+}
+.to-top.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.to-top:hover { border-color: var(--indigo); color: var(--indigo); }
+
+/* ---------- share (button is JS-created) ---------- */
+
+.share-btn { margin-top: var(--space-3); }
+
 /* ---------- motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -819,10 +889,25 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   html.js body::after { display: none; }
 }
 
-/* lessons print and share on paper — no motion state, no ambient chrome */
+/* lessons print and share on paper — no motion state, no ambient chrome.
+   The mission is print-friendly lessons: strip interactive chrome so a
+   printed article is just the brand line and the words. */
 @media print {
   html.js .reveal { opacity: 1; transform: none; }
   body::before,
   html.js body::after { display: none; }
   .site-header { position: static; background: none; }
+  .skip-link,
+  .nav-toggle,
+  .site-nav,
+  .filter-bar,
+  .hero-actions,
+  .band,
+  .site-footer,
+  .to-top,
+  .share-btn,
+  .prose .btn { display: none !important; }
+  .postcard,
+  .topic-card,
+  .quiz-frame { box-shadow: none; }
 }

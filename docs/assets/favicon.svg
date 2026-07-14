@@ -1,4 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <rect x="1" y="1" width="30" height="30" rx="7" fill="#fcfbf9" stroke="#f0654f" stroke-width="2" stroke-dasharray="4 3"/>
-  <text x="16" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#4f46e5">B</text>
+  <style>
+    .bg { fill: #fcfbf9; }
+    .mark { fill: #4f46e5; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #17161d; }
+      .mark { fill: #928cf7; }
+    }
+  </style>
+  <rect class="bg" x="1" y="1" width="30" height="30" rx="7" stroke="#f0654f" stroke-width="2" stroke-dasharray="4 3"/>
+  <text class="mark" x="16" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="16">B</text>
 </svg>
