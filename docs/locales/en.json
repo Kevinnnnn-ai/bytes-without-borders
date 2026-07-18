@@ -83,7 +83,8 @@
     "involvedCta": "Help close the gap — get involved",
     "cta2fa": "Next: Two-factor authentication, explained",
     "ctaSlow": "Related: Designing for slow connections",
-    "ctaScamQuiz": "Test yourself: spot the scam"
+    "ctaScamQuiz": "Test yourself: spot the scam",
+    "ctaInclusionQuiz": "Test yourself: myths about getting online"
   },
   "notfound": {
     "title": "Lost in transit.",

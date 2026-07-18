@@ -80,6 +80,15 @@
       "summary": "Why heavy pages shut people out, and how lean design welcomes them back.",
       "minutes": 4,
       "kind": "article"
+    },
+    {
+      "slug": "accessibility-for-everyone",
+      "href": "accessibility-for-everyone.html",
+      "title": "Accessibility is for everyone",
+      "topic": "digital-inclusion",
+      "summary": "Screen readers, captions, and bigger buttons help far more people than you think — sometimes you.",
+      "minutes": 4,
+      "kind": "article"
     }
   ]
 }
