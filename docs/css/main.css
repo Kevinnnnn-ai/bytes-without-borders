@@ -455,6 +455,7 @@ html.js .hero > * { animation: rise 700ms var(--ease-out) backwards; }
 html.js .hero > *:nth-child(2) { animation-delay: 90ms; }
 html.js .hero > *:nth-child(3) { animation-delay: 180ms; }
 html.js .hero > *:nth-child(4) { animation-delay: 270ms; }
+html.js .hero > *:nth-child(5) { animation-delay: 360ms; }
 
 @keyframes rise {
   from { opacity: 0; transform: translateY(22px); }
@@ -472,6 +473,13 @@ html.js .hero > *:nth-child(4) { animation-delay: 270ms; }
   flex-wrap: wrap;
   gap: var(--space-2);
   margin-top: var(--space-4);
+}
+
+.proof-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
 }
 
 .btn {
