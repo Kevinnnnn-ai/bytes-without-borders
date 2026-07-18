@@ -5,34 +5,34 @@
       "prompt": "\"Young people are all digital natives — they naturally know how to use technology.\" What does the evidence say?",
       "choices": [
         "True — growing up with phones teaches everything",
-        "Mostly a myth — using apps fluently is not the same as judging information, managing privacy, or fixing problems",
         "True, but only for people under 20",
+        "Mostly a myth — using apps fluently is not the same as judging information, managing privacy, or fixing problems",
         "It is impossible to study"
       ],
-      "answerIndex": 1,
+      "answerIndex": 2,
       "explanation": "Familiarity is not literacy. Many fluent scrollers have never been shown how to check a source, recover an account, or spot a scam — those are taught skills, at any age."
     },
     {
       "prompt": "\"People who are offline just do not want the internet.\" What actually keeps most people offline?",
       "choices": [
-        "Lack of interest, almost always",
         "Cost, coverage, devices, and skills — barriers more than choices",
-        "A doctor's advice to avoid screens",
+        "Lack of interest, almost always",
+        "Free public Wi-Fi is everywhere now, so cost is no longer the problem",
         "Nothing — everyone is online now"
       ],
-      "answerIndex": 1,
+      "answerIndex": 0,
       "explanation": "Surveys across countries keep finding the same wall: connection and device costs, weak coverage, and never having been taught. Framing it as a choice hides a solvable problem."
     },
     {
       "prompt": "\"Having a smartphone means someone is fully online.\" What does phone-only access make hard?",
       "choices": [
         "Nothing — a phone does everything a computer does",
-        "Long forms, homework, job applications, and anything needing a big screen or a keyboard",
         "Only gaming",
-        "Phones cannot open websites"
+        "Phones cannot open websites",
+        "Long forms, homework, job applications, and anything needing a big screen or a keyboard"
       ],
-      "answerIndex": 1,
-      "explanation": "A phone on prepaid data is a narrow doorway: fine for messages, hard for a CV, a school essay, or a government form. That gap is called smartphone-dependent access."
+      "answerIndex": 3,
+      "explanation": "A phone on prepaid data is a narrow doorway: fine for messages, hard for a job application, a school essay, or a government form. That gap is called smartphone-dependent access."
     },
     {
       "prompt": "\"Accessibility features only matter to a small group of people.\" Who actually uses them?",
@@ -49,11 +49,11 @@
       "prompt": "A community wants more people online. What tends to help most?",
       "choices": [
         "Handing out devices and considering it done",
-        "Affordable connections plus patient, local, hands-on teaching — libraries and community centers do this well",
         "Waiting for the next generation to grow up",
+        "Affordable connections plus patient, local, hands-on teaching — libraries and community centers do this well",
         "Making the internet a requirement for all services immediately"
       ],
-      "answerIndex": 1,
+      "answerIndex": 2,
       "explanation": "Devices without teaching gather dust, and requirements without access lock people out. Programs that pair affordable connections with a trusted person to learn from are the ones that stick."
     }
   ]

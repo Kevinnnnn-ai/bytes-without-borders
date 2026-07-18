@@ -4,34 +4,34 @@
     {
       "prompt": "A text says a package could not be delivered — pay a small customs fee through the link within 24 hours. What gives it away?",
       "choices": [
-        "Delivery companies never send texts",
         "The deadline and the tiny fee — urgency plus a small ask is the classic hook",
+        "Delivery companies never send texts",
         "Real customs fees are always larger",
         "Nothing — it is safest to pay small fees quickly"
       ],
-      "answerIndex": 1,
+      "answerIndex": 0,
       "explanation": "Scams pair a countdown with an amount too small to think twice about. If you are expecting a package, check it in the courier's own app or site — never through a link in a message."
     },
     {
-      "prompt": "An email from \"IT support\" says your mailbox is full and asks you to reply with your password to expand it. What should you do?",
+      "prompt": "An email from \"tech support\" says your mailbox is full and asks you to reply with your password to expand it. What should you do?",
       "choices": [
-        "Reply — IT already manages your account anyway",
+        "Reply — tech support already manages your account anyway",
         "Send an older password you no longer use much",
-        "Never send it — no real IT team or company asks for your password",
-        "Forward the email to colleagues to see if they got it too"
+        "Forward the email to colleagues to see if they got it too",
+        "Never send it — no real support team or company asks for your password"
       ],
-      "answerIndex": 2,
+      "answerIndex": 3,
       "explanation": "Anyone who genuinely runs the system can manage it without your password. A request for a password or a sign-in code is itself the proof of a scam."
     },
     {
       "prompt": "A marketplace seller offers a phone at half price, but only if you skip the site and pay by bank transfer or gift cards today. What is the tell?",
       "choices": [
         "Half price alone — good deals are always fake",
+        "The seller has good reviews, so the payment method does not matter",
         "Leaving the platform and paying by untraceable means",
-        "Selling phones online is not allowed",
-        "Bank transfers are never used for shopping"
+        "A big discount is normal for a quick private sale — pay fast before someone else does"
       ],
-      "answerIndex": 1,
+      "answerIndex": 2,
       "explanation": "The platform's payment system is what protects you. Scammers pull you off it because transfers and gift cards cannot be reversed. The discount is the bait; the payment method is the trap."
     },
     {
@@ -48,12 +48,12 @@
     {
       "prompt": "A voice message that sounds exactly like a relative asks for money urgently and begs you not to tell anyone. What is the safest response?",
       "choices": [
+        "Contact your relative yourself on the number you already have",
         "Send the money — the voice is unmistakable",
         "Reply in the same chat and ask the voice for details",
-        "Contact your relative yourself on the number you already have",
         "Post about it publicly to warn others first"
       ],
-      "answerIndex": 2,
+      "answerIndex": 0,
       "explanation": "Voices can now be convincingly imitated. Secrecy plus urgency is the oldest pressure trick there is. Verify through a channel you already trust — call the person back on their known number."
     }
   ]
