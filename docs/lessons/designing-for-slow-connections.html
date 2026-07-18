@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add("js");</script>
+  <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#17161d" media="(prefers-color-scheme: dark)">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preload" href="../assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <title>Designing for slow connections — Bytes Without Borders</title>
+  <meta name="description" content="Why heavy pages shut people out, and how lean design welcomes them back — a four-minute lesson for anyone who makes or shares things online.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-root="../">
+  <a class="skip-link" href="#main" data-i18n="nav.skip">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="../index.html">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+        <rect x="2" y="6" width="28" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M3 8l13 9 13-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="25" cy="21" r="3" fill="currentColor"/>
+      </svg>
+      <span>Bytes Without Borders</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span data-i18n="nav.menu">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="./index.html" data-i18n="nav.lessons">Lessons</a></li>
+        <li><a href="../about.html" data-i18n="nav.about">About</a></li>
+        <li><a href="../get-involved.html" data-i18n="nav.getInvolved">Get involved</a></li>
+      </ul>
+      <div class="lang-pick">
+        <label for="lang-switch" data-i18n="nav.language">Language</label>
+        <select id="lang-switch">
+          <option value="en" selected>English</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" data-topic="digital-inclusion">
+    <header class="article-header">
+      <a class="crumb" href="./index.html" data-i18n="lesson.back">← All lessons</a>
+      <p class="eyebrow">Digital inclusion</p>
+      <h1>Designing for slow connections</h1>
+      <p class="article-meta"><span class="stamp">≈ 4 min</span><span class="kind">Article</span></p>
+    </header>
+
+    <article class="prose">
+      <p>Much of the world reaches the internet through an older phone, a data plan shared across a family, or a signal that comes and goes. A page built and tested on fast office Wi-Fi can be perfectly usable there and completely unusable here. If you make, post, or share anything online, the <strong>weight</strong> of what you send decides who can open it. The good news is that a lighter page is not a worse one — it loads faster for everyone, everywhere.</p>
+
+      <h2>Weight is a wall</h2>
+      <p>A page has to be downloaded before it can be seen. Every image, video, and script is data that someone pays for — real money on a prepaid plan, and real minutes on a slow link. When a page is heavy, it becomes a <strong>door that only opens for some</strong>: fine on a new phone with fast data, a long stall or a blank screen on everything else. This very site is a quiet example of the other way. Its lessons are mostly text, so they load on a cheap phone and a weak signal.</p>
+
+      <h2>What makes pages heavy</h2>
+      <p>The usual causes are simple to name. <strong>Oversized images</strong> — photos saved at full camera resolution when a small version would look the same on a phone. Autoplaying video that starts spending data before anyone asks. And piles of scripts and trackers, each one small on its own, that add up to a page far heavier than the words it carries. None of these are villains on their own — the trouble is how quietly they accumulate.</p>
+
+      <h2>Lean habits</h2>
+      <p>You do not need a rewrite to lighten a page — a few habits do most of the work. Send <strong>smaller images</strong>: resize them to the size they actually appear, and let the words carry the meaning. Make text the backbone; it is light, it is searchable, and it translates. Let a page work while the extras are still loading, instead of hiding everything behind them. And once, before you publish, open your page on a slow connection or an old phone — the problems become obvious the moment you feel them yourself.</p>
+
+      <h2>Sharing kindly</h2>
+      <p>This is not only for people who build websites. Anyone who forwards a file shapes someone else's data bill. <strong>Compress</strong> a photo or document before sending it to a group, so twenty people are not each downloading a huge file. Link to something instead of attaching it, so people open it only if they want it. And when plain words carry the message, send the words — a short note travels where a heavy video stalls.</p>
+
+      <h2>Try it today</h2>
+      <ul>
+        <li>Resize one image before you post or send it, instead of using the full-size original.</li>
+        <li>Compress a file before sharing it with a group, or send a link instead.</li>
+        <li>Open a page you made or use often on a slow connection, and notice what makes you wait.</li>
+      </ul>
+
+      <p><a class="btn btn-primary" href="../get-involved.html" data-i18n="lesson.involvedCta">Help close the gap — get involved</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <hr class="airmail-rule">
+    <div class="footer-inner">
+      <p class="footer-mission" data-i18n="footer.mission">Plain-language digital education. Free to share, built to be translated.</p>
+      <nav aria-label="Footer">
+        <ul class="footer-nav">
+          <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+          <li><a href="./index.html" data-i18n="nav.lessons">Lessons</a></li>
+          <li><a href="../about.html" data-i18n="nav.about">About</a></li>
+          <li><a href="../get-involved.html" data-i18n="nav.getInvolved">Get involved</a></li>
+        </ul>
+      </nav>
+      <p class="footer-note"><span data-i18n="footer.contact">Write to us:</span> <a href="mailto:hello@byteswithoutborders.example">hello@byteswithoutborders.example</a></p>
+    </div>
+  </footer>
+
+  <script src="../js/i18n.js" defer></script>
+  <script src="../js/main.js" defer></script>
+</body>
+</html>

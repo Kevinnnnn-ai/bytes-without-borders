@@ -71,6 +71,15 @@
       "summary": "Updates are patches for doors you did not know were open. Why 'later' is the risky choice.",
       "minutes": 3,
       "kind": "article"
+    },
+    {
+      "slug": "designing-for-slow-connections",
+      "href": "designing-for-slow-connections.html",
+      "title": "Designing for slow connections",
+      "topic": "digital-inclusion",
+      "summary": "Why heavy pages shut people out, and how lean design welcomes them back.",
+      "minutes": 4,
+      "kind": "article"
     }
   ]
 }
