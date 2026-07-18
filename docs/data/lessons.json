@@ -89,6 +89,15 @@
       "summary": "Screen readers, captions, and bigger buttons help far more people than you think — sometimes you.",
       "minutes": 4,
       "kind": "article"
+    },
+    {
+      "slug": "quiz-spot-the-scam",
+      "href": "quiz-spot-the-scam.html",
+      "title": "Quiz: spot the scam",
+      "topic": "tech-literacy",
+      "summary": "Five messages. Some are real, some are bait. Test your checks before the scammers do.",
+      "minutes": 3,
+      "kind": "interactive"
     }
   ]
 }

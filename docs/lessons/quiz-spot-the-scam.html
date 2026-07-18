@@ -10,8 +10,8 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="preload" href="../assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <title>Spotting misinformation — Bytes Without Borders</title>
-  <meta name="description" content="Five quick checks that separate reliable reporting from manufactured outrage — a five-minute tech literacy lesson.">
+  <title>Quiz: spot the scam — Bytes Without Borders</title>
+  <meta name="description" content="Five messages. Some are real, some are bait. Test your checks before the scammers do — a three-minute interactive quiz.">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../css/main.css">
 </head>
@@ -51,39 +51,16 @@
     <header class="article-header">
       <a class="crumb" href="./index.html" data-i18n="lesson.back">← All lessons</a>
       <p class="eyebrow">Tech literacy</p>
-      <h1>Spotting misinformation</h1>
-      <p class="article-meta"><span class="stamp">≈ 5 min</span><span class="kind">Article</span></p>
+      <h1>Quiz: spot the scam</h1>
+      <p class="article-meta"><span class="stamp">≈ 3 min</span><span class="kind">Interactive</span></p>
     </header>
 
-    <article class="prose">
-      <p>False stories spread faster than true ones because they are engineered to. They aim at your emotions, not your reason. These five checks take under a minute and catch most of what the engineered stuff relies on.</p>
-
-      <h2>1. Notice the surge</h2>
-      <p>Misinformation is built to make you feel something <strong>immediately</strong> — outrage, fear, vindication. That surge is the tell. When a post makes your pulse jump, that is exactly the moment to slow down. Real news informs first; manufactured news inflames first.</p>
-
-      <h2>2. Ask who is telling you</h2>
-      <p>Scroll to the source before you believe the claim. Is there an author's name? A date? An outlet you have heard of — or a site dressed up to look like one? <strong>No source is a source.</strong> "People are saying" is nobody.</p>
-
-      <h2>3. Read past the headline</h2>
-      <p>Headlines are written to be shared, not to be accurate. Studies consistently find most articles shared online were never opened. The headline says what spreads; the third paragraph often says <strong>what actually happened</strong>.</p>
-
-      <h2>4. Look for a second witness</h2>
-      <p>Real events leave tracks everywhere. If something big were true, several unrelated outlets would carry it within hours. One obscure site with an exclusive nobody else has is not early — it is <strong>alone</strong>, and that means something.</p>
-
-      <h2>5. Distrust convenient pictures</h2>
-      <p>Most fake images are not doctored — they are <strong>real photos from a different time or place</strong>, re-captioned. A reverse image search (built into most browsers) shows where a picture first appeared. If a photo is doing all the convincing, check the photo.</p>
-
-      <h2>Before you share</h2>
-      <ul>
-        <li>Did this make me feel a surge? Pause.</li>
-        <li>Who wrote it, and when?</li>
-        <li>Did I read past the headline?</li>
-        <li>Is anyone else reporting it?</li>
-        <li>Does the photo actually show what the caption claims?</li>
-      </ul>
-
-      <p><a class="btn btn-primary" href="./quiz-spot-the-scam.html" data-i18n="lesson.ctaScamQuiz">Test yourself: spot the scam</a></p>
-    </article>
+    <div id="quiz" class="quiz-frame" data-src="../data/quiz-spot-the-scam.json">
+      <noscript>
+        <p>This interactive lesson needs JavaScript, which is turned off in your browser.</p>
+        <p>No problem — the same ideas are covered in <a href="./spotting-misinformation.html">Spotting misinformation</a>.</p>
+      </noscript>
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -104,5 +81,6 @@
 
   <script src="../js/i18n.js" defer></script>
   <script src="../js/main.js" defer></script>
+  <script src="../js/quiz.js" defer></script>
 </body>
 </html>

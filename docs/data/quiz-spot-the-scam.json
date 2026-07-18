@@ -1,0 +1,60 @@
+{
+  "title": "Spot the scam",
+  "questions": [
+    {
+      "prompt": "A text says a package could not be delivered — pay a small customs fee through the link within 24 hours. What gives it away?",
+      "choices": [
+        "Delivery companies never send texts",
+        "The deadline and the tiny fee — urgency plus a small ask is the classic hook",
+        "Real customs fees are always larger",
+        "Nothing — it is safest to pay small fees quickly"
+      ],
+      "answerIndex": 1,
+      "explanation": "Scams pair a countdown with an amount too small to think twice about. If you are expecting a package, check it in the courier's own app or site — never through a link in a message."
+    },
+    {
+      "prompt": "An email from \"IT support\" says your mailbox is full and asks you to reply with your password to expand it. What should you do?",
+      "choices": [
+        "Reply — IT already manages your account anyway",
+        "Send an older password you no longer use much",
+        "Never send it — no real IT team or company asks for your password",
+        "Forward the email to colleagues to see if they got it too"
+      ],
+      "answerIndex": 2,
+      "explanation": "Anyone who genuinely runs the system can manage it without your password. A request for a password or a sign-in code is itself the proof of a scam."
+    },
+    {
+      "prompt": "A marketplace seller offers a phone at half price, but only if you skip the site and pay by bank transfer or gift cards today. What is the tell?",
+      "choices": [
+        "Half price alone — good deals are always fake",
+        "Leaving the platform and paying by untraceable means",
+        "Selling phones online is not allowed",
+        "Bank transfers are never used for shopping"
+      ],
+      "answerIndex": 1,
+      "explanation": "The platform's payment system is what protects you. Scammers pull you off it because transfers and gift cards cannot be reversed. The discount is the bait; the payment method is the trap."
+    },
+    {
+      "prompt": "A pop-up flashes \"VIRUS DETECTED — call this number now.\" What is really happening?",
+      "choices": [
+        "Your device found a virus and opened a support line",
+        "It is an ad-style scare page — real security warnings do not ask you to call anyone",
+        "The number is your device maker's official helpline",
+        "Ignoring it will let the virus spread"
+      ],
+      "answerIndex": 1,
+      "explanation": "Operating systems and browsers never show a phone number to call. Close the tab or restart the browser; nothing was infected by the pop-up itself. The scam happens on the phone call, where a stranger asks for remote access or payment."
+    },
+    {
+      "prompt": "A voice message that sounds exactly like a relative asks for money urgently and begs you not to tell anyone. What is the safest response?",
+      "choices": [
+        "Send the money — the voice is unmistakable",
+        "Reply in the same chat and ask the voice for details",
+        "Contact your relative yourself on the number you already have",
+        "Post about it publicly to warn others first"
+      ],
+      "answerIndex": 2,
+      "explanation": "Voices can now be convincingly imitated. Secrecy plus urgency is the oldest pressure trick there is. Verify through a channel you already trust — call the person back on their known number."
+    }
+  ]
+}
