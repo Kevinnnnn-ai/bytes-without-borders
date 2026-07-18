@@ -30,9 +30,21 @@ REQUIRED_PAGES = [
     "lessons/spotting-misinformation.html",
     "lessons/bridging-the-digital-divide.html",
     "lessons/quiz-data-privacy.html",
+    "lessons/two-factor-authentication.html",
+    "lessons/what-cookies-know.html",
+    "lessons/how-the-internet-reaches-you.html",
+    "lessons/why-updates-matter.html",
+    "lessons/designing-for-slow-connections.html",
+    "lessons/accessibility-for-everyone.html",
+    "lessons/quiz-spot-the-scam.html",
+    "lessons/quiz-getting-online.html",
+    "lessons/es/understanding-passwords.html",
+    "lessons/es/spotting-misinformation.html",
 ]
 
 TOPICS = {"data-privacy", "tech-literacy", "digital-inclusion"}
+
+SITE_BASE = "https://kevinnnnn-ai.github.io/bytes-without-borders/"
 
 
 class PageScan(HTMLParser):
@@ -51,6 +63,9 @@ class PageScan(HTMLParser):
         self._script_buf = ""
         self.inline_scripts: list[str] = []
         self.font_preloads = 0
+        self.options: list[str] = []
+        self.body_attrs: dict = {}
+        self.alternates: list[dict] = []
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -67,6 +82,12 @@ class PageScan(HTMLParser):
             self._script_buf = ""
         elif tag == "link" and a.get("rel") == "preload" and a.get("as") == "font":
             self.font_preloads += 1
+        elif tag == "option" and "value" in a:
+            self.options.append(a["value"])
+        elif tag == "body":
+            self.body_attrs = a
+        if tag == "link" and a.get("rel") == "alternate" and a.get("hreflang"):
+            self.alternates.append(a)
         # data-src is the quiz engine's fetch target — a broken one is a broken page
         for key in ("href", "src", "data-src"):
             if a.get(key):
@@ -148,8 +169,9 @@ def test_page_basics_all_pages():
             problems.append(f"{rel}: expected exactly one <h1>, found {s.h1_count}")
         if not s.title.strip():
             problems.append(f"{rel}: empty or missing <title>")
-        if s.lang != "en":
-            problems.append(f"{rel}: <html lang> must be 'en', got {s.lang!r}")
+        expected_lang = "es" if rel.parts[:2] == ("lessons", "es") else "en"
+        if s.lang != expected_lang:
+            problems.append(f"{rel}: <html lang> must be {expected_lang!r}, got {s.lang!r}")
         names = {m.get("name"): m.get("content", "") for m in s.metas if m.get("name")}
         if not names.get("viewport"):
             problems.append(f"{rel}: missing viewport meta")
@@ -272,3 +294,87 @@ def test_hub_links_every_lesson():
     hub_html = hub.read_text(encoding="utf-8")
     for lesson in json.loads(lessons_json.read_text(encoding="utf-8"))["lessons"]:
         assert lesson["href"] in hub_html, f"hub does not link {lesson['href']}"
+
+
+def site_url_to_path(url: str) -> Path | None:
+    """Map an absolute SITE_BASE url to its file under docs/, else None."""
+    if not url.startswith(SITE_BASE):
+        return None
+    return SRC / unquote(urlsplit(url).path[len(urlsplit(SITE_BASE).path):])
+
+
+def test_locale_key_parity():
+    en = flatten(json.loads((SRC / "locales" / "en.json").read_text(encoding="utf-8")))
+    es_path = SRC / "locales" / "es.json"
+    assert es_path.is_file(), "docs/locales/es.json does not exist"
+    es = flatten(json.loads(es_path.read_text(encoding="utf-8")))
+    assert set(en) == set(es), (
+        "en/es key mismatch:\n  only en: %s\n  only es: %s"
+        % (sorted(set(en) - set(es)), sorted(set(es) - set(en)))
+    )
+    empty = [k for k, v in es.items() if not v.strip()]
+    assert not empty, f"es.json has empty values: {empty}"
+
+
+def test_lang_switcher_options():
+    problems = []
+    for path in html_files():
+        opts = scan(path).options
+        for code in ("en", "es"):
+            if code not in opts:
+                problems.append(f"{path.relative_to(SRC)}: switcher missing option {code!r}")
+    assert not problems, "language switcher problems:\n" + "\n".join(problems)
+
+
+def test_translation_pages_cross_linked():
+    es_dir = SRC / "lessons" / "es"
+    assert es_dir.is_dir() and list(es_dir.glob("*.html")), "no Spanish lesson pages"
+    problems = []
+    for es_page in sorted(es_dir.glob("*.html")):
+        en_page = SRC / "lessons" / es_page.name
+        if not en_page.is_file():
+            problems.append(f"{es_page.name}: no English counterpart")
+            continue
+        s_es, s_en = scan(es_page), scan(en_page)
+        alt_en = s_es.body_attrs.get("data-alt-en")
+        alt_es = s_en.body_attrs.get("data-alt-es")
+        if not alt_en or not (es_page.parent / alt_en).resolve() == en_page.resolve():
+            problems.append(f"lessons/es/{es_page.name}: bad data-alt-en {alt_en!r}")
+        if not alt_es or not (en_page.parent / alt_es).resolve() == es_page.resolve():
+            problems.append(f"lessons/{en_page.name}: bad data-alt-es {alt_es!r}")
+        for page, s, needed in ((es_page, s_es, {"en", "es"}), (en_page, s_en, {"en", "es", "x-default"})):
+            langs = {a["hreflang"] for a in s.alternates}
+            if langs != needed:
+                problems.append(f"{page.relative_to(SRC)}: hreflang set {sorted(langs)} != {sorted(needed)}")
+            for a in s.alternates:
+                target = site_url_to_path(a.get("href", ""))
+                if target is None or not exists_exact(target.resolve()):
+                    problems.append(f"{page.relative_to(SRC)}: hreflang href does not resolve: {a.get('href')}")
+    assert not problems, "translation cross-link problems:\n" + "\n".join(problems)
+
+
+def test_sitemap_covers_site():
+    import xml.etree.ElementTree as ET
+    path = SRC / "sitemap.xml"
+    assert path.is_file(), "docs/sitemap.xml does not exist"
+    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    locs = [el.text for el in ET.parse(path).getroot().findall("sm:url/sm:loc", ns)]
+    assert len(locs) == len(set(locs)), "duplicate sitemap entries"
+    expected = {p for p in html_files() if p.name != "404.html"}
+    actual = set()
+    for loc in locs:
+        target = site_url_to_path(loc or "")
+        assert target is not None, f"sitemap url not under SITE_BASE: {loc}"
+        actual.add(target)
+    assert actual == expected, (
+        "sitemap mismatch:\n  missing: %s\n  extra: %s"
+        % (sorted(str(p.relative_to(SRC)) for p in expected - actual),
+           sorted(str(p.relative_to(SRC)) for p in actual - expected))
+    )
+
+
+def test_robots_txt():
+    path = SRC / "robots.txt"
+    assert path.is_file(), "docs/robots.txt does not exist"
+    text = path.read_text(encoding="utf-8")
+    assert f"Sitemap: {SITE_BASE}sitemap.xml" in text
