@@ -35,6 +35,15 @@
       "summary": "Five scenarios to test your instincts before the scammers do.",
       "minutes": 3,
       "kind": "interactive"
+    },
+    {
+      "slug": "two-factor-authentication",
+      "href": "two-factor-authentication.html",
+      "title": "Two-factor authentication, explained",
+      "topic": "data-privacy",
+      "summary": "Why a second step stops most break-ins cold, and which kind of second step to pick.",
+      "minutes": 4,
+      "kind": "article"
     }
   ]
 }
