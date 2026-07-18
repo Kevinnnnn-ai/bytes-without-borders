@@ -74,7 +74,8 @@
     "filterAll": "All topics",
     "filterPrivacy": "Data privacy",
     "filterLiteracy": "Tech literacy",
-    "filterInclusion": "Digital inclusion"
+    "filterInclusion": "Digital inclusion",
+    "showing": "Showing {shown} of {total} lessons"
   },
   "lesson": {
     "back": "← All lessons",
@@ -86,5 +87,23 @@
     "body": "This page could not be delivered — it may have moved or never existed. The lessons are all still where they should be.",
     "ctaHome": "Back to the start",
     "ctaLessons": "Browse the lessons"
+  },
+  "quiz": {
+    "progress": "Question {current} of {total}",
+    "correct": "Correct.",
+    "incorrect": "Not quite.",
+    "next": "Next question",
+    "finish": "See your score",
+    "retry": "Try again",
+    "score": "You got {score} of {total}.",
+    "perfect": "Perfect — your instincts are sharp.",
+    "good": "Solid — worth rereading the explanations you missed.",
+    "start": "Good start — reread the explanations you missed, then try again.",
+    "error": "This lesson could not load. Refresh the page to try again."
+  },
+  "ui": {
+    "share": "Share this lesson",
+    "shareCopied": "Link copied ✓",
+    "toTop": "Back to top"
   }
 }

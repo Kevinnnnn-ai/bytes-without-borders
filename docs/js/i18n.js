@@ -3,13 +3,28 @@
    other languages are drop-in files at locales/<code>.json plus an
    <option> in the switcher. Missing file or key: inline English stays.
    Switching applies in place (no reload); the original English text is
-   stashed on each node so switching back needs no fetch. */
+   stashed on each node so switching back needs no fetch.
+   Extras for JS-created UI and full page translations:
+   - window.bwbDict always holds the active flattened dictionary ({} for
+     English); "bwb:langchange" fires on document after every change.
+   - A body[data-alt-<code>] attribute marks a real translated copy of
+     this page; choosing that language NAVIGATES there instead of
+     swapping. Translated pages (html[lang] != "en") never dictionary-swap
+     — they only navigate back, but still load their locale file so
+     JS-created UI (share, quiz labels) speaks their language. */
 (function () {
   "use strict";
 
   var STORAGE_KEY = "bwb-lang";
   var root = document.body.getAttribute("data-root") || "./";
   var select = document.getElementById("lang-switch");
+  var pageLang = document.documentElement.getAttribute("lang") || "en";
+
+  window.bwbDict = {};
+
+  function announce() {
+    document.dispatchEvent(new CustomEvent("bwb:langchange"));
+  }
 
   function flatten(obj, prefix, out) {
     Object.keys(obj).forEach(function (k) {
@@ -47,6 +62,8 @@
       }
     });
     document.documentElement.lang = "en";
+    window.bwbDict = {};
+    announce();
   }
 
   function load(lang) {
@@ -57,10 +74,20 @@
         return response.json();
       })
       .then(function (data) {
-        apply(flatten(data, "", {}));
-        document.documentElement.lang = lang;
+        var dict = flatten(data, "", {});
+        window.bwbDict = dict;
+        if (pageLang === "en") {
+          apply(dict);
+          document.documentElement.lang = lang;
+        }
+        announce();
       })
       .catch(function () { /* fall back silently to inline English */ });
+  }
+
+  function store(choice) {
+    /* persistence is best-effort; the switch works either way */
+    try { localStorage.setItem(STORAGE_KEY, choice); } catch (e) { /* ignore */ }
   }
 
   var saved = null;
@@ -72,11 +99,14 @@
       return option.value === lang;
     });
     if (!known) { lang = "en"; }
-    select.value = lang;
+    /* a translated page shows itself in the switcher, whatever is stored */
+    select.value = pageLang === "en" ? lang : pageLang;
     select.addEventListener("change", function () {
       var choice = select.value;
-      /* persistence is best-effort; the switch works either way */
-      try { localStorage.setItem(STORAGE_KEY, choice); } catch (e) { /* ignore */ }
+      store(choice);
+      var alt = document.body.getAttribute("data-alt-" + choice);
+      if (alt) { window.location.href = alt; return; }
+      if (pageLang !== "en") { return; } /* translated page, no swap */
       if (choice === "en") {
         restoreEnglish();
       } else {
@@ -85,5 +115,6 @@
     });
   }
 
-  load(lang);
+  /* no auto-redirect on load — data-alt-* only acts on an explicit switch */
+  load(pageLang === "en" ? lang : pageLang);
 })();

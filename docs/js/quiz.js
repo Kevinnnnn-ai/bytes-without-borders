@@ -1,6 +1,6 @@
 /* Quiz engine: renders a JSON-defined micro-quiz into #quiz.
-   UI strings live in STRINGS below; when a second language lands,
-   they move to the locale files (see superpowers/architecture.md). */
+   STRINGS below are English defaults; the active locale overrides them
+   via window.bwbDict ("quiz.*" keys, see js/i18n.js). */
 (function () {
   "use strict";
 
@@ -17,9 +17,21 @@
     score: "You got {score} of {total}.",
     perfect: "Perfect — your instincts are sharp.",
     good: "Solid — worth rereading the explanations you missed.",
-    start: "Good start — read “Understanding passwords” next, then come back.",
+    start: "Good start — reread the explanations you missed, then try again.",
     error: "This lesson could not load. Refresh the page to try again."
   };
+
+  function t(key) {
+    var dict = window.bwbDict || {};
+    return Object.prototype.hasOwnProperty.call(dict, "quiz." + key) ? dict["quiz." + key] : STRINGS[key];
+  }
+
+  /* redraws the current screen when the language changes; null while an
+     explanation is open (a redraw would erase the marked answer) */
+  var rerender = null;
+  document.addEventListener("bwb:langchange", function () {
+    if (rerender) { rerender(); }
+  });
 
   function fill(template, values) {
     return template.replace(/\{(\w+)\}/g, function (_, key) {
@@ -55,8 +67,9 @@
   }
 
   function fail() {
+    rerender = fail;
     host.textContent = "";
-    host.appendChild(el("p", "quiz-error", STRINGS.error));
+    host.appendChild(el("p", "quiz-error", t("error")));
   }
 
   function start(data) {
@@ -65,9 +78,10 @@
     var total = data.questions.length;
 
     function renderQuestion(moveFocus) {
+      rerender = function () { renderQuestion(false); };
       var q = data.questions[index];
       host.textContent = "";
-      var progress = el("p", "quiz-progress", fill(STRINGS.progress, { current: index + 1, total: total }));
+      var progress = el("p", "quiz-progress", fill(t("progress"), { current: index + 1, total: total }));
       host.appendChild(progress);
 
       /* visual progress track (the text above already announces it) */
@@ -99,6 +113,7 @@
     }
 
     function answer(chosen, buttons, q) {
+      rerender = null;
       var right = chosen === q.answerIndex;
       buttons.forEach(function (button) { button.disabled = true; });
       /* mark with glyphs as well as color */
@@ -112,15 +127,15 @@
       }
 
       var explain = el("div", "quiz-explain");
-      explain.appendChild(el("p", null, (right ? STRINGS.correct : STRINGS.incorrect) + " " + q.explanation));
+      explain.appendChild(el("p", null, (right ? t("correct") : t("incorrect")) + " " + q.explanation));
       host.appendChild(explain);
 
       var last = index === total - 1;
-      var next = el("button", "btn btn-primary quiz-next", last ? STRINGS.finish : STRINGS.next);
+      var next = el("button", "btn btn-primary quiz-next", last ? t("finish") : t("next"));
       next.type = "button";
       next.addEventListener("click", function () {
         if (last) {
-          renderScore();
+          renderScore(true);
         } else {
           index += 1;
           renderQuestion(true);
@@ -130,13 +145,14 @@
       focusInto(explain);
     }
 
-    function renderScore() {
+    function renderScore(moveFocus) {
+      rerender = function () { renderScore(false); };
       host.textContent = "";
-      var scoreLine = el("p", "quiz-score", fill(STRINGS.score, { score: score, total: total }));
+      var scoreLine = el("p", "quiz-score", fill(t("score"), { score: score, total: total }));
       host.appendChild(scoreLine);
-      var verdict = score === total ? STRINGS.perfect : (score >= Math.ceil(total * 0.6) ? STRINGS.good : STRINGS.start);
+      var verdict = score === total ? t("perfect") : (score >= Math.ceil(total * 0.6) ? t("good") : t("start"));
       host.appendChild(el("p", null, verdict));
-      var retry = el("button", "btn quiz-next", STRINGS.retry);
+      var retry = el("button", "btn quiz-next", t("retry"));
       retry.type = "button";
       retry.addEventListener("click", function () {
         index = 0;
@@ -144,7 +160,7 @@
         renderQuestion(true);
       });
       host.appendChild(retry);
-      focusInto(scoreLine);
+      if (moveFocus) { focusInto(scoreLine); }
     }
 
     renderQuestion(false);

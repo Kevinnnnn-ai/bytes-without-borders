@@ -3,6 +3,18 @@
 (function () {
   "use strict";
 
+  /* English defaults for JS-created UI; locale overrides via window.bwbDict */
+  var UI = {
+    "ui.share": "Share this lesson",
+    "ui.shareCopied": "Link copied ✓",
+    "ui.toTop": "Back to top",
+    "hub.showing": "Showing {shown} of {total} lessons"
+  };
+  function t(key) {
+    var dict = window.bwbDict || {};
+    return Object.prototype.hasOwnProperty.call(dict, key) ? dict[key] : UI[key];
+  }
+
   /* Mobile navigation toggle */
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("site-nav");
@@ -36,7 +48,7 @@
           card.hidden = topic !== "all" && card.getAttribute("data-topic") !== topic;
           if (!card.hidden) { shown += 1; }
         });
-        filterStatus.textContent = "Showing " + shown + " of " + cards.length + " lessons";
+        filterStatus.textContent = t("hub.showing").replace("{shown}", String(shown)).replace("{total}", String(cards.length));
       });
     });
   }
@@ -88,7 +100,7 @@
   var toTop = document.createElement("button");
   toTop.type = "button";
   toTop.className = "to-top";
-  toTop.setAttribute("aria-label", "Back to top");
+  toTop.setAttribute("aria-label", t("ui.toTop"));
   toTop.textContent = "↑";
   document.body.appendChild(toTop);
   var toTopTick = false;
@@ -110,11 +122,10 @@
   var article = document.querySelector("article.prose");
   var canCopy = navigator.clipboard && navigator.clipboard.writeText;
   if (article && (navigator.share || canCopy)) {
-    var SHARE_LABEL = "Share this lesson";
     var share = document.createElement("button");
     share.type = "button";
     share.className = "btn share-btn";
-    share.textContent = SHARE_LABEL;
+    share.textContent = t("ui.share");
     article.appendChild(share);
     share.addEventListener("click", function () {
       if (navigator.share) {
@@ -122,8 +133,8 @@
           .catch(function () { /* user closed the share sheet */ });
       } else {
         navigator.clipboard.writeText(window.location.href).then(function () {
-          share.textContent = "Link copied ✓";
-          setTimeout(function () { share.textContent = SHARE_LABEL; }, 2000);
+          share.textContent = t("ui.shareCopied");
+          setTimeout(function () { share.textContent = t("ui.share"); }, 2000);
         }).catch(function () { /* clipboard unavailable */ });
       }
     });
@@ -146,4 +157,13 @@
         "&body=" + encodeURIComponent(body);
     });
   }
+
+  /* JS-created labels re-resolve when the language changes */
+  document.addEventListener("bwb:langchange", function () {
+    toTop.setAttribute("aria-label", t("ui.toTop"));
+    var shareBtn = document.querySelector(".share-btn");
+    if (shareBtn && shareBtn.textContent !== t("ui.shareCopied")) {
+      shareBtn.textContent = t("ui.share");
+    }
+  });
 })();
