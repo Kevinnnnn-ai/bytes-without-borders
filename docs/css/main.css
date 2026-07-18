@@ -728,6 +728,7 @@ html.js .reveal.in-view {
   color: var(--indigo);
   background: color-mix(in srgb, var(--indigo) 8%, transparent);
 }
+.filter-count { margin-left: 0.45em; opacity: 0.75; }
 
 /* ---------- forms ---------- */
 

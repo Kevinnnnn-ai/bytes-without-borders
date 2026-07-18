@@ -32,6 +32,18 @@
     filterBar.hidden = false;
     var buttons = filterBar.querySelectorAll("button[data-topic]");
     var cards = document.querySelectorAll("[data-lesson-card]");
+    /* count chips: derived from the rendered cards, never hardcoded */
+    Array.prototype.forEach.call(buttons, function (btn) {
+      var topic = btn.getAttribute("data-topic");
+      var n = 0;
+      Array.prototype.forEach.call(cards, function (card) {
+        if (topic === "all" || card.getAttribute("data-topic") === topic) { n += 1; }
+      });
+      var count = document.createElement("span");
+      count.className = "filter-count";
+      count.textContent = String(n);
+      btn.appendChild(count);
+    });
     /* announce filter results to screen readers */
     var filterStatus = document.createElement("p");
     filterStatus.className = "visually-hidden";
