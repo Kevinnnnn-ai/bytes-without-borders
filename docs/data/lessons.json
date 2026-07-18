@@ -44,6 +44,15 @@
       "summary": "Why a second step stops most break-ins cold, and which kind of second step to pick.",
       "minutes": 4,
       "kind": "article"
+    },
+    {
+      "slug": "what-cookies-know",
+      "href": "what-cookies-know.html",
+      "title": "What cookies know about you",
+      "topic": "data-privacy",
+      "summary": "What tracking actually looks like, and the settings that quiet it without breaking the web.",
+      "minutes": 5,
+      "kind": "article"
     }
   ]
 }

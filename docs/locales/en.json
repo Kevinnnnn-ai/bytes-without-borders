@@ -80,7 +80,8 @@
   "lesson": {
     "back": "← All lessons",
     "quizCta": "Test yourself: the data privacy quiz",
-    "involvedCta": "Help close the gap — get involved"
+    "involvedCta": "Help close the gap — get involved",
+    "cta2fa": "Next: Two-factor authentication, explained"
   },
   "notfound": {
     "title": "Lost in transit.",
