@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add("js");</script>
+  <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#17161d" media="(prefers-color-scheme: dark)">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preload" href="../assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <title>Quiz: myths about getting online — Bytes Without Borders</title>
+  <meta name="description" content="True or false: five common beliefs about who is online, who is not, and why — a three-minute interactive quiz.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-root="../">
+  <a class="skip-link" href="#main" data-i18n="nav.skip">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="../index.html">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+        <rect x="2" y="6" width="28" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M3 8l13 9 13-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="25" cy="21" r="3" fill="currentColor"/>
+      </svg>
+      <span>Bytes Without Borders</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span data-i18n="nav.menu">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="./index.html" data-i18n="nav.lessons">Lessons</a></li>
+        <li><a href="../about.html" data-i18n="nav.about">About</a></li>
+        <li><a href="../get-involved.html" data-i18n="nav.getInvolved">Get involved</a></li>
+      </ul>
+      <div class="lang-pick">
+        <label for="lang-switch" data-i18n="nav.language">Language</label>
+        <select id="lang-switch">
+          <option value="en" selected>English</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" data-topic="digital-inclusion">
+    <header class="article-header">
+      <a class="crumb" href="./index.html" data-i18n="lesson.back">← All lessons</a>
+      <p class="eyebrow">Digital inclusion</p>
+      <h1>Quiz: myths about getting online</h1>
+      <p class="article-meta"><span class="stamp">≈ 3 min</span><span class="kind">Interactive</span></p>
+    </header>
+
+    <div id="quiz" class="quiz-frame" data-src="../data/quiz-getting-online.json">
+      <noscript>
+        <p>This interactive lesson needs JavaScript, which is turned off in your browser.</p>
+        <p>No problem — the same ideas are covered in <a href="./bridging-the-digital-divide.html">Bridging the digital divide</a>.</p>
+      </noscript>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <hr class="airmail-rule">
+    <div class="footer-inner">
+      <p class="footer-mission" data-i18n="footer.mission">Plain-language digital education. Free to share, built to be translated.</p>
+      <nav aria-label="Footer">
+        <ul class="footer-nav">
+          <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+          <li><a href="./index.html" data-i18n="nav.lessons">Lessons</a></li>
+          <li><a href="../about.html" data-i18n="nav.about">About</a></li>
+          <li><a href="../get-involved.html" data-i18n="nav.getInvolved">Get involved</a></li>
+        </ul>
+      </nav>
+      <p class="footer-note"><span data-i18n="footer.contact">Write to us:</span> <a href="mailto:hello@byteswithoutborders.example">hello@byteswithoutborders.example</a></p>
+    </div>
+  </footer>
+
+  <script src="../js/i18n.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/quiz.js" defer></script>
+</body>
+</html>

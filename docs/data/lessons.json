@@ -98,6 +98,15 @@
       "summary": "Five messages. Some are real, some are bait. Test your checks before the scammers do.",
       "minutes": 3,
       "kind": "interactive"
+    },
+    {
+      "slug": "quiz-getting-online",
+      "href": "quiz-getting-online.html",
+      "title": "Quiz: myths about getting online",
+      "topic": "digital-inclusion",
+      "summary": "True or false: five common beliefs about who is online, who is not, and why.",
+      "minutes": 3,
+      "kind": "interactive"
     }
   ]
 }
