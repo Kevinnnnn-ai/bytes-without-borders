@@ -62,6 +62,15 @@
       "summary": "From cables under the ocean to the bars on your phone — the trip a webpage takes to reach you.",
       "minutes": 5,
       "kind": "article"
+    },
+    {
+      "slug": "why-updates-matter",
+      "href": "why-updates-matter.html",
+      "title": "Why software updates matter",
+      "topic": "tech-literacy",
+      "summary": "Updates are patches for doors you did not know were open. Why 'later' is the risky choice.",
+      "minutes": 3,
+      "kind": "article"
     }
   ]
 }
