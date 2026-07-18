@@ -53,6 +53,15 @@
       "summary": "What tracking actually looks like, and the settings that quiet it without breaking the web.",
       "minutes": 5,
       "kind": "article"
+    },
+    {
+      "slug": "how-the-internet-reaches-you",
+      "href": "how-the-internet-reaches-you.html",
+      "title": "How the internet reaches you",
+      "topic": "tech-literacy",
+      "summary": "From cables under the ocean to the bars on your phone — the trip a webpage takes to reach you.",
+      "minutes": 5,
+      "kind": "article"
     }
   ]
 }

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add("js");</script>
+  <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#17161d" media="(prefers-color-scheme: dark)">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preload" href="../assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <title>How the internet reaches you — Bytes Without Borders</title>
+  <meta name="description" content="From cables under the ocean to the bars on your phone — the trip a webpage takes, in five plain minutes.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-root="../">
+  <a class="skip-link" href="#main" data-i18n="nav.skip">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="../index.html">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+        <rect x="2" y="6" width="28" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M3 8l13 9 13-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="25" cy="21" r="3" fill="currentColor"/>
+      </svg>
+      <span>Bytes Without Borders</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span data-i18n="nav.menu">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="./index.html" data-i18n="nav.lessons">Lessons</a></li>
+        <li><a href="../about.html" data-i18n="nav.about">About</a></li>
+        <li><a href="../get-involved.html" data-i18n="nav.getInvolved">Get involved</a></li>
+      </ul>
+      <div class="lang-pick">
+        <label for="lang-switch" data-i18n="nav.language">Language</label>
+        <select id="lang-switch">
+          <option value="en" selected>English</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" data-topic="tech-literacy">
+    <header class="article-header">
+      <a class="crumb" href="./index.html" data-i18n="lesson.back">← All lessons</a>
+      <p class="eyebrow">Tech literacy</p>
+      <h1>How the internet reaches you</h1>
+      <p class="article-meta"><span class="stamp">≈ 5 min</span><span class="kind">Article</span></p>
+    </header>
+
+    <article class="prose">
+      <p>The internet can feel like air — always there, impossible to see. But it is not magic, and it is not weather. It is <strong>physical</strong>: cables, computers, and a stack of quiet agreements about how they talk. Picture the trip a webpage takes to reach you, and outages, slow days, and "why is this blocked here" all get less mysterious.</p>
+
+      <h2>A request leaves your hands</h2>
+      <p>When you tap a link, your device sends out a request — a short message asking a faraway computer to send back a page. That computer is a <strong>server</strong>: a machine whose whole job is to wait for requests and answer them.</p>
+      <p>Your request does not leap straight there. It hops from your phone or laptop to the <strong>router</strong> in your home or pocket, out through your internet provider, and onto the wider network. The answer retraces that path back, split into pieces, in under a second.</p>
+
+      <h2>Mostly cables, not satellites</h2>
+      <p>Here is the surprising part. When your message crosses a country or an ocean, it almost always travels through <strong>cable</strong> — thin strands of glass, called fiber, buried underground and laid along the sea floor. That page from the far side of the world likely reached you through glass at the bottom of an ocean.</p>
+      <p>Wireless is real, but it is usually only the <strong>last hop</strong> — your phone to a nearby tower, or your laptop to the router across the room. After that short jump, your data is on cables. Satellites carry a small, growing share — vital where cable cannot reach, but the exception, not the everyday path.</p>
+
+      <h2>Addresses and the phone book</h2>
+      <p>Computers do not find each other by name. Every server has a numeric <strong>address</strong> — a string of numbers saying where it sits on the network. People are poor at remembering numbers, so we use names like <code>example.com</code> instead.</p>
+      <p>The system that connects the two is the <strong>Domain Name System</strong>, or DNS — the internet's phone book. When you type a name, your device quietly asks DNS for the matching number before it can send its request. It happens on every visit, and it is one of the first things to check when a site will not load.</p>
+
+      <h2>Why it slows or breaks</h2>
+      <p>A trip with this many stops slows down in many places. Distance is one — a server far away answers later than one nearby, because even light takes time to cross an ocean. <strong>Congestion</strong> is another: like a crowded road, a path carrying too much at once slows for everyone on it. A weak last hop — faint bars, a busy Wi-Fi network — can throttle an otherwise healthy trip.</p>
+      <p>This is why a site being "down" is worth a pause. The break might be the server, the path between, or your own connection — and <strong>which one it is decides who can fix it</strong>. If a single site fails while others load, the trouble is at its end. If everything drops at once, it is likely close to home.</p>
+
+      <h2>Why this matters</h2>
+      <p>This explains something bigger than a slow page. People can only get online where the infrastructure reaches them — where cables run and towers stand. In much of the world it does not, or it arrives late and costs too much. The <strong>digital divide</strong> is not only about who can afford a device; it is partly a map of where the physical internet has, and has not, been built. Seeing the trip helps you see who gets left off the route — the gap Bytes Without Borders exists to close.</p>
+
+      <h2>Try it today</h2>
+      <ul>
+        <li>Notice your own last hop: the bars on your phone or the Wi-Fi icon on your laptop mark the short wireless jump before the cables take over.</li>
+        <li>Next time something will not load, open a different site or another device — if only one thing is broken, you have found the break.</li>
+        <li>Look up a map of the undersea cables just once. It quietly changes how the whole internet looks.</li>
+      </ul>
+
+      <p><a class="btn btn-primary" href="./designing-for-slow-connections.html" data-i18n="lesson.ctaSlow">Related: Designing for slow connections</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <hr class="airmail-rule">
+    <div class="footer-inner">
+      <p class="footer-mission" data-i18n="footer.mission">Plain-language digital education. Free to share, built to be translated.</p>
+      <nav aria-label="Footer">
+        <ul class="footer-nav">
+          <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+          <li><a href="./index.html" data-i18n="nav.lessons">Lessons</a></li>
+          <li><a href="../about.html" data-i18n="nav.about">About</a></li>
+          <li><a href="../get-involved.html" data-i18n="nav.getInvolved">Get involved</a></li>
+        </ul>
+      </nav>
+      <p class="footer-note"><span data-i18n="footer.contact">Write to us:</span> <a href="mailto:hello@byteswithoutborders.example">hello@byteswithoutborders.example</a></p>
+    </div>
+  </footer>
+
+  <script src="../js/i18n.js" defer></script>
+  <script src="../js/main.js" defer></script>
+</body>
+</html>

@@ -81,7 +81,8 @@
     "back": "← All lessons",
     "quizCta": "Test yourself: the data privacy quiz",
     "involvedCta": "Help close the gap — get involved",
-    "cta2fa": "Next: Two-factor authentication, explained"
+    "cta2fa": "Next: Two-factor authentication, explained",
+    "ctaSlow": "Related: Designing for slow connections"
   },
   "notfound": {
     "title": "Lost in transit.",
