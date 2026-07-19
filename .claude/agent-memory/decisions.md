@@ -43,6 +43,18 @@
   [hidden] on filtered cards, .prose .btn out-specifying .share-btn, lost
   margin-collapse doubling the card meta gap — all fixed and re-verified
   live before committing (491b38d).
+- 2026-07-18 (agent): Spanish pilot (Task 15) — the first real translated
+  pages ship as full standalone copies under `docs/lessons/es/`
+  (`html lang="es"`, `data-root="../../"`, NO `data-i18n`, Spanish chrome),
+  not dictionary-swapped English. Rationale: article prose is too long/nuanced
+  for the `data-i18n` node-swap model, which is reserved for chrome + JS UI.
+  Cross-linking uses `body[data-alt-es]`/`[data-alt-en]` (switcher NAVIGATES
+  instead of swapping on a translated page) plus per-page `hreflang` links —
+  es pages carry the `en`/`es` pair, English originals carry `en`/`es`/
+  `x-default`, all absolute under the SITE_BASE constant. es pages still load
+  their locale file so JS-created UI (quiz/share) speaks Spanish; the linked
+  quiz pages stay English-question this round. New `a.stamp` CSS lets the
+  cross-link reuse stamp-chip styling. Committed 6b4e6fd.
 - 2026-07-13 (human): Redesign directive — more modern, more animation,
   animated backgrounds, scroll-driven UI, new fonts, lighter theme, modern
   color pairings. Agent kept the postal identity but moved to near-white

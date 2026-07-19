@@ -19,6 +19,15 @@
 - i18n: inline English + `data-i18n` keys resolved against
   `docs/locales/en.json`; switching applies in place (originals stashed per
   node, no reload); add a language = one JSON + one `<option>` per page.
+  Full translated PAGES (long prose) live as standalone copies under
+  `docs/lessons/<code>/` (`html lang="<code>"`, no `data-i18n`, translated
+  chrome). The Spanish pilot (2026-07-18) covers two lessons under
+  `lessons/es/`. Cross-link contract: `body[data-alt-<code>]` makes the
+  switcher navigate to the sibling copy, and each page carries `hreflang`
+  alternates (translated pages: the language pair; English originals also add
+  `x-default`) as absolute URLs under SITE_BASE. `tests/test_site.py`
+  enforces the pairing (`test_translation_pages_cross_linked`) and the
+  `lessons/<code>/` lang rule.
 - Design system (modernized 2026-07-13 at user request): postal identity
   (airmail stripes, stamp chips) on light near-white paper with an
   indigo + coral pairing; amber/emerald topic accents; drifting aurora
