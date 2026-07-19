@@ -1,0 +1,116 @@
+{
+  "nav": {
+    "skip": "Saltar al contenido principal",
+    "menu": "Menú",
+    "home": "Inicio",
+    "lessons": "Lecciones",
+    "about": "Acerca de",
+    "getInvolved": "Participa",
+    "language": "Idioma"
+  },
+  "footer": {
+    "mission": "Educación digital en lenguaje claro. Libre para compartir, hecha para traducirse.",
+    "contact": "Escríbenos:"
+  },
+  "home": {
+    "eyebrow": "Microlecciones en lenguaje claro",
+    "title": "Saber digital, byte a byte.",
+    "lede": "Lecciones gratuitas de cinco minutos sobre privacidad de datos, cultura tecnológica e inclusión digital — escritas en lenguaje claro y hechas para viajar entre idiomas.",
+    "ctaLessons": "Explora las lecciones",
+    "ctaInvolved": "Participa",
+    "topicsHeading": "Qué enseñamos",
+    "topicPrivacyTitle": "Privacidad de datos",
+    "topicPrivacyBody": "Quién puede ver lo que haces en línea, y los pequeños hábitos que mantienen tus cuentas y tu identidad en tus manos.",
+    "topicLiteracyTitle": "Cultura tecnológica",
+    "topicLiteracyBody": "Cómo funciona realmente el internet de todos los días, para que titulares, estafas y configuraciones dejen de ser un misterio.",
+    "topicInclusionTitle": "Inclusión digital",
+    "topicInclusionBody": "Por qué millones siguen sin conexión o mal atendidos, y qué pueden hacer las comunidades al respecto.",
+    "featuredHeading": "Empieza por aquí",
+    "bandTitle": "Conocimiento que cruza fronteras.",
+    "bandBody": "Cada lección está escrita para traducirse, adaptarse y enseñarse en cualquier lugar — y las primeras ya están disponibles en español. Ayúdanos a llevarlas más lejos: traduce una lección, escribe una nueva u organiza un taller en tu comunidad.",
+    "bandCta": "Descubre cómo ayudar",
+    "proofLessons": "12 lecciones",
+    "proofLanguages": "2 idiomas",
+    "proofPrivacy": "Sin cuenta, sin rastreo"
+  },
+  "about": {
+    "eyebrow": "La iniciativa",
+    "title": "Educación que viaja como una carta.",
+    "lede": "Bytes Without Borders es una iniciativa voluntaria que informa a la población a través de microlecciones localizadas: breves, prácticas y gratuitas.",
+    "missionHeading": "Por qué microlecciones",
+    "missionBody1": "La mayoría de las guías sobre seguridad y destreza en línea son largas, técnicas y están escritas en un solo idioma para un solo público. Las personas que más tienen que perder — quienes recién llegan a internet, personas mayores, comunidades que se conectan por primera vez — rara vez reciben materiales escritos para ellas.",
+    "missionBody2": "Por eso cada lección dura menos de cinco minutos, en lenguaje claro, sin jerga y sin miedo. Como un curso por correspondencia, cada una está diseñada para pasarse de mano en mano: traducida, impresa, enseñada en voz alta o leída en un teléfono sencillo con una conexión lenta.",
+    "howHeading": "Cómo se hace una lección",
+    "how1Title": "Escrita con claridad.",
+    "how1Body": "Una idea por lección, palabras cotidianas, ejemplos reales — ninguna sigla sin presentación.",
+    "how2Title": "Revisada por exactitud.",
+    "how2Body": "Personas voluntarias con experiencia en seguridad y educación verifican cada afirmación antes de publicarse.",
+    "how3Title": "Hecha para localizarse.",
+    "how3Body": "Las lecciones evitan referencias culturales cerradas para que quien traduce adapte el sentido, no solo las palabras.",
+    "valuesHeading": "En qué creemos",
+    "value1": "Las habilidades digitales son habilidades cívicas: todas las personas las merecen, en su propio idioma.",
+    "value2": "La claridad es respeto. Si una lección confunde a quien la lee, la lección está mal.",
+    "value3": "El conocimiento debe ser libre de compartirse, adaptarse y enseñarse a otros."
+  },
+  "involved": {
+    "eyebrow": "Voluntariado",
+    "title": "Lleva una lección más lejos.",
+    "lede": "Todo aquí está hecho por voluntarios. Elige la forma que mejor se ajuste a tu tiempo y habilidades.",
+    "waysHeading": "Tres formas de ayudar",
+    "way1Title": "Traduce",
+    "way1Body": "Lleva una lección a tu idioma. Nuestras lecciones evitan modismos y ejemplos culturales cerrados, así que una traducción cuidadosa suele tomar menos de una hora.",
+    "way2Title": "Escribe",
+    "way2Body": "¿Conoces bien un tema? Redacta una lección de cinco minutos en palabras sencillas. Revisores voluntarios te ayudan a verificar los datos y pulirla.",
+    "way3Title": "Enseña",
+    "way3Body": "Presenta una lección en una biblioteca, un centro comunitario o la mesa de tu cocina. Toda lección funciona impresa, proyectada o leída en voz alta.",
+    "formHeading": "Escríbenos",
+    "formName": "Tu nombre",
+    "formEmail": "Tu correo",
+    "formMessage": "¿Cómo te gustaría ayudar?",
+    "formSend": "Enviar",
+    "formNote": "El formulario abre tu aplicación de correo — o escríbenos directamente a"
+  },
+  "hub": {
+    "eyebrow": "El estante de lecciones",
+    "title": "Cada lección, en cinco minutos o menos.",
+    "lede": "Breves, prácticas y sin jerga. Léelas en cualquier orden — cada una se sostiene por sí sola.",
+    "filterAll": "Todos los temas",
+    "filterPrivacy": "Privacidad de datos",
+    "filterLiteracy": "Cultura tecnológica",
+    "filterInclusion": "Inclusión digital",
+    "showing": "Mostrando {shown} de {total} lecciones"
+  },
+  "lesson": {
+    "back": "← Todas las lecciones",
+    "quizCta": "Ponte a prueba: el quiz de privacidad de datos",
+    "involvedCta": "Ayuda a cerrar la brecha — participa",
+    "cta2fa": "Siguiente: La autenticación en dos pasos, explicada",
+    "ctaSlow": "Relacionada: Diseñar para conexiones lentas",
+    "ctaScamQuiz": "Ponte a prueba: detecta la estafa",
+    "ctaInclusionQuiz": "Ponte a prueba: mitos sobre conectarse"
+  },
+  "notfound": {
+    "title": "Perdida en el correo.",
+    "body": "Esta página no pudo entregarse — quizá se movió o nunca existió. Las lecciones siguen todas donde deben estar.",
+    "ctaHome": "Volver al inicio",
+    "ctaLessons": "Explora las lecciones"
+  },
+  "quiz": {
+    "progress": "Pregunta {current} de {total}",
+    "correct": "Correcto.",
+    "incorrect": "No exactamente.",
+    "next": "Siguiente pregunta",
+    "finish": "Ver tu puntaje",
+    "retry": "Intentar de nuevo",
+    "score": "Acertaste {score} de {total}.",
+    "perfect": "Perfecto — tienes buen instinto.",
+    "good": "Muy bien — vale la pena releer las explicaciones que fallaste.",
+    "start": "Buen comienzo — relee las explicaciones que fallaste y vuelve a intentarlo.",
+    "error": "Esta lección no pudo cargarse. Actualiza la página para intentarlo de nuevo."
+  },
+  "ui": {
+    "share": "Compartir esta lección",
+    "shareCopied": "Enlace copiado ✓",
+    "toTop": "Volver arriba"
+  }
+}
