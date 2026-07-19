@@ -7,13 +7,14 @@ only — the site is fully readable and navigable with JS off.
 
 ## Page anatomy
 
-- Root pages use `./`-relative URLs and `<body data-root="./">`;
-  pages in `docs/lessons/` use `../` and `<body data-root="../">`.
+- Root pages use `./`-relative URLs and `<body data-root="./">`; pages in
+  `docs/lessons/` use `../` and `<body data-root="../">`; the Spanish
+  pilot pages in `docs/lessons/es/` are one level deeper and use `../../`.
   `data-root` tells `i18n.js` where `locales/` lives.
 - Every page's `<head>` carries a one-line inline script that adds the `js`
   class to `<html>`. CSS that hides content pending a JS reveal (mobile nav,
-  contact form) is scoped to `html.js` so no-JS visitors get the open,
-  static fallback instead of hidden content and dead buttons.
+  contact form, hub filter) is scoped to `html.js` so no-JS visitors get the
+  open, static fallback instead of hidden content and dead buttons.
 - Every page's `<head>` also carries: a Content-Security-Policy meta locked
   to `'self'` plus sha256 hashes of that page's exact inline scripts, a
   referrer policy, light/dark `theme-color` metas, and crossorigin preloads
@@ -22,10 +23,31 @@ only — the site is fully readable and navigable with JS off.
   page to its no-JS fallback, and `test_head_security_meta` fails on drift.
 - JS-created UI (never in markup, so it costs no-JS visitors nothing):
   back-to-top button, article share button, filter result announcer
-  (`aria-live`), quiz progress bar. Their user-facing strings are inline in
-  `main.js`/`quiz.js` and move to locale files with the second language.
-- Shared chrome is copied per page. When editing nav or footer, update every
-  page (9 files) — the link/i18n tests catch misses.
+  (`aria-live`), hub filter count chips, quiz progress bar. Their
+  user-facing strings are authored as English defaults inline in
+  `main.js` (`ui.*`, `hub.showing`) and `quiz.js` (`quiz.*`), and resolve
+  against `window.bwbDict` — the active flattened locale dictionary that
+  `i18n.js` always exposes (`{}` for English) — falling back to the inline
+  default on a missing file or key.
+- `i18n.js` fires a `bwb:langchange` CustomEvent on `document` after every
+  dictionary apply/restore; `quiz.js` listens and re-renders its current
+  screen so in-progress quiz UI relabels without losing state.
+- Translated page pairs (English original + `docs/lessons/<code>/` copy)
+  cross-link via a `data-alt-<code>` attribute on `<body>` (e.g.
+  `data-alt-es="./es/understanding-passwords.html"` on the English page,
+  `data-alt-en="../understanding-passwords.html"` on the Spanish copy).
+  `i18n.js` checks for this attribute before dictionary-swapping and
+  navigates there instead when that language is chosen — a translated page
+  (`html[lang]` != `en`) never dictionary-swaps, it only navigates back.
+  Both pages also carry reciprocal `<link rel="alternate" hreflang="...">`
+  blocks (the pair, e.g. `en`+`es`; English originals additionally list
+  `x-default`) as absolute URLs under `SITE_BASE`. `test_translation_pages_
+  cross_linked` resolves every hreflang href and checks the `data-alt-*`
+  pair points at the real sibling file.
+- Shared chrome is copied per page. When editing nav or footer, update
+  every page (19 files) — the link/i18n tests catch misses. 19 HTML pages
+  is the agreed line where a partials/build-step decision gets revisited
+  before the site grows further (see `decisions.md`, 2026-07-13).
 - All URLs are relative. Never use root-relative `/...` paths — GitHub Pages
   project sites serve under `/<repo>/`. The one exception is `404.html`,
   which GitHub Pages serves at arbitrary missing paths: an inline script
@@ -60,6 +82,20 @@ Type and rhythm conventions:
   pins to the card floor with `margin-top: auto` so meta rows align across
   a grid row, and the cards' last child drops its bottom margin.
 
+## Lessons hub filter
+
+`docs/lessons/index.html` ships its filter bar `hidden` and `main.js`
+reveals it. Each filter button's visible label sits in a nested
+`<span data-i18n="hub.filter*">`, never as text directly on the `<button>`:
+`i18n.js`'s dictionary swap replaces a node's `textContent` wholesale, which
+would silently delete any sibling content the label shared a text node
+with. That inner span is what lets `main.js` safely append a sibling
+`<span class="filter-count">· n</span>` next to the label — the count is
+computed once from the rendered `[data-lesson-card]` elements at load time
+(never hardcoded), so it always matches the actual card set. Clicking a
+button hides/shows cards by topic and announces the result through an
+`aria-live` region using the `hub.showing` string.
+
 ## Add an article
 
 1. Copy an existing article in `docs/lessons/`, keep the chrome intact.
@@ -69,7 +105,12 @@ Type and rhythm conventions:
 4. Add a postcard card to `docs/lessons/index.html` — hub cards use `<h2>`
    (and optionally add one to the home featured grid, which uses `<h3>`
    under its section `<h2>`).
-5. Run the suite — it verifies links, JSON shape, and page basics.
+5. Add the page to `docs/sitemap.xml` (one `<url><loc>...</loc></url>`,
+   absolute under `SITE_BASE`) — `test_sitemap_covers_site` enforces that
+   every non-`404.html` page appears exactly once and every listed URL
+   resolves.
+6. Run the suite — it verifies links, JSON shape, sitemap coverage, and
+   page basics.
 
 ## Add an interactive lesson (quiz)
 
@@ -83,26 +124,73 @@ Type and rhythm conventions:
 
 ## Add a language
 
+Demonstrated end to end by Spanish (`es`): a full chrome/UI dictionary plus
+two lessons translated as standalone page copies.
+
+**Chrome/UI dictionary** (covers every page's static chrome and JS-created
+UI; article bodies stay English unless also given a page copy below):
+
 1. Copy `docs/locales/en.json` to `docs/locales/<code>.json` and translate
-   the values (keys stay identical).
-2. Add `<option value="<code>">` to the `#lang-switch` select on every page.
+   every value (keys stay identical — `test_locale_key_parity` enforces an
+   exact key-set match against `en.json` and rejects empty values).
+2. Add `<option value="<code>">` to the `#lang-switch` select on every page,
+   including `404.html` — `test_lang_switcher_options` requires both `en`
+   and every other shipped code on every page.
 3. Switching languages applies the dictionary in place (no page reload);
-   switching back to English restores the original inline text. Article
-   bodies are not keyed — they localize by copying the page when a full
-   translation program starts. Quiz UI strings currently live at the top of
-   `docs/js/quiz.js` (`STRINGS`) and move to locale files with the second
-   language.
+   switching back to English restores the stashed original inline text.
+   `main.js` (`ui.*`, `hub.showing`) and `quiz.js` (`quiz.*`) resolve their
+   own strings the same way — English default inline, override from
+   `window.bwbDict` — so a missing locale file or key degrades to English
+   exactly as before.
+
+**Translated page copy** (for an individual lesson whose prose is too long
+or nuanced for the dictionary-swap model):
+
+1. Copy the English lesson to `docs/lessons/<code>/<slug>.html` with
+   `data-root` one level deeper (e.g. `../../`), `<html lang="<code>">`,
+   and every string — chrome and body — translated inline. No `data-i18n`
+   attributes: the page itself is the translation.
+2. Add `data-alt-<code>="<code>/<slug>.html"` to the English page's
+   `<body>`, and `data-alt-en="../<slug>.html"` to the copy's `<body>` (see
+   Page anatomy above for how the switcher uses this).
+3. Add reciprocal `hreflang` alternates to both pages' `<head>` (absolute
+   URLs under `SITE_BASE`); the English original also lists `x-default`.
+4. Add a small stamp-styled cross-link near the meta row on both pages
+   (e.g. "Disponible en español →" / "Read in English →") so the pairing
+   works with JS off.
+5. Add the new page to `docs/sitemap.xml`.
+
+Quiz question JSON is out of scope for a translated-page pass — only the
+quiz UI strings (`quiz.*`) come from the chrome dictionary; the linked quiz
+pages stay in whatever language their question JSON is written in.
 
 ## Testing
 
-`tests/test_site.py` (run from the `.env.local` venv) validates: required
-pages exist, every internal `href`/`src`/`data-src` resolves inside `docs/`
-with exact-case path components (Pages serves case-sensitively), all JSON
-parses with the right shape (every `quiz-*.json`, not just the first),
-every `data-i18n` key exists in `en.json`, one `<h1>`/title/lang/meta on
-every HTML page, and the hub links every lesson. Session summaries land in
-`stdout/last-test-report.txt` (gitignored). `.github/workflows/tests.yml`
-runs the same suite on every push on Linux.
+`tests/test_site.py` (run from the `.env.local` venv, 32 tests, fully
+green) validates: required pages exist, every internal `href`/`src`/
+`data-src` resolves inside `docs/` with exact-case path components (Pages
+serves case-sensitively), all JSON parses with the right shape (every
+`quiz-*.json`, not just the first), every `data-i18n` key exists in
+`en.json`, one `<h1>`/title/meta/viewport on every HTML page, and the hub
+links every lesson. Plus, from the flesh-out round:
+
+- **Per-page lang rule**: `<html lang>` must be `es` for pages under
+  `docs/lessons/es/` and `en` everywhere else (part of the page-basics
+  check).
+- **Locale parity**: `es.json`'s flattened key set matches `en.json`
+  exactly, with no empty values.
+- **Switcher options**: every page's `#lang-switch` offers both `en` and
+  `es`.
+- **Translation cross-links**: every Spanish/English lesson pair has
+  matching, resolvable `data-alt-*` attributes and a symmetric, resolvable
+  `hreflang` alternate set.
+- **Sitemap coverage**: every HTML page except `404.html` appears exactly
+  once in `docs/sitemap.xml`, with no duplicates, and every sitemap URL
+  resolves inside `docs/`.
+- **Robots**: `docs/robots.txt` exists and points at the sitemap.
+
+Session summaries land in `stdout/last-test-report.txt` (gitignored).
+`.github/workflows/tests.yml` runs the same suite on every push on Linux.
 
 ## Deployment
 

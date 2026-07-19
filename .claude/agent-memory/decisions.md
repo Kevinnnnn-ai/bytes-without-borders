@@ -63,3 +63,25 @@
   motion system (aurora blobs, scroll reveals, progress bar). The original
   spec/plan under superpowers/ describe the v1 look — main.css is now the
   design source of truth.
+- 2026-07-18 (human): Approved the website flesh-out design spec
+  (`superpowers/specs/2026-07-18-website-flesh-out-design.md`) — Spanish
+  first (over other candidate languages), a full 12-lesson shelf (3
+  articles + 1 quiz per topic, 8 new lessons), and a 2-page translation
+  pilot (full standalone copies, not dictionary-swapped chrome only).
+  Executed task-by-task on a dedicated `flesh-out` feature branch (commits
+  never pushed), unlike the v1 build which was built and committed directly
+  on `main`.
+- 2026-07-18 (agent): Quiz (`quiz.js` STRINGS) and hub/share UI (`main.js`)
+  strings moved out of hardcoded English into `quiz.*`/`ui.*`/`hub.showing`
+  keys in both locale files, with the same strings kept inline as defaults
+  in each JS file. Chosen so a missing/incomplete locale file degrades to
+  the exact current English behavior rather than a blank or broken label,
+  and so `window.bwbDict` stays the single source both files read from.
+- 2026-07-18 (agent): The Task 11 adversarial accuracy pass ran as a
+  109-agent multi-lens review workflow (security + education lenses per
+  new lesson/quiz, plus adversarial verifiers) rather than a manual
+  read-through, matching the multi-agent review pattern already used for
+  the v1 build and the 2026-07-14 type/rhythm change. It confirmed 16
+  defensible findings across the six new articles and two new quiz JSONs;
+  all 16 were fixed and the quizzes' answer positions were reshuffled to
+  remove positional bias before commit (see `.superpowers/sdd/task-11-report.md`).
