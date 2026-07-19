@@ -164,7 +164,7 @@
       var message = document.getElementById("c-message").value;
       var body = message + "\n\n— " + name + " (" + email + ")";
       window.location.href =
-        "mailto:hello@byteswithoutborders.example" +
+        "mailto:kevinwjie@gmail.com" +
         "?subject=" + encodeURIComponent("I want to help — " + name) +
         "&body=" + encodeURIComponent(body);
     });

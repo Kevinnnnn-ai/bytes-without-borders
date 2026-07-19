@@ -64,8 +64,7 @@
   chip (computed from rendered cards at load, never hardcoded); each filter
   label lives in a nested `<span data-i18n>` so the count can sit alongside
   it without the i18n text-swap deleting it.
-- Contact address is a placeholder: `hello@byteswithoutborders.example`
-  (footers, get-involved form, `docs/js/main.js`) — must be replaced before
-  launch.
+- Contact address is `kevinwjie@gmail.com` (footers, get-involved form,
+  `docs/js/main.js`).
 - Stated direction: more lessons and languages over time; a real contact
   backend eventually; extension recipes live in `superpowers/architecture.md`.

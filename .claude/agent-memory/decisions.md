@@ -83,3 +83,8 @@
   109 agents total per the orchestration telemetry. It confirmed 16
   defensible findings, all fixed and the quizzes' answer positions reshuffled
   to remove positional bias before commit (see `.superpowers/sdd/task-11-report.md`).
+- 2026-07-19 (human): Site contact email set to `kevinwjie@gmail.com`, replacing
+  the `hello@byteswithoutborders.example` launch placeholder across all 20
+  `docs/` files that carried it (page footers, get-involved form, and the
+  `mailto:` builder in `docs/js/main.js`). Historical plans/specs under
+  `superpowers/` intentionally left unchanged.
