@@ -260,6 +260,10 @@ code {
 /* postal wink: the stamp tilts when its postcard is picked up */
 .postcard:hover .stamp { transform: rotate(-4deg); }
 
+/* stamps that are links (translation cross-links) keep stamp styling */
+a.stamp { text-decoration: none; }
+a.stamp:hover { color: var(--topic); transform: rotate(-2deg); }
+
 .eyebrow {
   font-family: var(--font-mono);
   font-size: var(--step--1);
