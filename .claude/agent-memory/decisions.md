@@ -78,10 +78,8 @@
   the exact current English behavior rather than a blank or broken label,
   and so `window.bwbDict` stays the single source both files read from.
 - 2026-07-18 (agent): The Task 11 adversarial accuracy pass ran as a
-  109-agent multi-lens review workflow (security + education lenses per
-  new lesson/quiz, plus adversarial verifiers) rather than a manual
-  read-through, matching the multi-agent review pattern already used for
-  the v1 build and the 2026-07-14 type/rhythm change. It confirmed 16
-  defensible findings across the six new articles and two new quiz JSONs;
-  all 16 were fixed and the quizzes' answer positions were reshuffled to
-  remove positional bias before commit (see `.superpowers/sdd/task-11-report.md`).
+  multi-lens workflow: 2 lenses (security + education) across 8 new
+  lessons/quizzes with each finding verified by 3 adversarial votes,
+  109 agents total per the orchestration telemetry. It confirmed 16
+  defensible findings, all fixed and the quizzes' answer positions reshuffled
+  to remove positional bias before commit (see `.superpowers/sdd/task-11-report.md`).

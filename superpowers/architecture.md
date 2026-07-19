@@ -156,7 +156,7 @@ or nuanced for the dictionary-swap model):
 3. Add reciprocal `hreflang` alternates to both pages' `<head>` (absolute
    URLs under `SITE_BASE`); the English original also lists `x-default`.
 4. Add a small stamp-styled cross-link near the meta row on both pages
-   (e.g. "Disponible en español →" / "Read in English →") so the pairing
+   (e.g. "Disponible en español →" / "In English →") so the pairing
    works with JS off.
 5. Add the new page to `docs/sitemap.xml`.
 
@@ -171,12 +171,10 @@ green) validates: required pages exist, every internal `href`/`src`/
 `data-src` resolves inside `docs/` with exact-case path components (Pages
 serves case-sensitively), all JSON parses with the right shape (every
 `quiz-*.json`, not just the first), every `data-i18n` key exists in
-`en.json`, one `<h1>`/title/meta/viewport on every HTML page, and the hub
-links every lesson. Plus, from the flesh-out round:
+`en.json`, one `<h1>`/title/meta/viewport and correct `<html lang>` on
+every HTML page, and the hub links every lesson. Plus, from the flesh-out
+round:
 
-- **Per-page lang rule**: `<html lang>` must be `es` for pages under
-  `docs/lessons/es/` and `en` everywhere else (part of the page-basics
-  check).
 - **Locale parity**: `es.json`'s flattened key set matches `en.json`
   exactly, with no empty values.
 - **Switcher options**: every page's `#lang-switch` offers both `en` and
