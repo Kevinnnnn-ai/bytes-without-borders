@@ -66,6 +66,15 @@ class PageScan(HTMLParser):
         self.options: list[str] = []
         self.body_attrs: dict = {}
         self.alternates: list[dict] = []
+        # data-i18n text-only tracking: stack of open tags since a dictionary
+        # swap sets textContent wholesale, destroying any child elements.
+        self._tag_stack: list[dict] = []
+        self.i18n_nodes_with_children: list[str] = []
+
+    _VOID_TAGS = {
+        "area", "base", "br", "col", "embed", "hr", "img", "input",
+        "link", "meta", "source", "track", "wbr",
+    }
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -94,6 +103,12 @@ class PageScan(HTMLParser):
                 self.links.append(a[key])
         if "data-i18n" in a:
             self.i18n_keys.add(a["data-i18n"])
+        # any tag opening while an ancestor data-i18n node is still open is a
+        # child element that a textContent swap would destroy
+        for frame in self._tag_stack:
+            frame["has_child"] = True
+        if tag not in self._VOID_TAGS:
+            self._tag_stack.append({"tag": tag, "i18n": "data-i18n" in a, "has_child": False})
 
     def handle_data(self, data):
         if self._in_title:
@@ -107,6 +122,13 @@ class PageScan(HTMLParser):
         elif tag == "script" and self._in_inline_script:
             self._in_inline_script = False
             self.inline_scripts.append(self._script_buf)
+        for i in range(len(self._tag_stack) - 1, -1, -1):
+            if self._tag_stack[i]["tag"] == tag:
+                frame = self._tag_stack[i]
+                if frame["i18n"] and frame["has_child"]:
+                    self.i18n_nodes_with_children.append(tag)
+                del self._tag_stack[i:]
+                break
 
 
 _scan_cache: dict[Path, PageScan] = {}
@@ -365,6 +387,7 @@ def test_sitemap_covers_site():
     for loc in locs:
         target = site_url_to_path(loc or "")
         assert target is not None, f"sitemap url not under SITE_BASE: {loc}"
+        assert exists_exact(target.resolve()), f"sitemap url resolves to a case-mismatched path: {loc}"
         actual.add(target)
     assert actual == expected, (
         "sitemap mismatch:\n  missing: %s\n  extra: %s"
@@ -378,3 +401,33 @@ def test_robots_txt():
     assert path.is_file(), "docs/robots.txt does not exist"
     text = path.read_text(encoding="utf-8")
     assert f"Sitemap: {SITE_BASE}sitemap.xml" in text
+
+
+def test_proof_strip_counts():
+    """The hero proof strip claims a lesson count; catch it going stale the
+    moment a lesson is added to lessons.json without updating the copy."""
+    lessons = json.loads((SRC / "data" / "lessons.json").read_text(encoding="utf-8"))["lessons"]
+    count = str(len(lessons))
+    for locale in ("en", "es"):
+        dictionary = flatten(
+            json.loads((SRC / "locales" / f"{locale}.json").read_text(encoding="utf-8"))
+        )
+        proof = dictionary.get("home.proofLessons", "")
+        assert proof.startswith(count), (
+            f"{locale}.json home.proofLessons {proof!r} does not start with lesson count {count}"
+        )
+
+
+def test_i18n_nodes_text_only():
+    """A dictionary swap sets textContent wholesale on data-i18n nodes,
+    which would silently destroy any child elements (e.g. a JS-appended
+    count chip). No page may nest a child tag inside a data-i18n node."""
+    problems = []
+    for path in html_files():
+        s = scan(path)
+        if s.i18n_nodes_with_children:
+            problems.append(
+                f"{path.relative_to(SRC)}: data-i18n node(s) contain child elements: "
+                f"{s.i18n_nodes_with_children}"
+            )
+    assert not problems, "data-i18n nodes must be text-only:\n" + "\n".join(problems)

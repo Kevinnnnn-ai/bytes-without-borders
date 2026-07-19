@@ -47,7 +47,8 @@ only — the site is fully readable and navigable with JS off.
 - Shared chrome is copied per page. When editing nav or footer, update
   every page (19 files) — the link/i18n tests catch misses. 19 HTML pages
   is the agreed line where a partials/build-step decision gets revisited
-  before the site grows further (see `decisions.md`, 2026-07-13).
+  before the site grows further (see
+  `superpowers/specs/2026-07-18-website-flesh-out-design.md`).
 - All URLs are relative. Never use root-relative `/...` paths — GitHub Pages
   project sites serve under `/<repo>/`. The one exception is `404.html`,
   which GitHub Pages serves at arbitrary missing paths: an inline script
