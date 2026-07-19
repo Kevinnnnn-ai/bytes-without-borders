@@ -41,7 +41,7 @@
       });
       var count = document.createElement("span");
       count.className = "filter-count";
-      count.textContent = String(n);
+      count.textContent = "· " + n;
       btn.appendChild(count);
     });
     /* announce filter results to screen readers */
