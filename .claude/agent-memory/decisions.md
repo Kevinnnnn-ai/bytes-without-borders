@@ -95,3 +95,14 @@
   `docs/` files that carried it (page footers, get-involved form, and the
   `mailto:` builder in `docs/js/main.js`). Historical plans/specs under
   `superpowers/` intentionally left unchanged.
+- 2026-07-19 (human): Approved the "Max Postal, Grand Théâtre" visual design
+  spec (`superpowers/specs/2026-07-19-max-postal-visual-design.md`) — extreme
+  visual enhancement, chosen over a new "night flight" identity and over an
+  ambient-only overlay. Site-wide but tiered (home = spectacle, hub/quizzes =
+  interactive juice, articles = calm) on a hybrid engine: CSS-first ambient
+  layer (aurora mesh + grain, gradient ink, ghost watermarks, torn edges,
+  cross-document view transitions) plus one new self-hosted
+  `docs/js/theatre.js` (tilt, magnet, confetti, count-up) coupled to `quiz.js`
+  only via `bwb:quiz:*` CustomEvents. All existing guardrails retained:
+  no external requests, no build step, progressive enhancement, reduced-motion
+  kill switch, AA gradient-ink stops, ≥46em gates for heavy effects.
