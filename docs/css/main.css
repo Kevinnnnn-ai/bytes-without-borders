@@ -632,7 +632,9 @@ html.js .hero-scene .hero-letter > *:nth-child(5) { animation-delay: 410ms; }
    same static wrapped strip as reduced-motion (WCAG 2.2.2 Pause, Stop, Hide) */
 @media (hover: none) {
   .proof-strip { display: block; overflow: visible; -webkit-mask: none; mask: none; }
-  .proof-track { flex-wrap: wrap; }
+  /* animation: none is load-bearing here — reduced-motion gets it from the
+     global kill switch, but no kill switch runs under (hover: none) */
+  .proof-track { flex-wrap: wrap; animation: none; }
   .proof-track[aria-hidden="true"],
   .proof-track .stamp[aria-hidden="true"] { display: none; }
 }
