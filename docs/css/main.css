@@ -43,6 +43,10 @@
   --topic-inclusion: #047857;
   --topic: var(--indigo);
   --blob-alpha: 0.14;
+  --aurora-a: var(--indigo);
+  --aurora-b: var(--coral);
+  --aurora-c: var(--topic-inclusion);
+  --ink-gradient: linear-gradient(105deg, var(--indigo) 8%, var(--coral-text) 38%, var(--topic-literacy) 64%, var(--indigo) 92%);
 
   /* type */
   --font-display: "Bricolage Grotesque", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
@@ -86,7 +90,7 @@
     --topic-privacy: #928cf7;
     --topic-literacy: #e0a04b;
     --topic-inclusion: #57c99a;
-    --blob-alpha: 0.1;
+    --blob-alpha: 0.14;
   }
 }
 
@@ -120,7 +124,10 @@ body {
   line-height: 1.7;
 }
 
-/* ambient aurora — three soft postal-colored blobs drifting behind the paper */
+/* ambient aurora — postal-colored mesh (radials + a conic wash) under
+   tiled paper grain. --aurora-a/-b/-c let topic pages retint the whole
+   sky without new gradients. Grain is a real SVG file: CSP img-src
+   'self' would block a data: URI. */
 body::before {
   content: "";
   position: fixed;
@@ -128,21 +135,43 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(38% 34% at 22% 16%, color-mix(in srgb, var(--indigo) calc(var(--blob-alpha) * 100%), transparent), transparent 70%),
-    radial-gradient(32% 30% at 82% 22%, color-mix(in srgb, var(--coral) calc(var(--blob-alpha) * 82%), transparent), transparent 70%),
-    radial-gradient(36% 32% at 58% 88%, color-mix(in srgb, var(--topic-inclusion) calc(var(--blob-alpha) * 64%), transparent), transparent 70%);
+    url("../assets/grain.svg"),
+    radial-gradient(38% 34% at 22% 16%, color-mix(in srgb, var(--aurora-a) calc(var(--blob-alpha) * 100%), transparent), transparent 70%),
+    radial-gradient(32% 30% at 82% 22%, color-mix(in srgb, var(--aurora-b) calc(var(--blob-alpha) * 82%), transparent), transparent 70%),
+    radial-gradient(36% 32% at 58% 88%, color-mix(in srgb, var(--aurora-c) calc(var(--blob-alpha) * 64%), transparent), transparent 70%),
+    conic-gradient(from 210deg at 62% 38%,
+      transparent,
+      color-mix(in srgb, var(--aurora-a) 9%, transparent) 18%,
+      transparent 34%,
+      color-mix(in srgb, var(--aurora-b) 8%, transparent) 52%,
+      transparent 68%,
+      color-mix(in srgb, var(--aurora-c) 7%, transparent) 84%,
+      transparent);
+  background-blend-mode: multiply, normal, normal, normal, normal;
+}
+
+@media (prefers-color-scheme: dark) {
+  body::before { background-blend-mode: soft-light, normal, normal, normal, normal; }
 }
 
 /* drift only on larger screens — animating under the header's backdrop
    blur forces continuous re-rendering, a real cost on mobile GPUs */
 @media (min-width: 46em) {
-  body::before { animation: aurora-drift 70s ease-in-out infinite alternate; }
+  body::before {
+    animation:
+      aurora-drift 70s ease-in-out infinite alternate,
+      aurora-hue 90s linear infinite alternate;
+  }
 }
 
 @keyframes aurora-drift {
   from { transform: translate3d(-3%, -2%, 0) rotate(0deg) scale(1); }
   50%  { transform: translate3d(2%, 3%, 0) rotate(2deg) scale(1.06); }
   to   { transform: translate3d(4%, -3%, 0) rotate(-2deg) scale(1.02); }
+}
+
+@keyframes aurora-hue {
+  to { filter: hue-rotate(18deg); }
 }
 
 h1, h2, h3 {
@@ -277,6 +306,12 @@ a.stamp:hover { color: var(--topic); transform: rotate(-2deg); }
 [data-topic="data-privacy"] { --topic: var(--topic-privacy); }
 [data-topic="tech-literacy"] { --topic: var(--topic-literacy); }
 [data-topic="digital-inclusion"] { --topic: var(--topic-inclusion); }
+
+/* lesson pages tint the whole sky toward their topic; :has() misses on
+   old browsers, which simply keep the default aurora */
+body:has(main[data-topic="data-privacy"]) { --aurora-a: var(--topic-privacy); --aurora-b: var(--topic-privacy); --aurora-c: var(--coral); }
+body:has(main[data-topic="tech-literacy"]) { --aurora-a: var(--topic-literacy); --aurora-b: var(--topic-literacy); --aurora-c: var(--coral); }
+body:has(main[data-topic="digital-inclusion"]) { --aurora-a: var(--topic-inclusion); --aurora-b: var(--topic-inclusion); --aurora-c: var(--indigo); }
 
 /* ---------- header & nav ---------- */
 
