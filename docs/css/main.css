@@ -1005,6 +1005,44 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
 
 .share-btn { margin-top: var(--space-3); }
 
+/* ---------- ghost watermarks (home) ---------- */
+
+/* oversized outline words drifting behind sections. content's "/ """
+   alt-text keeps them out of the accessibility tree; browsers without
+   alt syntax drop the content entirely (fine — decorative). */
+[data-watermark] { position: relative; overflow: clip; }
+[data-watermark]::before {
+  content: attr(data-watermark) / "";
+  position: absolute;
+  left: 50%;
+  top: 4%;
+  transform: translateX(-50%);
+  z-index: -1;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(6rem, 17vw, 14rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--ink) 11%, transparent);
+  pointer-events: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (min-width: 46em) {
+    [data-watermark]::before {
+      animation: wm-drift linear both;
+      animation-timeline: view();
+    }
+  }
+}
+
+@keyframes wm-drift {
+  from { transform: translate(-50%, 22%); }
+  to { transform: translate(-50%, -18%); }
+}
+
 /* ---------- motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
