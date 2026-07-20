@@ -175,3 +175,14 @@
   avoid leaving stale counts alongside corrected ones in the same doc,
   matching the precedent set 2026-07-19 when stale "32" counts were
   corrected in the same pass as the README regeneration.
+- 2026-07-20 (human+agent): Envelope-hero composition bug ("ugly crown"):
+  user flagged the hero envelope reading as a detached V-notched band. Root
+  causes: hero padding-bottom exceeded envelope height (letter never tucked)
+  and the envelope centered on the section while the letter is start-aligned.
+  Fixed geometry-only in main.css: tuck depth clamp(26px,4vw,44px), envelope
+  anchored to the letter center via min(calc(var(--space-3) + 23rem), 50%),
+  3rem wings, and a new .hero-scene::before interior back wall (z1) so the
+  pocket notch shows envelope inside rather than the sky (also added to the
+  print neutralization list). Lesson: "no overlap" was verified as a PASS in
+  earlier checks when overlap was the design intent — composition checks must
+  assert what SHOULD overlap, not only what should not.
