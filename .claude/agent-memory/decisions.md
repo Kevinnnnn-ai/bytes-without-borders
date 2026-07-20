@@ -186,3 +186,23 @@
   print neutralization list). Lesson: "no overlap" was verified as a PASS in
   earlier checks when overlap was the design intent — composition checks must
   assert what SHOULD overlap, not only what should not.
+- 2026-07-20 (human+agent): Rewrote `.claude/skills/draft-a-readme/SKILL.md`
+  because its spec had drifted from `references/reference-README.md`: the
+  skill dictated Unicode-numeral `## Ⅱ • Features` headers while the
+  reference uses ASCII `## II - Features`, and the repo README generated
+  2026-07-19 inherited the divergence (including `#ⅱ--features` anchors,
+  which Unicode-break GitHub anchor linking). Baseline failure was
+  wrong-shaped output with the reference available — the inline spec
+  overrode it — so per superpowers:writing-skills the fix is a positive
+  template contract: the new SKILL.md carries a literal fill-in skeleton,
+  an Exact Mechanics list (ASCII numerals, `#ii--features` anchor rule,
+  blank/`<br>`/3-blank section breaks, 3-space div indent, for-the-badge
+  badge grammar, footer date format), declares the reference the format
+  oracle on any conflict, and keeps the old accuracy/overwrite/em-dash
+  Never-Do rules. Added `scripts/verify-format.py` (structural checker the
+  skill now requires to PASS before finishing; calibrated against the
+  reference itself). GREEN-tested: a fresh subagent ran the new skill on a
+  scratchpad fixture project and its README passed every structural check
+  with zero reference-fact leakage. Note: the repo's own README.md still
+  carries the old Ⅱ• style; the next `/draft-a-readme` run will regenerate
+  it in the reference-true ASCII format.
