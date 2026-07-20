@@ -123,3 +123,21 @@
   finale while the plain score sentence still renders, and retry clears the
   finale (it lives inside `#quiz`, wiped by the next `renderQuestion()`).
   Commit e2c58d9 on `max-postal`; see `.superpowers/sdd/task-12-report.md`.
+- 2026-07-20 (agent): Task 13 (cross-document view transitions) added a pure-CSS
+  `@view-transition { navigation: auto; }` block to `main.css`, gated by
+  `@media (prefers-reduced-motion: no-preference)` — the site's global reduced-
+  motion kill switch (`*,*::before,*::after { transition/animation: none }`)
+  does not match `::view-transition-*` pseudo-elements, so this explicit gate
+  is the real off-switch. `.brand` persists (`view-transition-name: brand`)
+  and `h1` is the default page-title morph target, relying on the suite's
+  existing one-`h1`-per-page invariant for uniqueness. `theatre.js` gained a
+  `pageswap` listener that promotes the clicked `.postcard h2/h3` heading to
+  `page-title` (demoting the hub's own h1 to `none` in the same tick) so
+  hub-to-article morphs start from the card, not the static heading, plus a
+  `pageshow`/`event.persisted` listener that strips those inline overrides on
+  BFCache restore — without it a cached hub page would carry two elements
+  named `page-title` and silently break every later transition. Verified live
+  via Playwright (Chromium): zero console errors across a hub-click-back round
+  trip, and zero leftover inline `view-transition-name` overrides after the
+  BFCache restore. Commit a54d449 on `max-postal`; see
+  `.superpowers/sdd/task-13-report.md`.
