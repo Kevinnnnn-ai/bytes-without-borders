@@ -431,3 +431,33 @@ def test_i18n_nodes_text_only():
                 f"{s.i18n_nodes_with_children}"
             )
     assert not problems, "data-i18n nodes must be text-only:\n" + "\n".join(problems)
+
+
+def test_theatre_js_referenced_everywhere():
+    """theatre.js is the decorative enhancement layer; every page loads it
+    exactly once with a depth-correct relative path so no page (or future
+    copied page) silently loses it."""
+    assert (SRC / "js" / "theatre.js").is_file(), "docs/js/theatre.js does not exist"
+    problems = []
+    for path in html_files():
+        s = scan(path)
+        rel = path.relative_to(SRC)
+        root = s.body_attrs.get("data-root", "./")
+        refs = [link for link in s.links if link.endswith("js/theatre.js")]
+        if len(refs) != 1:
+            problems.append(f"{rel}: expected exactly one theatre.js script, found {len(refs)}")
+        elif refs[0] != f"{root}js/theatre.js":
+            problems.append(f"{rel}: theatre.js src {refs[0]!r} != {root!r} + 'js/theatre.js'")
+    assert not problems, "theatre.js reference problems:\n" + "\n".join(problems)
+
+
+def test_no_external_runtime_requests():
+    """The site promises zero external requests at runtime: no http(s) URL
+    may appear as an href/src/data-src except SITE_BASE self-references
+    (hreflang alternates)."""
+    problems = []
+    for f in html_files():
+        for link in scan(f).links:
+            if urlsplit(link).scheme in ("http", "https") and not link.startswith(SITE_BASE):
+                problems.append(f"{f.relative_to(SRC)}: {link}")
+    assert not problems, "external runtime URLs found:\n" + "\n".join(problems)
