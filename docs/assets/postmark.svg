@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <g fill="none" stroke="#8e8a9c" stroke-width="2">
+    <circle cx="50" cy="50" r="46"/>
+    <circle cx="50" cy="50" r="33"/>
+  </g>
+  <path id="arc" d="M50 9 a41 41 0 1 1 -0.01 0" fill="none"/>
+  <text font-family="Consolas, monospace" font-size="10" letter-spacing="1.5" fill="#8e8a9c">
+    <textPath href="#arc">BYTES WITHOUT BORDERS · AIR MAIL ·</textPath>
+  </text>
+  <g fill="none" stroke="#8e8a9c" stroke-width="2" stroke-linecap="round">
+    <path d="M20 48 q 7 -5 14 0 t 14 0 t 14 0 t 14 0"/>
+    <path d="M20 56 q 7 -5 14 0 t 14 0 t 14 0 t 14 0"/>
+  </g>
+</svg>

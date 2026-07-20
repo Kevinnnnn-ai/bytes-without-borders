@@ -722,11 +722,14 @@ html.js .reveal.in-view {
   );
 }
 
+/* pointer tilt: theatre.js writes --rx/--ry (deg) and --mx/--my (%);
+   without JS the vars stay unset and these resolve to today's flat card */
 .postcard {
   transition: transform 280ms var(--ease-out), box-shadow 280ms ease, border-color 280ms ease;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
 }
 .postcard:hover {
-  transform: translateY(-5px);
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-5px);
   border-color: color-mix(in srgb, var(--topic) 45%, var(--line));
   box-shadow: 0 20px 44px -18px color-mix(in srgb, var(--topic) 38%, transparent);
 }
@@ -740,7 +743,19 @@ html.js .reveal.in-view {
 .postcard h2 a:hover,
 .postcard h3 a:hover { color: var(--coral-text); }
 .postcard h2 a::after,
-.postcard h3 a::after { content: ""; position: absolute; inset: 0; }
+.postcard h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  /* glare sheen follows the pointer (--mx/--my from theatre.js) */
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, #fff 16%, transparent), transparent 62%);
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+.postcard:hover h2 a::after,
+.postcard:hover h3 a::after { opacity: 1; }
 
 /* pinned to the card floor so meta rows align across the whole grid;
    the preceding paragraph's bottom margin supplies the minimum gap */
@@ -757,6 +772,26 @@ html.js .reveal.in-view {
   color: var(--ink-soft);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* ---------- postmark: cancellation stamp thunks onto a hovered card ---------- */
+
+.postcard::after {
+  content: "";
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 72px;
+  height: 72px;
+  background: url("../assets/postmark.svg") center / contain no-repeat;
+  opacity: 0;
+  transform: rotate(-16deg) scale(1.5);
+  transition: opacity 220ms ease, transform 340ms cubic-bezier(0.2, 1.4, 0.3, 1);
+  pointer-events: none;
+}
+.postcard:hover::after {
+  opacity: 0.5;
+  transform: rotate(-8deg) scale(1);
 }
 
 /* ---------- CTA band ---------- */
