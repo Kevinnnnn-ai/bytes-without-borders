@@ -1,7 +1,7 @@
 <div align="center">
 
    # Bytes Without Borders
-   The website portion of an initiative focused on informing the broader population through localized micro-lessons—articles and interactive pages on data privacy, tech literacy, and digital inclusion.
+   An initiative focused on informing the broader population through micro-lessons—articles and interactive pages on data privacy, tech literacy, and digital inclusion.
 
    ![HTML5](https://img.shields.io/badge/HTML-5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
    ![CSS3](https://img.shields.io/badge/CSS-3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
