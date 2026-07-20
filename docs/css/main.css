@@ -1110,7 +1110,7 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
       width: 100%;
       height: 100%;
       z-index: -1;
-      color: color-mix(in srgb, var(--indigo) 55%, transparent);
+      color: color-mix(in srgb, var(--indigo) 72%, transparent);
       pointer-events: none;
     }
     .fp-cover {
