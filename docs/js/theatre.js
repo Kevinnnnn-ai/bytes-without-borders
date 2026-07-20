@@ -35,7 +35,7 @@
     card.addEventListener("pointerenter", function () {
       if (reduce.matches || !desktopFine.matches) { return; }
       rect = card.getBoundingClientRect();
-    });
+    }, { passive: true });
     card.addEventListener("pointermove", function (event) {
       if (!rect || frame) { return; }
       var x = event.clientX;
@@ -50,7 +50,7 @@
         card.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
         card.style.setProperty("--my", (py * 100).toFixed(1) + "%");
       });
-    });
+    }, { passive: true });
     card.addEventListener("pointerleave", function () {
       rect = null;
       if (frame) { window.cancelAnimationFrame(frame); frame = 0; }
@@ -58,7 +58,7 @@
       card.style.removeProperty("--ry");
       card.style.removeProperty("--mx");
       card.style.removeProperty("--my");
-    });
+    }, { passive: true });
   });
 
   /* ----- magnetic pull: chips and floating buttons lean toward the pointer ----- */
@@ -66,15 +66,28 @@
   var MAGNET_MAX = 6; /* px */
   function clampMag(value) { return Math.max(-MAGNET_MAX, Math.min(MAGNET_MAX, value)); }
   Array.prototype.forEach.call(document.querySelectorAll(".filter-btn, .to-top, .share-btn"), function (btn) {
-    btn.addEventListener("pointermove", function (event) {
+    var rect = null;
+    var frame = 0;
+    btn.addEventListener("pointerenter", function () {
       if (reduce.matches || !desktopFine.matches) { return; }
-      var rect = btn.getBoundingClientRect();
-      btn.style.setProperty("--magx", clampMag((event.clientX - (rect.left + rect.width / 2)) * MAGNET_RANGE).toFixed(1) + "px");
-      btn.style.setProperty("--magy", clampMag((event.clientY - (rect.top + rect.height / 2)) * MAGNET_RANGE).toFixed(1) + "px");
-    });
+      rect = btn.getBoundingClientRect();
+    }, { passive: true });
+    btn.addEventListener("pointermove", function (event) {
+      if (!rect || frame) { return; }
+      var x = event.clientX;
+      var y = event.clientY;
+      frame = window.requestAnimationFrame(function () {
+        frame = 0;
+        if (!rect) { return; }
+        btn.style.setProperty("--magx", clampMag((x - (rect.left + rect.width / 2)) * MAGNET_RANGE).toFixed(1) + "px");
+        btn.style.setProperty("--magy", clampMag((y - (rect.top + rect.height / 2)) * MAGNET_RANGE).toFixed(1) + "px");
+      });
+    }, { passive: true });
     btn.addEventListener("pointerleave", function () {
+      rect = null;
+      if (frame) { window.cancelAnimationFrame(frame); frame = 0; }
       btn.style.removeProperty("--magx");
       btn.style.removeProperty("--magy");
-    });
+    }, { passive: true });
   });
 })();
