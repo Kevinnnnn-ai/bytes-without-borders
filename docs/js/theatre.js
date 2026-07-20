@@ -214,4 +214,35 @@
     }
     window.requestAnimationFrame(step);
   });
+
+  /* ----- view-transition handoff: the clicked card's title (not the
+     hub h1) morphs into the next page's h1 ----- */
+  window.addEventListener("pageswap", function (event) {
+    if (!event.viewTransition || reduce.matches) { return; }
+    var entry = event.activation && event.activation.entry;
+    var url = entry ? entry.url : null;
+    if (!url) { return; }
+    var links = document.querySelectorAll(".postcard h2 a, .postcard h3 a");
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].href === url) {
+        var heading = links[i].closest("h2, h3");
+        var pageTitle = document.querySelector("h1");
+        if (heading && pageTitle) {
+          pageTitle.style.viewTransitionName = "none";
+          heading.style.viewTransitionName = "page-title";
+        }
+        break;
+      }
+    }
+  });
+
+  /* a BFCache restore would resurrect the inline promotions above,
+     leaving two elements named page-title (which skips every later
+     transition) — clear them when the page returns from the cache */
+  window.addEventListener("pageshow", function (event) {
+    if (!event.persisted) { return; }
+    Array.prototype.forEach.call(document.querySelectorAll(".postcard h2, .postcard h3, h1"), function (node) {
+      node.style.removeProperty("view-transition-name");
+    });
+  });
 })();

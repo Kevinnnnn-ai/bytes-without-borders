@@ -1294,3 +1294,26 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.3, 1.6, 0.4, 1);
 }
+
+/* ---------- cross-page view transitions ---------- */
+
+/* same-origin navigations morph instead of flashing white: the brand
+   persists, the single h1 morphs into the next page's h1 (the suite
+   guarantees exactly one h1 per page), everything else slide-fades.
+   Browsers without @view-transition simply navigate. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+
+  .brand { view-transition-name: brand; }
+  h1 { view-transition-name: page-title; }
+
+  ::view-transition-old(root) { animation: vt-leave 220ms ease both; }
+  ::view-transition-new(root) { animation: vt-enter 340ms var(--ease-out) both; }
+}
+
+@keyframes vt-leave {
+  to { opacity: 0; transform: translateY(-12px); }
+}
+@keyframes vt-enter {
+  from { opacity: 0; transform: translateY(16px); }
+}
