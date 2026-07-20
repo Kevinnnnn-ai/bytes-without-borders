@@ -121,6 +121,7 @@
       buttons[q.answerIndex].textContent = "✓ " + buttons[q.answerIndex].textContent;
       if (right) {
         score += 1;
+        document.dispatchEvent(new CustomEvent("bwb:quiz:correct", { detail: { button: buttons[chosen] } }));
       } else {
         buttons[chosen].classList.add("is-incorrect");
         buttons[chosen].textContent = "✗ " + buttons[chosen].textContent;
@@ -150,6 +151,7 @@
       host.textContent = "";
       var scoreLine = el("p", "quiz-score", fill(t("score"), { score: score, total: total }));
       host.appendChild(scoreLine);
+      document.dispatchEvent(new CustomEvent("bwb:quiz:done", { detail: { host: host, scoreLine: scoreLine, score: score, total: total } }));
       var verdict = score === total ? t("perfect") : (score >= Math.ceil(total * 0.6) ? t("good") : t("start"));
       host.appendChild(el("p", null, verdict));
       var retry = el("button", "btn quiz-next", t("retry"));

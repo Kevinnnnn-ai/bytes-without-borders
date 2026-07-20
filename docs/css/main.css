@@ -999,7 +999,7 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
 
 .quiz-bar {
   display: block;
-  height: 4px;
+  height: 6px;
   border-radius: 999px;
   background: var(--line);
   overflow: hidden;
@@ -1010,8 +1010,15 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   height: 100%;
   width: 0;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--indigo), var(--coral));
+  background-color: color-mix(in srgb, var(--indigo) 14%, transparent);
+  background-image: repeating-linear-gradient(90deg, var(--indigo) 0 14px, transparent 14px 18px, var(--coral) 18px 32px, transparent 32px 36px);
+  background-size: 36px 100%;
   transition: width 450ms var(--ease-out);
+  animation: stripe-march 1.6s linear infinite;
+}
+
+@keyframes stripe-march {
+  to { background-position-x: -36px; }
 }
 
 .quiz-question {
@@ -1079,6 +1086,48 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   letter-spacing: -0.02em;
   color: var(--ink);
   margin-bottom: var(--space-1);
+}
+
+/* decorative score finale (theatre.js): giant count-up + postmark */
+.quiz-finale {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-1);
+}
+.quiz-finale-count {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-4);
+  line-height: 1;
+  color: var(--ink);
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .quiz-finale-count {
+    background: var(--ink-gradient);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: ink-pan 9s ease-in-out infinite alternate;
+  }
+}
+.quiz-finale-mark {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--coral-text);
+  border: 2px solid var(--coral-text);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  transform: rotate(-14deg) scale(1.6);
+  opacity: 0;
+  transition: transform 380ms cubic-bezier(0.2, 1.4, 0.3, 1), opacity 200ms ease;
+}
+.quiz-finale-mark.is-stamped {
+  opacity: 0.85;
+  transform: rotate(-8deg) scale(1);
 }
 
 .quiz-error { color: var(--coral-text); font-weight: 600; }

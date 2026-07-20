@@ -109,7 +109,8 @@
     "perfect": "Perfect — your instincts are sharp.",
     "good": "Solid — worth rereading the explanations you missed.",
     "start": "Good start — reread the explanations you missed, then try again.",
-    "error": "This lesson could not load. Refresh the page to try again."
+    "error": "This lesson could not load. Refresh the page to try again.",
+    "delivered": "DELIVERED"
   },
   "ui": {
     "share": "Share this lesson",

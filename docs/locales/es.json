@@ -109,7 +109,8 @@
     "perfect": "Perfecto — tienes buen instinto.",
     "good": "Muy bien — vale la pena releer las explicaciones que fallaste.",
     "start": "Buen comienzo — relee las explicaciones que fallaste y vuelve a intentarlo.",
-    "error": "Esta lección no pudo cargarse. Actualiza la página para intentarlo de nuevo."
+    "error": "Esta lección no pudo cargarse. Actualiza la página para intentarlo de nuevo.",
+    "delivered": "ENTREGADO"
   },
   "ui": {
     "share": "Compartir esta lección",
