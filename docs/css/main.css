@@ -592,11 +592,38 @@ html.js .hero-scene .hero-letter > *:nth-child(5) { animation-delay: 410ms; }
   margin-top: var(--space-4);
 }
 
+/* proof strip → infinite stamp marquee. The aria-hidden duplicate track
+   provides the seamless loop; hover/focus pauses; reduced motion drops
+   the duplicate and wraps statically (exactly the old strip). */
 .proof-strip {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1);
+  gap: var(--space-2);
   margin-top: var(--space-3);
+  overflow: hidden;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 10% 90%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 10% 90%, transparent);
+}
+.proof-track {
+  display: flex;
+  flex: none;
+  gap: var(--space-2);
+  margin: 0;
+  animation: marquee-scroll 24s linear infinite;
+}
+.proof-strip:hover .proof-track,
+.proof-strip:focus-within .proof-track { animation-play-state: paused; }
+
+@keyframes marquee-scroll {
+  to { transform: translateX(calc(-100% - var(--space-2))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* display:block, not flex: a flex:none track sizes to max-content and
+     would never wrap — as a block-level child it takes the strip's width */
+  .proof-strip { display: block; overflow: visible; -webkit-mask: none; mask: none; }
+  .proof-track { flex-wrap: wrap; }
+  .proof-track[aria-hidden="true"],
+  .proof-track .stamp[aria-hidden="true"] { display: none; }
 }
 
 .btn {
