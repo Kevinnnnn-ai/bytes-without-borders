@@ -34,8 +34,10 @@ reduced-motion respect, AA contrast, green pytest suite).
 
 ### 1 · Tokens & palette evolution
 - Palette unchanged: indigo `#4f46e5`, coral `#f0654f`, amber/emerald topic accents.
-- New `:root` tokens: `--ink-gradient` (indigo→coral→amber linear pan),
-  `--grain` (inline SVG `feTurbulence` data-URI), `--glow` (color-mix shadow for dark).
+- New `:root` tokens: `--ink-gradient` (indigo→coral→amber linear pan) and
+  `--aurora-a/-b/-c` (retintable sky). Grain ships as a real file
+  `docs/assets/grain.svg` — NOT a `data:` URI, which the `img-src 'self'` CSP
+  would block; the dark glow is a scoped `drop-shadow` rule rather than a token.
 - Dark scheme becomes "night flight": same tokens plus soft glow text-shadow on
   gradient ink and a slightly brighter aurora (`--blob-alpha` up).
 
@@ -44,14 +46,16 @@ reduced-motion respect, AA contrast, green pytest suite).
   radials and a ~90s `hue-rotate` drift. On lesson pages the aurora tints toward the
   page's topic color via `body:has(main[data-topic="…"])` (the attribute lives on
   `<main>`; `:has()` needs no markup change and old browsers keep the default aurora).
-- **Paper grain**: `--grain` tiled across `body::before` as an extra background layer,
-  ~4% opacity, `multiply` in light / `overlay` in dark.
+- **Paper grain**: `docs/assets/grain.svg` tiled across `body::before` as an extra
+  background layer, ~5% alpha, `multiply` in light / `soft-light` in dark.
 - **Gradient ink**: all `h1` + home `.section-title` get animated
   `background-clip: text` gradient (8s background-position pan). Guarded by
   `@supports (-webkit-background-clip: text)`; fallback is today's solid ink.
-- **Ghost watermarks**: home sections get oversized outline words (`PRIVACY`,
-  `LITERACY`, `INCLUSION`) as `::before` pseudo-content, `-webkit-text-stroke`,
-  ~5% opacity, drifting via scroll-driven `animation-timeline: view()`.
+- **Ghost watermarks**: home sections get oversized outline words (TEACH / READ /
+  SHARE — locale-aware via `data-watermark-key`, since a per-topic word can't
+  represent the mixed-topic sections) as `::before` pseudo-content,
+  `-webkit-text-stroke`, ~5% opacity, drifting via scroll-driven
+  `animation-timeline: view()`.
 - **Torn-paper edges**: repeating-triangle CSS `mask` on `.band` top/bottom and the
   footer's top edge.
 
@@ -63,7 +67,8 @@ reduced-motion respect, AA contrast, green pytest suite).
   `stroke-dashoffset` with `animation-timeline: scroll()`; a small plane rides it via
   `offset-path: path(...)` on the same timeline. `min-width: 46em` only, `aria-hidden`.
 - **Marquee proof strip**: the three `.stamp` chips loop as a slow infinite marquee
-  (content duplicated once, duplicate `aria-hidden="true"`; pauses on hover/focus).
+  (content duplicated so each track is wider than the strip; every duplicate is
+  `aria-hidden="true"` so screen readers hear the three chips once; pauses on hover).
 - **3D postcards** (shared with hub): pointer-tracked tilt ±8° + glare sheen following
   the cursor (JS writes `--rx/--ry/--mx/--my`; CSS renders) + a rubber postmark SVG
   that stamps in on hover with overshoot easing (pure CSS).
