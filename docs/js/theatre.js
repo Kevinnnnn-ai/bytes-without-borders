@@ -27,6 +27,54 @@
   document.addEventListener("bwb:langchange", applyWatermarks);
   applyWatermarks();
 
-  /* modules land here in later tasks */
-  void reduce; void desktopFine;
+  /* ----- 3D tilt + glare: postcards follow the pointer ----- */
+  var MAX_TILT = 8; /* degrees */
+  Array.prototype.forEach.call(document.querySelectorAll(".postcard"), function (card) {
+    var rect = null;
+    var frame = 0;
+    card.addEventListener("pointerenter", function () {
+      if (reduce.matches || !desktopFine.matches) { return; }
+      rect = card.getBoundingClientRect();
+    });
+    card.addEventListener("pointermove", function (event) {
+      if (!rect || frame) { return; }
+      var x = event.clientX;
+      var y = event.clientY;
+      frame = window.requestAnimationFrame(function () {
+        frame = 0;
+        if (!rect) { return; }
+        var px = (x - rect.left) / rect.width;
+        var py = (y - rect.top) / rect.height;
+        card.style.setProperty("--ry", ((px - 0.5) * 2 * MAX_TILT).toFixed(2) + "deg");
+        card.style.setProperty("--rx", ((0.5 - py) * 2 * MAX_TILT).toFixed(2) + "deg");
+        card.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+        card.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+      });
+    });
+    card.addEventListener("pointerleave", function () {
+      rect = null;
+      if (frame) { window.cancelAnimationFrame(frame); frame = 0; }
+      card.style.removeProperty("--rx");
+      card.style.removeProperty("--ry");
+      card.style.removeProperty("--mx");
+      card.style.removeProperty("--my");
+    });
+  });
+
+  /* ----- magnetic pull: chips and floating buttons lean toward the pointer ----- */
+  var MAGNET_RANGE = 0.25;
+  var MAGNET_MAX = 6; /* px */
+  function clampMag(value) { return Math.max(-MAGNET_MAX, Math.min(MAGNET_MAX, value)); }
+  Array.prototype.forEach.call(document.querySelectorAll(".filter-btn, .to-top, .share-btn"), function (btn) {
+    btn.addEventListener("pointermove", function (event) {
+      if (reduce.matches || !desktopFine.matches) { return; }
+      var rect = btn.getBoundingClientRect();
+      btn.style.setProperty("--magx", clampMag((event.clientX - (rect.left + rect.width / 2)) * MAGNET_RANGE).toFixed(1) + "px");
+      btn.style.setProperty("--magy", clampMag((event.clientY - (rect.top + rect.height / 2)) * MAGNET_RANGE).toFixed(1) + "px");
+    });
+    btn.addEventListener("pointerleave", function () {
+      btn.style.removeProperty("--magx");
+      btn.style.removeProperty("--magy");
+    });
+  });
 })();

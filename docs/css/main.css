@@ -1233,3 +1233,15 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   .topic-card,
   .quiz-frame { box-shadow: none; }
 }
+
+/* ---------- magnetic pull (theatre.js writes --magx/--magy) ---------- */
+
+/* `translate` composes with each element's existing `transform` */
+.filter-btn,
+.to-top,
+.share-btn {
+  translate: var(--magx, 0px) var(--magy, 0px);
+  transition-property: translate, transform, opacity, border-color, color, background-color, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.3, 1.6, 0.4, 1);
+}
