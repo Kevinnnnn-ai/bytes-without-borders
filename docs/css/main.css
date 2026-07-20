@@ -499,7 +499,7 @@ html.js .site-nav.is-open {
 
 /* ---------- layout ---------- */
 
-main { display: block; }
+main { display: block; position: relative; }
 
 .section {
   padding: var(--section-pad) var(--space-3);
@@ -1091,6 +1091,46 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
 @keyframes wm-drift {
   from { transform: translate(-50%, 22%); }
   to { transform: translate(-50%, -18%); }
+}
+
+/* ---------- flight path (home) ---------- */
+
+/* an airmail route drawn across the page as you scroll, with a paper
+   plane riding it. Desktop + scroll-timeline browsers only; everyone
+   else sees nothing (display: none, so no static clutter). The dashed
+   route reveals through a mask whose cover path undashes on scroll. */
+.flight-scene { display: none; }
+
+@supports (animation-timeline: scroll()) {
+  @media (min-width: 46em) and (prefers-reduced-motion: no-preference) {
+    .flight-scene {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      color: color-mix(in srgb, var(--indigo) 55%, transparent);
+      pointer-events: none;
+    }
+    .fp-cover {
+      animation: fp-draw linear both;
+      animation-timeline: scroll();
+    }
+    .fp-plane {
+      fill: var(--coral);
+      offset-path: path("M-30 180 C 360 320, 980 240, 700 620 S 160 1080, 820 1360 S 1150 1980, 470 2300");
+      offset-rotate: auto;
+      animation: fp-fly linear both;
+      animation-timeline: scroll();
+    }
+  }
+}
+
+@keyframes fp-draw { to { stroke-dashoffset: 0; } }
+@keyframes fp-fly {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
 }
 
 /* ---------- motion ---------- */
