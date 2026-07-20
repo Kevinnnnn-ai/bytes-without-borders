@@ -14,7 +14,7 @@
 - Project documentation lives in `superpowers/` (architecture.md, specs,
   plans) so it is not part of the published site. `docs/` is site-only.
 - Python is used only for validation: venv `.env.local/`, pytest suite in
-  `tests/` (`tests/test_site.py`, 34 tests, fully green), artifacts to
+  `tests/` (`tests/test_site.py`, 36 tests, fully green), artifacts to
   `stdout/`.
 - Root `README.md` regenerated 2026-07-19 via `/draft-a-readme` (roman-numeral
   sectioned format: features, demo, quick start, install, usage, config,
@@ -52,7 +52,17 @@
   Instrument Sans body 400–700 — no lighter body weight exists) in
   `docs/assets/fonts/` — still no external requests at runtime.
   All motion scoped to `html.js` + disabled under prefers-reduced-motion
-  and print.
+  and print. "Max Postal, Grand Théâtre" theatrical layer (2026-07-19/20)
+  builds on top: site-wide ambient CSS (grain, gradient ink, torn edges,
+  ghost watermarks, scroll-driven flight path, cross-document view
+  transitions) plus one decorative-only `docs/js/theatre.js` (postcard
+  tilt/glare, magnetic buttons, quiz stamp-confetti + count-up finale,
+  view-transition title promotion), coupled to `quiz.js` only via
+  `bwb:quiz:*` CustomEvents. Guards: reduced motion disables all theatrics;
+  tilt/magnet additionally need `(pointer: fine)` + `min-width: 46em`;
+  print neutralizes every new decorative surface. Suite-enforced at 36
+  tests, including `test_theatre_js_referenced_everywhere` and
+  `test_no_external_runtime_requests`.
 - Type/rhythm conventions (refined 2026-07-14 at user request, documented
   in `superpowers/architecture.md`): 16px body on `--ink-body` (softer ink
   substitutes for the unavailable sub-400 weight; heading-like paragraphs

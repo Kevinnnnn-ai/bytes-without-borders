@@ -11,4 +11,18 @@
 - 2026-07-13: color-mix() values containing var() fail at computed-value time on pre-2023 browsers — they win the cascade, then compute to transparent. Anything load-bearing (header/nav backgrounds) needs the tint inside `@supports (background: color-mix(...))` over a solid base, not a preceding fallback line.
 - 2026-07-18: `data-i18n` nodes must contain text only — `i18n.js`'s dictionary swap sets `textContent` wholesale, which destroys any child elements. This is why the hub filter labels sit in a nested `<span data-i18n>` instead of directly on the `<button>`: it keeps the JS-appended count chip (a sibling span) from being wiped out on a language switch.
 - 2026-07-18: Any new page under `docs/` must be added to `docs/sitemap.xml` (absolute URL under SITE_BASE) — `test_sitemap_covers_site` fails on any HTML page (except `404.html`) missing from the sitemap, so a forgotten sitemap entry now shows up as a red test rather than a silent SEO gap.
+- 2026-07-20: The home hero's entrance choreography (`.hero-scene .hero-letter`
+  and its children animate in via `letter-rise`/`rise`, staggered up to
+  410ms delay + 700ms duration ≈ 1.1s from page load) means an automated
+  screenshot or print-emulation capture taken too soon after `load` catches
+  the hero (incl. the proof-strip chips) still at its pre-animation
+  `opacity: 0` — reads as a missing-content bug but is not one. Wait
+  ≥1.2s after navigation before screenshotting hero content.
+- 2026-07-20: `.article-meta` (reading-time stamp + kind + optional
+  translation cross-link `a.stamp`) is a flex row without `flex-wrap`,
+  which overflowed 24px past a 375px viewport on the two Spanish-pilot
+  article pages (the long "Disponible en español →" link has
+  `white-space: nowrap`). Fixed with `flex-wrap: wrap`. Same lesson as the
+  `[hidden]`-vs-`display` gotcha below: any flex meta row that can carry
+  variable-length i18n text needs wrap, checked at 375px.
 - 2026-07-18: Switcher dead-spot on `data-alt-*` pages — a visitor whose stored language already matches an English page's translation (e.g. stored `es` on a page with `data-alt-es`) lands with chrome already swapped and the `<select>` already set to that language, so no `change` event ever fires and `i18n.js`'s `data-alt-*` navigation check never runs; the `stamp`-styled cross-link is the only path to the real translated page. Revisit before expanding the translation pilot past 2 pages — consider a one-time redirect/hint on load instead of relying purely on the switcher's change event.

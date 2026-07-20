@@ -83,6 +83,29 @@ Type and rhythm conventions:
   pins to the card floor with `margin-top: auto` so meta rows align across
   a grid row, and the cards' last child drops its bottom margin.
 
+### Theatrical layer (2026-07-19, Max Postal spec)
+
+- `docs/js/theatre.js` — decorative-only enhancement layer on every page
+  (suite-enforced): locale-aware watermark words, postcard tilt/glare
+  (±8°, writes `--rx/--ry/--mx/--my`), magnetic buttons
+  (`--magx/--magy`), stamp-confetti canvas, quiz count-up finale,
+  view-transition title promotion. Guards: reduced motion disables all;
+  tilt/magnet also need `(pointer: fine)` + `min-width: 46em`. Styling
+  via CSSOM `setProperty` only (CSP forbids style attributes).
+- Quiz coupling is one-way: `quiz.js` dispatches `bwb:quiz:correct`
+  ({button}) and `bwb:quiz:done` ({host, scoreLine, score, total});
+  theatre.js listens if present.
+- Ambient CSS: aurora mesh + grain (`docs/assets/grain.svg` — real file,
+  CSP img-src 'self' blocks data: URIs) with topic tinting via
+  `body:has(main[data-topic])`; gradient ink (`--ink-gradient`,
+  AA-safe stops) behind `@supports background-clip: text`; torn-edge
+  masks; ghost watermarks (`data-watermark` + `data-watermark-key`);
+  scroll-driven flight path + `@view-transition` (progressive, gated).
+- New-page recipe unchanged: copying an existing page carries the
+  theatre.js tag; `test_theatre_js_referenced_everywhere` fails the
+  build if a page loses it, `test_no_external_runtime_requests` guards
+  self-containment.
+
 ## Lessons hub filter
 
 `docs/lessons/index.html` ships its filter bar `hidden` and `main.js`

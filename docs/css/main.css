@@ -886,6 +886,7 @@ html.js .reveal.in-view {
 
 .article-meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
   margin: var(--space-2) 0 var(--space-4);
@@ -1200,8 +1201,11 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
 }
 
 @keyframes wm-drift {
-  from { transform: translate(-50%, 22%); }
-  to { transform: translate(-50%, -18%); }
+  /* wider than a subtle parallax on purpose: at rest these read almost
+     static against the surrounding content, which scrolls 1:1 — a bigger
+     swing is what actually registers as the ghost words drifting */
+  from { transform: translate(-50%, 55%); }
+  to { transform: translate(-50%, -45%); }
 }
 
 /* ---------- flight path (home) ---------- */
@@ -1281,6 +1285,38 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   .postcard,
   .topic-card,
   .quiz-frame { box-shadow: none; }
+
+  /* theatrical layer: none of it belongs on paper */
+  h1, .section-title, .quiz-finale-count {
+    background: none;
+    color: var(--ink);
+    animation: none;
+    filter: none;
+  }
+  [data-watermark]::before,
+  .flight-scene,
+  .hero-envelope,
+  .postcard::after,
+  .quiz-finale,
+  .proof-track[aria-hidden="true"],
+  .proof-track .stamp[aria-hidden="true"] { display: none !important; }
+  .hero-letter {
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+    animation: none;
+    background: none;
+  }
+  /* the marquee must print as today's plain wrapped strip: kill the
+     edge-fade mask (masks alpha-fade printed text) and let it wrap */
+  .proof-strip { display: block; overflow: visible; -webkit-mask: none; mask: none; }
+  .proof-track { flex-wrap: wrap; animation: none; }
+  .band,
+  .site-footer {
+    -webkit-mask: none;
+    mask: none;
+    background: none;
+  }
 }
 
 /* ---------- magnetic pull (theatre.js writes --magx/--magy) ---------- */

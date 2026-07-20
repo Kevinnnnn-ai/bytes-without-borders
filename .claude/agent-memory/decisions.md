@@ -141,3 +141,37 @@
   trip, and zero leftover inline `view-transition-name` overrides after the
   BFCache restore. Commit a54d449 on `max-postal`; see
   `.superpowers/sdd/task-13-report.md`.
+- 2026-07-20 (agent): Task 14 (print audit, docs, final verification) closed
+  out the Max Postal branch. Implementation decisions carried forward from
+  earlier tasks and reconfirmed here: real SVG assets (`grain.svg`,
+  `postmark.svg`) over `data:` URIs, because the per-page CSP's `img-src
+  'self'` blocks `data:` — a data-URI background would silently fail closed
+  rather than degrade; `translate` (not `transform`) for the magnet effect
+  so `--magx/--magy` composes with each element's own `transform` (tilt,
+  hover lift) instead of clobbering it; the quiz count-up finale is
+  `aria-hidden` so screen readers keep hearing the plain score sentence
+  underneath rather than a giant duplicated number; view transitions use an
+  h1-to-h1 morph by default with a `pageswap` promotion of the clicked
+  `.postcard` heading to `page-title`, so hub-to-article navigations morph
+  from the card the visitor clicked rather than snapping to the static hub
+  h1. Print block (`@media print` in `main.css`) neutralizes every new
+  decorative surface — gradient ink, watermarks, flight path, envelope,
+  postmark stamp, quiz finale, and the marquee's duplicate/mask — restoring
+  the pre-theatrics plain-paper output. Verification sweep bumped the
+  ghost-watermark `wm-drift` keyframe's translateY range from 22%/-18% to
+  55%/-45% (measured extra parallax rose from ~63px to ~180px against
+  ~450px-tall glyphs) — the original range was too subtle to read as motion
+  on a normal scroll pass, per binding user feedback that scroll-driven
+  effects must be obviously visible. The mobile sweep also caught a real,
+  pre-existing (non-Max-Postal) horizontal-scroll bug: `.article-meta`
+  lacked `flex-wrap`, so the long `a.stamp` translation cross-link
+  ("Disponible en español →") pushed the two Spanish-pilot article pages
+  24px past the 375px viewport; fixed with `flex-wrap: wrap` on
+  `.article-meta`. Postmark scale(1.5) entrance and the flight-path/
+  watermark overlap were both screenshot-checked and found fine as-is, no
+  nudge needed. See `.superpowers/sdd/task-14-report.md` for the full sweep
+  results. README/agent-memory test counts corrected
+  34 → 36 throughout (not just the three spots the task brief named) to
+  avoid leaving stale counts alongside corrected ones in the same doc,
+  matching the precedent set 2026-07-19 when stale "32" counts were
+  corrected in the same pass as the README regeneration.
