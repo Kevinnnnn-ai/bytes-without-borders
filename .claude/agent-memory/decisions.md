@@ -83,6 +83,13 @@
   109 agents total per the orchestration telemetry. It confirmed 16
   defensible findings, all fixed and the quizzes' answer positions reshuffled
   to remove positional bias before commit (see `.superpowers/sdd/task-11-report.md`).
+- 2026-07-19 (agent): Root `README.md` (found empty) regenerated via
+  `/draft-a-readme` in the skill's roman-numeral format. All facts sourced
+  from the working tree: 34-test suite output captured live for the
+  Demonstration section, `kevinwjie@gmail.com` as contact, pytest 8.4.1 as
+  the only dependency, no-LICENSE stated as all-rights-reserved. Stale
+  "32 tests" counts in `agent-memory/context.md` and
+  `superpowers/architecture.md` corrected to 34 in the same pass.
 - 2026-07-19 (human): Site contact email set to `kevinwjie@gmail.com`, replacing
   the `hello@byteswithoutborders.example` launch placeholder across all 20
   `docs/` files that carried it (page footers, get-involved form, and the

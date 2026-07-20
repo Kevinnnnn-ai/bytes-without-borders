@@ -167,7 +167,7 @@ pages stay in whatever language their question JSON is written in.
 
 ## Testing
 
-`tests/test_site.py` (run from the `.env.local` venv, 32 tests, fully
+`tests/test_site.py` (run from the `.env.local` venv, 34 tests, fully
 green) validates: required pages exist, every internal `href`/`src`/
 `data-src` resolves inside `docs/` with exact-case path components (Pages
 serves case-sensitively), all JSON parses with the right shape (every

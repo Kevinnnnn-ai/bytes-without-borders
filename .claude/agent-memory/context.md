@@ -14,10 +14,11 @@
 - Project documentation lives in `superpowers/` (architecture.md, specs,
   plans) so it is not part of the published site. `docs/` is site-only.
 - Python is used only for validation: venv `.env.local/`, pytest suite in
-  `tests/` (`tests/test_site.py`, 32 tests, fully green), artifacts to
+  `tests/` (`tests/test_site.py`, 34 tests, fully green), artifacts to
   `stdout/`.
-- Root `README.md` exists (what the project is, the stack, preview/test
-  commands, how to add a lesson/quiz/language, volunteering). `docs/robots.txt`
+- Root `README.md` regenerated 2026-07-19 via `/draft-a-readme` (roman-numeral
+  sectioned format: features, demo, quick start, install, usage, config,
+  reference, license, authors, contact). `docs/robots.txt`
   and `docs/sitemap.xml` exist; the sitemap is hand-maintained and the suite
   enforces it lists every non-404 page exactly once with a resolving URL.
 - Progressive enhancement contract: every page's head adds a `js` class to
