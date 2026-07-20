@@ -685,12 +685,23 @@ html.js .reveal.in-view {
 /* ---------- CTA band ---------- */
 
 .band {
+  --tear: 12px;
   background:
     linear-gradient(120deg,
       color-mix(in srgb, var(--indigo) 7%, var(--paper-raised)),
       color-mix(in srgb, var(--coral) 7%, var(--paper-raised)));
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border-top: 0;
+  border-bottom: 0;
+  padding-block: var(--tear);
+  /* torn-from-an-envelope edges: zigzag teeth top and bottom */
+  -webkit-mask:
+    linear-gradient(#000 0 0) 0 var(--tear) / 100% calc(100% - 2 * var(--tear)) no-repeat,
+    conic-gradient(from 135deg at 50% 0, #000 90deg, transparent 0) 0 0 / 28px var(--tear) repeat-x,
+    conic-gradient(from -45deg at 50% 100%, #000 90deg, transparent 0) 0 100% / 28px var(--tear) repeat-x;
+  mask:
+    linear-gradient(#000 0 0) 0 var(--tear) / 100% calc(100% - 2 * var(--tear)) no-repeat,
+    conic-gradient(from 135deg at 50% 0, #000 90deg, transparent 0) 0 0 / 28px var(--tear) repeat-x,
+    conic-gradient(from -45deg at 50% 100%, #000 90deg, transparent 0) 0 100% / 28px var(--tear) repeat-x;
 }
 .band .section { text-align: center; }
 .band p { max-width: 52ch; margin-left: auto; margin-right: auto; }
@@ -698,7 +709,20 @@ html.js .reveal.in-view {
 
 /* ---------- footer ---------- */
 
-.site-footer { margin-top: var(--section-pad); }
+.site-footer {
+  --tear: 12px;
+  margin-top: var(--section-pad);
+  padding-top: var(--tear);
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--indigo) 5%, var(--paper)),
+    var(--paper) 55%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) 0 var(--tear) / 100% calc(100% - var(--tear)) no-repeat,
+    conic-gradient(from 135deg at 50% 0, #000 90deg, transparent 0) 0 0 / 28px var(--tear) repeat-x;
+  mask:
+    linear-gradient(#000 0 0) 0 var(--tear) / 100% calc(100% - var(--tear)) no-repeat,
+    conic-gradient(from 135deg at 50% 0, #000 90deg, transparent 0) 0 0 / 28px var(--tear) repeat-x;
+}
 
 .footer-inner {
   max-width: 72rem;
