@@ -106,3 +106,20 @@
   only via `bwb:quiz:*` CustomEvents. All existing guardrails retained:
   no external requests, no build step, progressive enhancement, reduced-motion
   kill switch, AA gradient-ink stops, ≥46em gates for heavy effects.
+- 2026-07-20 (agent): Task 12 (quiz theatrics) implemented the `bwb:quiz:*`
+  coupling promised above: `quiz.js` gained two `CustomEvent` dispatches
+  (`bwb:quiz:correct` on a right answer, `bwb:quiz:done` after the score line
+  renders) and otherwise stayed untouched — it has zero references to
+  `theatre.js`, confirmed by grep. `theatre.js` answers with a self-removing
+  canvas confetti burst (perforated "stamp" particles in theme colors,
+  reduced-motion-gated, try/catch-wrapped, canvas always removed on settle or
+  error) and an `aria-hidden` count-up finale with a localized DELIVERED/
+  ENTREGADO postmark (`quiz.delivered` key added to both locale files); a
+  second bigger burst fires only on a perfect score. The quiz progress bar
+  became a marching indigo/coral airmail stripe. No quiz-page markup changes
+  were needed — all three quiz pages already loaded `theatre.js` before
+  `quiz.js`. Verified live via Playwright: canvas lifecycle has no leak under
+  rapid repeated correct answers, reduced motion fully no-ops confetti and
+  finale while the plain score sentence still renders, and retry clears the
+  finale (it lives inside `#quiz`, wiped by the next `renderQuestion()`).
+  Commit e2c58d9 on `max-postal`; see `.superpowers/sdd/task-12-report.md`.
