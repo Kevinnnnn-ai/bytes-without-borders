@@ -533,7 +533,10 @@ html.js .hero > *:nth-child(5) { animation-delay: 360ms; }
 
 .hero-scene {
   position: relative;
-  padding-bottom: calc(var(--section-pad) + clamp(56px, 9vw, 100px));
+  /* padding-bottom must stay SMALLER than the envelope height (clamp below)
+     by exactly the tuck depth, or the letter never overlaps the pocket and
+     the envelope reads as a detached shape */
+  padding-bottom: calc(clamp(80px, 13vw, 150px) - clamp(26px, 4vw, 44px));
 }
 
 /* the letter card sits behind (z 2) the envelope band (z 3) so its
@@ -551,12 +554,34 @@ html.js .hero > *:nth-child(5) { animation-delay: 360ms; }
 
 .hero-envelope {
   position: absolute;
-  left: 50%;
+  /* center on the LETTER, not the section: the letter is start-aligned at
+     46rem wide behind the .hero inline padding, so its center sits at
+     --space-3 + 23rem; past the point where the letter fills the content
+     box, 50% IS the letter's center */
+  left: min(calc(var(--space-3) + 23rem), 50%);
   bottom: 0;
   transform: translateX(-50%);
-  width: min(58rem, 96%);
+  /* 3rem wings past the 46rem letter — 6rem overflowed the page padding */
+  width: min(52rem, 96%);
   height: clamp(80px, 13vw, 150px);
   z-index: 3;
+  pointer-events: none;
+}
+
+/* envelope interior back wall (z 1): fills the pocket's V-notch behind the
+   letter so the opening shows envelope inside, not the sky — without it the
+   letter's bottom edge floats over a transparent gap */
+.hero-scene::before {
+  content: "";
+  position: absolute;
+  left: min(calc(var(--space-3) + 23rem), 50%);
+  bottom: calc(clamp(80px, 13vw, 150px) * 0.04);
+  transform: translateX(-50%);
+  width: calc(min(52rem, 96%) * 0.975);
+  height: calc(clamp(80px, 13vw, 150px) * 0.84);
+  z-index: 1;
+  background: color-mix(in srgb, var(--indigo) 32%, var(--paper));
+  border-radius: 6px 6px 0 0;
   pointer-events: none;
 }
 .env-back { fill: color-mix(in srgb, var(--indigo) 14%, var(--paper-raised)); stroke: var(--line-strong); stroke-width: 1.5; }
@@ -1309,6 +1334,7 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
   [data-watermark]::before,
   .flight-scene,
   .hero-envelope,
+  .hero-scene::before,
   .postcard::after,
   .quiz-finale,
   .proof-track[aria-hidden="true"],
