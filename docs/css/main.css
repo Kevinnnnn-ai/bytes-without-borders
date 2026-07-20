@@ -187,6 +187,34 @@ h3 { font-size: var(--step-1); letter-spacing: -0.01em; }
 
 h1, h2, h3 { text-wrap: balance; }
 
+/* ---------- gradient ink ---------- */
+
+/* headline ink becomes a slowly panning postal gradient. Stops use only
+   AA-safe tokens (indigo / coral-text / amber) in both schemes. Browsers
+   without background-clip:text keep solid ink. Reduced motion freezes the
+   pan at the indigo end — still AA. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  h1,
+  .section-title {
+    background: var(--ink-gradient);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: ink-pan 9s ease-in-out infinite alternate;
+  }
+  /* night flight: gradient ink gets a soft glow in the dark */
+  @media (prefers-color-scheme: dark) {
+    h1,
+    .section-title { filter: drop-shadow(0 0 16px color-mix(in srgb, var(--indigo) 28%, transparent)); }
+  }
+}
+
+@keyframes ink-pan {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
 /* Instrument Sans has no weight below 400, so body copy reads lighter
    through ink instead: a softened body ink (~8:1 contrast, AA-safe).
    Paragraphs that act as headings re-assert --ink where they're defined. */
