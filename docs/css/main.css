@@ -612,6 +612,7 @@ html.js .hero-scene .hero-letter > *:nth-child(5) { animation-delay: 410ms; }
 }
 .proof-strip:hover .proof-track,
 .proof-strip:focus-within .proof-track { animation-play-state: paused; }
+.hero-letter:focus-within .proof-track { animation-play-state: paused; }
 
 @keyframes marquee-scroll {
   to { transform: translateX(calc(-100% - var(--space-2))); }
@@ -620,6 +621,16 @@ html.js .hero-scene .hero-letter > *:nth-child(5) { animation-delay: 410ms; }
 @media (prefers-reduced-motion: reduce) {
   /* display:block, not flex: a flex:none track sizes to max-content and
      would never wrap — as a block-level child it takes the strip's width */
+  .proof-strip { display: block; overflow: visible; -webkit-mask: none; mask: none; }
+  .proof-track { flex-wrap: wrap; }
+  .proof-track[aria-hidden="true"],
+  .proof-track .stamp[aria-hidden="true"] { display: none; }
+}
+
+/* touch-only devices have no hover and no keyboard focus path to reach the
+   pause above, so an infinite marquee would be unpausable — collapse to the
+   same static wrapped strip as reduced-motion (WCAG 2.2.2 Pause, Stop, Hide) */
+@media (hover: none) {
   .proof-strip { display: block; overflow: visible; -webkit-mask: none; mask: none; }
   .proof-track { flex-wrap: wrap; }
   .proof-track[aria-hidden="true"],
@@ -1322,6 +1333,11 @@ html.js .quiz-frame > *:nth-child(4) { animation-delay: 180ms; }
 /* ---------- magnetic pull (theatre.js writes --magx/--magy) ---------- */
 
 /* `translate` composes with each element's existing `transform` */
+/* Deliberate cascade override: this shorthand wins over and replaces the
+   `.filter-btn` transition shorthand (~line 926) and `.to-top`'s reveal
+   transition (~line 1157) for these three selectors, so all of their
+   properties (including the ones only listed here, like `translate`)
+   share one transition timing. */
 .filter-btn,
 .to-top,
 .share-btn {

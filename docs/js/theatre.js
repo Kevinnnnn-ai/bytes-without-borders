@@ -201,6 +201,7 @@
     detail.scoreLine.parentNode.insertBefore(finale, detail.scoreLine);
     var start = null;
     function step(now) {
+      if (!count.isConnected) { return; }
       if (!start) { start = now; }
       var t = Math.min(1, (now - start) / 900);
       var eased = 1 - Math.pow(1 - t, 3);

@@ -461,3 +461,16 @@ def test_no_external_runtime_requests():
             if urlsplit(link).scheme in ("http", "https") and not link.startswith(SITE_BASE):
                 problems.append(f"{f.relative_to(SRC)}: {link}")
     assert not problems, "external runtime URLs found:\n" + "\n".join(problems)
+
+
+def test_no_external_urls_in_css_js():
+    """The zero-external-requests promise extends past HTML attributes:
+    no http(s) URL may be hiding in a CSS @import/url() or a JS fetch/src
+    string either."""
+    problems = []
+    for pattern in ("*.css", "*.js"):
+        for f in sorted(SRC.rglob(pattern)):
+            text = f.read_text(encoding="utf-8")
+            for match in re.finditer(r"https?://", text):
+                problems.append(f"{f.relative_to(SRC)}: {match.group(0)!r} at offset {match.start()}")
+    assert not problems, "external URLs found in CSS/JS:\n" + "\n".join(problems)
