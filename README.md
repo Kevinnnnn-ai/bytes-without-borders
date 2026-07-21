@@ -187,7 +187,6 @@ Site-script settings:
 
 | Setting | Default | Meaning | File |
 |---------|---------|---------|------|
-| `STORAGE_KEY` | `"bwb-lang"` | `localStorage` key for the visitor's chosen language | [./docs/js/i18n.js](docs/js/i18n.js) |
 | `UI` | inline English strings | Defaults for JS-created labels, overridden by the active locale dictionary | [./docs/js/main.js](docs/js/main.js) |
 | mailto target | `kevinwjie@gmail.com` | Address the contact form composes email to (also appears in page footers) | [./docs/js/main.js](docs/js/main.js) |
 

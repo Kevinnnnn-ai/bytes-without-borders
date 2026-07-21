@@ -3,7 +3,9 @@
    other languages are drop-in files at locales/<code>.json plus an
    <option> in the switcher. Missing file or key: inline English stays.
    Switching applies in place (no reload); the original English text is
-   stashed on each node so switching back needs no fetch.
+   stashed on each node so switching back needs no fetch. The choice is
+   not persisted: every load starts in the page's own language (English
+   for originals), and only an explicit switch changes it.
    Extras for JS-created UI and full page translations:
    - window.bwbDict always holds the active flattened dictionary ({} for
      English); "bwb:langchange" fires on document after every change.
@@ -15,7 +17,6 @@
 (function () {
   "use strict";
 
-  var STORAGE_KEY = "bwb-lang";
   var root = document.body.getAttribute("data-root") || "./";
   var select = document.getElementById("lang-switch");
   var pageLang = document.documentElement.getAttribute("lang") || "en";
@@ -85,25 +86,12 @@
       .catch(function () { /* fall back silently to inline English */ });
   }
 
-  function store(choice) {
-    /* persistence is best-effort; the switch works either way */
-    try { localStorage.setItem(STORAGE_KEY, choice); } catch (e) { /* ignore */ }
-  }
-
-  var saved = null;
-  try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) { /* private mode */ }
-  var lang = saved || "en";
-
   if (select) {
-    var known = Array.prototype.some.call(select.options, function (option) {
-      return option.value === lang;
-    });
-    if (!known) { lang = "en"; }
-    /* a translated page shows itself in the switcher, whatever is stored */
-    select.value = pageLang === "en" ? lang : pageLang;
+    /* every load starts in the page's own language — English originals
+       stay English until the visitor explicitly switches */
+    select.value = pageLang;
     select.addEventListener("change", function () {
       var choice = select.value;
-      store(choice);
       var alt = document.body.getAttribute("data-alt-" + choice);
       if (alt) { window.location.href = alt; return; }
       if (pageLang !== "en") { return; } /* translated page, no swap */
@@ -115,6 +103,7 @@
     });
   }
 
-  /* no auto-redirect on load — data-alt-* only acts on an explicit switch */
-  load(pageLang === "en" ? lang : pageLang);
+  /* no auto-redirect or auto-swap on load — English pages start in English;
+     translated pages still fetch their locale so JS-created UI matches */
+  if (pageLang !== "en") { load(pageLang); }
 })();

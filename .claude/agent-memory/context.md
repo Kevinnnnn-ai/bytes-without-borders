@@ -28,6 +28,10 @@
 - i18n: inline English + `data-i18n` keys resolved against
   `docs/locales/en.json`; switching applies in place (originals stashed per
   node, no reload); add a language = one JSON + one `<option>` per page.
+  No persistence (user-decided 2026-07-20): the `bwb-lang` localStorage key
+  is gone — every load starts in the page's own language (English for
+  originals; `lessons/<code>/` copies stay themselves), and only an explicit
+  switcher change swaps or navigates.
   Spanish (`es`) is live site-wide: `docs/locales/es.json` has full flattened
   key parity with `en.json` (94 keys, suite-enforced) covering every page's
   chrome/UI plus JS-created strings — `quiz.js`'s `quiz.*` and `main.js`'s

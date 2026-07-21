@@ -206,3 +206,9 @@
   with zero reference-fact leakage. Note: the repo's own README.md still
   carries the old Ⅱ• style; the next `/draft-a-readme` run will regenerate
   it in the reference-true ASCII format.
+- 2026-07-20 (human): English is the default language on every page load —
+  dropped the `bwb-lang` localStorage persistence in `docs/js/i18n.js` so a
+  prior language choice is no longer re-applied on load. Language selection
+  now lasts for the current page only; translated page copies still load
+  their own locale for JS-created UI. README config table updated (no
+  `STORAGE_KEY` row).
